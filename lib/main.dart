@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return new StoreProvider(
+    return StoreProvider(
         store: store,
         child: MaterialApp(
           title: 'Flutter Demo',
@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return new StoreBuilder<AppState>(builder: (context, store) {
+    return StoreBuilder<AppState>(builder: (context, store) {
       return Scaffold(
           appBar: AppBar(
             title: Text(widget.title),
