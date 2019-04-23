@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:wm_library/redux/store.dart';
 import 'package:wm_library/redux/app_reducer.dart';
@@ -38,13 +39,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   void initState() {
@@ -54,22 +48,26 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    // 设置初始化尺寸
+    ScreenUtil.instance = ScreenUtil(width: 375, height: 667)..init(context);
+
     return new StoreBuilder<AppState>(builder: (context, store) {
       return new Scaffold(
-          appBar: new AppBar(
-            title: new Text(widget.title),
-          ),
           body: new Center(
             child: new Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                new Text(
-                  store.state.login.name == null ? '' : store.state.login.name,
-                ),
-                new Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.display1,
-                ),
+                new Container(
+                  child: new Text(
+                    '登录',
+                    style: new TextStyle(
+                        fontSize: ScreenUtil().setSp(28)
+                    ),
+                  ),
+                  width: ScreenUtil().setWidth(360),
+                  color: Colors.red,
+                )
               ],
             ),
           ),
