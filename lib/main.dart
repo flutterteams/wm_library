@@ -3,11 +3,10 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:wm_library/redux/store.dart';
-import 'package:wm_library/redux/app_reducer.dart';
-
 import 'package:wm_library/routers/router.dart';
 
-import 'package:wm_library/actions/login.dart';
+import 'package:wm_library/views/login_page/login.dart';
+import 'package:wm_library/views/login_page/login_input.dart';
 
 void main() => runApp(MyApp());
 
@@ -51,31 +50,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // 设置初始化尺寸
     ScreenUtil.instance = ScreenUtil(width: 375, height: 667)..init(context);
+//    print('设备宽度:${ScreenUtil.screenWidth}'); //Device width
+//    print('设备高度:${ScreenUtil.screenHeight}'); //Device height
+//    print('设备的像素密度:${ScreenUtil.pixelRatio}'); //Device pixel density
+//    print(
+//        '底部安全区距离:${ScreenUtil.bottomBarHeight}'); //Bottom safe zone distance，suitable for buttons with full screen
+//    print(
+//        '状态栏高度:${ScreenUtil.statusBarHeight}px'); //Status bar height , Notch will be higher Unit px
+//
+//    print('实际宽度的dp与设计稿px的比例:${ScreenUtil.getInstance().scaleWidth}');
+//    print('实际高度的dp与设计稿px的比例:${ScreenUtil.getInstance().scaleHeight}');
+//
+//    print(
+//        '宽度和字体相对于设计稿放大的比例:${ScreenUtil.getInstance().scaleWidth * ScreenUtil.pixelRatio}');
+//    print('高度相对于设计稿放大的比例:${ScreenUtil.getInstance().scaleHeight * ScreenUtil.pixelRatio}');
+//    print('系统的字体缩放比例:${ScreenUtil.textScaleFactory}');
 
-    return new StoreBuilder<AppState>(builder: (context, store) {
-      return new Scaffold(
-          body: new Center(
-            child: new Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                new Container(
-                  child: new Text(
-                    '登录',
-                    style: new TextStyle(
-                        fontSize: ScreenUtil().setSp(28)
-                    ),
-                  ),
-                  width: ScreenUtil().setWidth(360),
-                  color: Colors.red,
-                )
-              ],
-            ),
-          ),
-          floatingActionButton: new FloatingActionButton(
-            onPressed: () => {LoginActionCreator.login(store)},
-            tooltip: 'Increment',
-            child: new Icon(Icons.add),
-          ));
-    });
+    return new LoginInput();
   }
 }
