@@ -8,6 +8,7 @@ import 'package:wm_library/redux/app_reducer.dart';
 import 'package:wm_library/routers/router.dart';
 
 import 'package:wm_library/actions/login.dart';
+import 'package:wm_library/views/register_page/register.dart';
 
 void main() => runApp(MyApp());
 
