@@ -8,7 +8,6 @@ import 'package:wm_library/routers/router.dart';
 
 import 'package:wm_library/actions/login.dart';
 
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -16,16 +15,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return StoreProvider(
+    return new StoreProvider(
         store: store,
-        child: MaterialApp(
+        child: new MaterialApp(
           title: 'Flutter Demo',
-          theme: ThemeData(
+          theme: new ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: MyHomePage(title: 'Flutter Demo Home Page'),
-          routes: Routers().router.length == 0 ? {} : Routers().router,
+          home: new MyHomePage(title: 'Flutter Demo Home Page'),
+          routes: new Routers().router.length == 0 ? {} : new Routers().router,
         ));
   }
 }
@@ -56,31 +54,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return StoreBuilder<AppState>(builder: (context, store) {
-      return Scaffold(
-          appBar: AppBar(
-            title: Text(widget.title),
+    return new StoreBuilder<AppState>(builder: (context, store) {
+      return new Scaffold(
+          appBar: new AppBar(
+            title: new Text(widget.title),
           ),
-          body: Center(
-            child: Column(
+          body: new Center(
+            child: new Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
+                new Text(
                   store.state.login.name == null ? '' : store.state.login.name,
                 ),
-                Text(
+                new Text(
                   '$_counter',
                   style: Theme.of(context).textTheme.display1,
                 ),
               ],
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () => {
-              LoginActionCreator.login(store)
-            },
+          floatingActionButton: new FloatingActionButton(
+            onPressed: () => {LoginActionCreator.login(store)},
             tooltip: 'Increment',
-            child: Icon(Icons.add),
+            child: new Icon(Icons.add),
           ));
     });
   }
