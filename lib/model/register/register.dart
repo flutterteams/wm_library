@@ -6,21 +6,15 @@ part 'register.g.dart';
 /// 这个标注是告诉生成器，这个类是需要生成Model类的
 @JsonSerializable()
 class Register {
-  Register(this.id, this.bookName, this.userName, this.status,
-      this.startTime, this.createTime, this.updateTime);
+  Register( this.name, this.phone, this.email,
+      this.position, this.company_id);
 
-  int id;
-  @JsonKey(name: 'book_name')
-  String bookName;
-  @JsonKey(name: 'user_name')
-  String userName;
-  int status;
-  @JsonKey(name: 'start_time')
-  DateTime startTime;
-  @JsonKey(name: 'create_time')
-  DateTime createTime;
-  @JsonKey(name: 'update_time')
-  DateTime updateTime;
+
+  String name;
+  String phone;
+  String email;
+  String position;
+  int company_id;
 
   /// 命名构造函数
   Register.empty();
