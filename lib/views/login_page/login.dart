@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:wm_library/components/scroll_bg/scroll_bg.dart';
-
-final screen = ScreenUtil.getInstance();
+import 'package:wm_library/common/global_variable.dart';
 
 class Login extends StatelessWidget {
   @override

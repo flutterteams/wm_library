@@ -48,7 +48,7 @@ class _LoginDetailInputState extends State<LoginDetailInput>
     double w = screen.setWidth(329);
 
     controller = new AnimationController(
-        duration: const Duration(milliseconds: 1000), vsync: this);
+        duration: const Duration(milliseconds: 500), vsync: this);
     animation = new Tween(begin: 0.0, end: w).animate(controller)
       ..addStatusListener((state) => print(state));
 

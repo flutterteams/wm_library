@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-final screen = ScreenUtil.getInstance();
+import 'package:wm_library/common/global_variable.dart';
 
 /// 可以无限滚动的背景图
 class ScrollBg extends StatefulWidget {
@@ -23,9 +21,11 @@ class _ScrollBgState extends State<ScrollBg>
   initState() {
     super.initState();
 
+    double w = screen.setWidth(375);
+
     controller = new AnimationController(
         duration: const Duration(milliseconds: 3000), vsync: this);
-    animation = new Tween(begin: 0.0, end: screen.width).animate(controller);
+    animation = new Tween(begin: 0.0, end: w).animate(controller);
 
     // 控制动画运动, 平时开发可以注释掉, 防止模拟器压力太大
 //    controller.repeat();
@@ -34,14 +34,13 @@ class _ScrollBgState extends State<ScrollBg>
   @override
   Widget build(BuildContext context) {
     return new Stack(
-      overflow: Overflow.visible,
       children: <Widget>[
         new AnimatedBg(animation: animation),
         new Container(
-          width: double.infinity,
+          width: screen.setWidth(375),
           height: double.infinity,
           decoration: new BoxDecoration(
-            color: widget.type == 'opacity' ? const Color.fromRGBO(0, 0, 0, 0.5) : null,
+            color: widget.type == 'opacity' ? const Color.fromRGBO(0, 0, 0, 0.93) : null,
               gradient: widget.type == 'gradient' ? new LinearGradient(colors: [
             Color.fromRGBO(0, 0, 0, 0.75),
             Color.fromRGBO(0, 0, 0, 1)
@@ -72,7 +71,7 @@ class AnimatedBg extends AnimatedWidget {
             child: new BgImage()),
         new Container(
             transform: Matrix4.translationValues(
-                -animation.value + screen.width, 0, 0),
+                -animation.value + screen.setWidth(375), 0, 0),
             child: new BgImage())
       ],
     );
@@ -85,7 +84,7 @@ class BgImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Image.asset(
       'images/testbg.png',
-      width: double.infinity,
+      width: screen.setWidth(375),
       height: double.infinity,
       fit: BoxFit.cover,
     );
