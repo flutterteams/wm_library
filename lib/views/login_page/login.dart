@@ -88,6 +88,7 @@ class LoginHome extends StatelessWidget {
           child: new OutlineButton(
             onPressed: () {
               print('注册');
+              Navigator.of(context).pushNamed('/register');
             },
             child: new Text(
               '注册',
