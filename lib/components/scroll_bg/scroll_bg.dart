@@ -83,10 +83,11 @@ class BgImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Image.asset(
-      'images/testbg.png',
-      width: screen.setWidth(375),
-      height: double.infinity,
-      fit: BoxFit.cover,
+      'images/scroll_bg.png',
+//      width: screen.setWidth(882),
+      height: screen.setWidth(434),
+      fit: BoxFit.fitHeight,
+      alignment: Alignment.topLeft,
     );
   }
 }

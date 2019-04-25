@@ -6,17 +6,19 @@ part 'login.g.dart';
 /// 这个标注是告诉生成器，这个类是需要生成Model类的
 @JsonSerializable()
 class Login {
-  Login(this.email, this.pw);
+  Login(this.email, this.pw, this.emailError, this.pwError);
 
   String email;
   String pw;
+  bool emailError;
+  bool pwError;
 
   /// 命名构造函数
   Login.empty();
 
   @override
   String toString() {
-    return 'Login($email, $pw)';
+    return 'Login($email, $pw, $emailError, $pwError)';
   }
 
   /// 不同的类使用不同的mixin即可
