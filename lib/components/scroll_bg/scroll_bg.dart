@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:wm_library/common/global_variable.dart';
 
 /// 可以无限滚动的背景图
@@ -21,28 +22,30 @@ class _ScrollBgState extends State<ScrollBg>
   initState() {
     super.initState();
 
-    double w = screen.setWidth(375);
+    double w = screen.setWidth(882);
 
     controller = new AnimationController(
-        duration: const Duration(milliseconds: 3000), vsync: this);
+        duration: const Duration(milliseconds: 6000), vsync: this);
     animation = new Tween(begin: 0.0, end: w).animate(controller);
 
     // 控制动画运动, 平时开发可以注释掉, 防止模拟器压力太大
-//    controller.repeat();
+    if (widget.type == 'gradient') {
+//      controller.repeat();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return new Stack(
       children: <Widget>[
-        new AnimatedBg(animation: animation),
+        widget.type == 'gradient' ? new AnimatedBg(animation: animation) : new BgImageNoScroll(),
         new Container(
           width: screen.setWidth(375),
           height: double.infinity,
           decoration: new BoxDecoration(
             color: widget.type == 'opacity' ? const Color.fromRGBO(0, 0, 0, 0.93) : null,
               gradient: widget.type == 'gradient' ? new LinearGradient(colors: [
-            Color.fromRGBO(0, 0, 0, 0.75),
+            Color.fromRGBO(0, 0, 0, (MediaQuery.of(context).size.height-667)/1450 + 0.75),
             Color.fromRGBO(0, 0, 0, 1)
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter) : null),
           child: widget.childWidget,
@@ -72,7 +75,24 @@ class AnimatedBg extends AnimatedWidget {
         new Container(
             transform: Matrix4.translationValues(
                 -animation.value + screen.setWidth(375), 0, 0),
-            child: new BgImage())
+            child: new Image.asset(
+              'images/scroll_bg2.png',
+              width: double.infinity,
+              fit: BoxFit.cover,
+              alignment: Alignment.topLeft,
+            )),
+        new Container(
+            transform: Matrix4.translationValues(
+                -animation.value + screen.setWidth(750), 0, 0),
+            child: new Image.asset(
+              'images/scroll_bg3.png',
+              width: screen.setWidth(133),
+              fit: BoxFit.contain,
+              alignment: Alignment.topLeft,
+            )),
+        new Container(
+            transform: Matrix4.translationValues(-animation.value + screen.setWidth(882), 0, 0),
+            child: new BgImage()),
       ],
     );
   }
@@ -83,10 +103,24 @@ class BgImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Image.asset(
-      'images/scroll_bg.png',
-//      width: screen.setWidth(882),
-      height: screen.setWidth(434),
-      fit: BoxFit.fitHeight,
+      'images/scroll_bg1.png',
+      width: double.infinity,
+      fit: BoxFit.contain,
+      alignment: Alignment.topLeft,
+    );
+  }
+}
+
+
+/// 不需要移动的图片展示部分
+class BgImageNoScroll extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new Image.asset(
+      'images/no_scroll_bg.png',
+      width: double.infinity,
+      height: double.infinity,
+      fit: BoxFit.cover,
       alignment: Alignment.topLeft,
     );
   }

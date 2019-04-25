@@ -30,6 +30,7 @@ dependencies:
   json_annotation: ^2.0.0
   shared_preferences: ^0.4.2
   flutter_screenutil: ^0.5.2
+  device_info: ^0.4.0
 
 dev_dependencies:
   flutter_test:
@@ -55,6 +56,12 @@ flutter:
     - images/frog_share.png
     - images/login.png
     - images/back_normal.png
+    - images/no_scroll_bg.png
+    - images/scroll_bg1.png
+    - images/scroll_bg2.png
+    - images/scroll_bg3.png
+
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
