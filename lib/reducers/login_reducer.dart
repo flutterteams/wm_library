@@ -19,6 +19,7 @@ Login _changeEmail(Login login, action) {
 // email输入格式错误
 Login _checkEmail(Login login, action) {
   login.emailError = action.emailError;
+  login.emailErrorStr = action.emailErrorStr;
   return login;
 }
 
@@ -31,6 +32,7 @@ Login _changePw(Login login, action) {
 // pw输入格式错误
 Login _checkPw(Login login, action) {
   login.pwError = action.pwError;
+  login.pwErrorStr = action.pwErrorStr;
   return login;
 }
 

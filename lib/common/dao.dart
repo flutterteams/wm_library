@@ -60,12 +60,10 @@ class Dao {
 
       response = await dio.post(Config.BASE_URL + url, data: para);
 
-      print("======"+para.toString());
       if (response.data['code'] == 1) {
         success(response.data);
       } else {
         if (failure != null) {
-          print("======"+para.toString());
           failure(response.data);
         }
       }

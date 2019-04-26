@@ -16,7 +16,7 @@ class LoginActionCreator {
       store.dispatch(new ChangeEmailAction(value));
       if (store.state.login.emailError != null &&
           store.state.login.emailError) {
-        store.dispatch(new EmailErrorAction(null));
+        store.dispatch(new EmailErrorAction(null, ''));
       }
     }
   }
@@ -26,6 +26,11 @@ class LoginActionCreator {
     String _str = store.state.login.email;
 
     if (_str.length > 16 && _str.endsWith('@frogshealth.com')) {
+
+//      Timer timer2 = new Timer(new Duration(seconds: 2), () {
+//        store.dispatch(new EmailErrorAction(false, ''));
+//      });
+
       DateTime _now1 = new DateTime.now();
 
       Dao.noTokenPost('/api/user/emailCheck', {'email': _str}, (data) {
@@ -35,10 +40,10 @@ class LoginActionCreator {
         // 设置计时器, 如果2s内接口没有返回, 那么等待, 如果接口返回, 那么动画至少执行2s
         if (_time < 2000) {
           Timer timer = new Timer(new Duration(milliseconds: 2000 - _time), () {
-            store.dispatch(new EmailErrorAction(false));
+            store.dispatch(new EmailErrorAction(false, ''));
           });
         } else {
-          store.dispatch(new EmailErrorAction(false));
+          store.dispatch(new EmailErrorAction(false, ''));
         }
       }, (data) {
         DateTime _now2 = new DateTime.now();
@@ -47,16 +52,16 @@ class LoginActionCreator {
         // 设置计时器, 如果2s内接口没有返回, 那么等待, 如果接口返回, 那么动画至少执行2s
         if (_time < 2000) {
           Timer timer = new Timer(new Duration(milliseconds: 2000 - _time), () {
-            store.dispatch(new EmailErrorAction(true));
+            store.dispatch(new EmailErrorAction(true, '该邮箱未注册'));
           });
         } else {
-          store.dispatch(new EmailErrorAction(true));
+          store.dispatch(new EmailErrorAction(true, '该邮箱未注册'));
         }
       });
     } else {
       // 设置计时器, 如果2s内接口没有返回, 那么等待, 如果接口返回, 那么动画至少执行2s
       Timer timer2 = new Timer(new Duration(seconds: 2), () {
-        store.dispatch(new EmailErrorAction(true));
+        store.dispatch(new EmailErrorAction(true, '请输入正确的邮箱'));
       });
     }
   }
@@ -66,7 +71,7 @@ class LoginActionCreator {
     if (store.state.login.pw != value) {
       store.dispatch(new ChangePwAction(value));
       if (store.state.login.pwError != null && store.state.login.pwError) {
-        store.dispatch(new PwErrorAction(null));
+        store.dispatch(new PwErrorAction(null, ''));
       }
     }
   }
@@ -78,6 +83,12 @@ class LoginActionCreator {
     SharedPreferences sharedPreferences;
 
     if (_str.length > 5) {
+
+//      Timer timer2 = new Timer(new Duration(seconds: 2), () {
+//        store.dispatch(new PwErrorAction(false, ''));
+//      });
+
+
       DateTime _now1 = new DateTime.now();
 
       Dao.noTokenPost('/api/user/login', {'email': _email, 'password': _str},
@@ -94,10 +105,10 @@ class LoginActionCreator {
         // 设置计时器, 如果2s内接口没有返回, 那么等待, 如果接口返回, 那么动画至少执行2s
         if (_time < 2000) {
           Timer timer = new Timer(new Duration(milliseconds: 2000 - _time), () {
-            store.dispatch(new PwErrorAction(false));
+            store.dispatch(new PwErrorAction(false, ''));
           });
         } else {
-          store.dispatch(new PwErrorAction(false));
+          store.dispatch(new PwErrorAction(false, ''));
         }
       }, (data) {
         DateTime _now2 = new DateTime.now();
@@ -106,16 +117,16 @@ class LoginActionCreator {
         // 设置计时器, 如果2s内接口没有返回, 那么等待, 如果接口返回, 那么动画至少执行2s
         if (_time < 2000) {
           Timer timer = new Timer(new Duration(milliseconds: 2000 - _time), () {
-            store.dispatch(new PwErrorAction(true));
+            store.dispatch(new PwErrorAction(true, '密码输入错误'));
           });
         } else {
-          store.dispatch(new PwErrorAction(true));
+          store.dispatch(new PwErrorAction(true, '密码输入错误'));
         }
       });
     } else {
       // 设置计时器, 如果2s内接口没有返回, 那么等待, 如果接口返回, 那么动画至少执行2s
       Timer timer2 = new Timer(new Duration(seconds: 2), () {
-        store.dispatch(new PwErrorAction(true));
+        store.dispatch(new PwErrorAction(true, '密码输入错误'));
       });
     }
   }
@@ -131,8 +142,9 @@ class ChangeEmailAction {
 /// email报错
 class EmailErrorAction {
   final bool emailError;
+  final String emailErrorStr;
 
-  EmailErrorAction(this.emailError);
+  EmailErrorAction(this.emailError, this.emailErrorStr);
 }
 
 /// pw输入action
@@ -145,6 +157,7 @@ class ChangePwAction {
 /// pw报错
 class PwErrorAction {
   final bool pwError;
+  final String pwErrorStr;
 
-  PwErrorAction(this.pwError);
+  PwErrorAction(this.pwError, this.pwErrorStr);
 }

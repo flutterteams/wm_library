@@ -99,6 +99,8 @@ class _LoginDetailInputState extends State<LoginDetailInput>
           ..addStatusListener((state) {
             if (state == AnimationStatus.completed) {
               Timer _timer = new Timer(new Duration(milliseconds: 500), () {
+                _getStore().dispatch(new ChangePwAction(''));
+                _getStore().dispatch(new PwErrorAction(null, ''));
                 Navigator.of(context).pushNamed('/login-input-pw');
                 rightController.reset();
               });
@@ -126,7 +128,6 @@ class _LoginDetailInputState extends State<LoginDetailInput>
 
           // 增加计时器, 如果10s内接口没有返回, 那么取消等待动画
           timer = new Timer(new Duration(seconds: 10), () {
-
             if (!blueController.isCompleted) {
               blueController.stop();
               blueController.reset();
@@ -142,15 +143,6 @@ class _LoginDetailInputState extends State<LoginDetailInput>
         }
       }
     });
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    if (_getStore().state.login.emailError != null) {
-      _getStore().dispatch(new EmailErrorAction(null));
-    }
   }
 
   Store<AppState> _getStore() {
@@ -213,6 +205,7 @@ class _LoginDetailInputState extends State<LoginDetailInput>
                           keyboardType: TextInputType.emailAddress,
                           keyboardAppearance: Brightness.dark,
                           enabled: enabled,
+                          cursorColor: Colors.white,
                           style: new TextStyle(
                               fontSize: screen.setSp(18),
                               color: Colors.white,
@@ -296,7 +289,7 @@ class _LoginDetailInputState extends State<LoginDetailInput>
                     child: new Text(
                       store.state.login.emailError != null &&
                               store.state.login.emailError
-                          ? '请输入正确的邮箱'
+                          ? store.state.login.emailErrorStr
                           : '',
                       style: new TextStyle(
                         fontSize: screen.setSp(12),

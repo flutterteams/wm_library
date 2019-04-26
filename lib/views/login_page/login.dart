@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:redux/redux.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+
+import 'package:wm_library/actions/login.dart';
+import 'package:wm_library/common/global_variable.dart';
+import 'package:wm_library/redux/app_reducer.dart';
 
 import 'package:wm_library/components/scroll_bg/scroll_bg.dart';
-import 'package:wm_library/common/global_variable.dart';
 
 class Login extends StatelessWidget {
   @override
@@ -32,6 +37,10 @@ class LoginBg extends StatelessWidget {
 class LoginHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Store<AppState> _getStore() {
+      return StoreProvider.of(context);
+    }
+
     return new Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
@@ -59,6 +68,10 @@ class LoginHome extends StatelessWidget {
           child: new FlatButton(
             onPressed: () {
               print('登录');
+              _getStore().dispatch(new ChangeEmailAction(''));
+              _getStore().dispatch(new ChangePwAction(''));
+              _getStore().dispatch(new EmailErrorAction(null, ''));
+              _getStore().dispatch(new PwErrorAction(null, ''));
               Navigator.of(context).pushNamed('/login-input');
             },
             child: new Text(

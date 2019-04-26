@@ -142,15 +142,6 @@ class _LoginDetailInputState extends State<LoginDetailInput>
     });
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    if (_getStore().state.login.pwError != null) {
-      _getStore().dispatch(new PwErrorAction(null));
-    }
-  }
-
   Store<AppState> _getStore() {
     return StoreProvider.of(context);
   }
@@ -212,6 +203,7 @@ class _LoginDetailInputState extends State<LoginDetailInput>
                           obscureText: true,
                           maxLength: 8,
                           enabled: enabled,
+                          cursorColor: Colors.white,
                           style: new TextStyle(
                               fontSize: screen.setSp(18),
                               color: Colors.white,
@@ -295,7 +287,7 @@ class _LoginDetailInputState extends State<LoginDetailInput>
                     child: new Text(
                       store.state.login.pwError != null &&
                               store.state.login.pwError
-                          ? '请输入正确的密码'
+                          ? store.state.login.pwErrorStr
                           : '',
                       style: new TextStyle(
                         fontSize: screen.setSp(12),
