@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter/services.dart';
 
 import 'package:wm_library/common/global_variable.dart';
 import 'package:wm_library/redux/app_reducer.dart';
@@ -206,6 +207,9 @@ class _LoginDetailInputState extends State<LoginDetailInput>
                           keyboardAppearance: Brightness.dark,
                           enabled: enabled,
                           cursorColor: Colors.white,
+                          inputFormatters: [
+                            WhitelistingTextInputFormatter(RegExp('[a-zA-Z0-9.@_-]'))
+                          ],
                           style: new TextStyle(
                               fontSize: screen.setSp(18),
                               color: Colors.white,
