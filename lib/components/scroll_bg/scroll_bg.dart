@@ -36,6 +36,7 @@ class _ScrollBgState extends State<ScrollBg>
 
   @override
   Widget build(BuildContext context) {
+//    print(MediaQuery.of(context).size.height);
     return new Stack(
       children: <Widget>[
         widget.type == 'gradient' ? new AnimatedBg(animation: animation) : new BgImageNoScroll(),
@@ -45,7 +46,7 @@ class _ScrollBgState extends State<ScrollBg>
           decoration: new BoxDecoration(
             color: widget.type == 'opacity' ? const Color.fromRGBO(0, 0, 0, 0.93) : null,
               gradient: widget.type == 'gradient' ? new LinearGradient(colors: [
-            Color.fromRGBO(0, 0, 0, (MediaQuery.of(context).size.height-667)/1450 + 0.75),
+            Color.fromRGBO(0, 0, 0, 0.9),
             Color.fromRGBO(0, 0, 0, 1)
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter) : null),
           child: widget.childWidget,

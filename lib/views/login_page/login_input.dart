@@ -36,8 +36,7 @@ class LoginInputHome extends StatelessWidget {
                 Navigator.pop(context);
               }),
           alignment: Alignment.topLeft,
-          margin: new EdgeInsets.fromLTRB(
-              0, screen.setWidth(20), 0, 0),
+          margin: new EdgeInsets.fromLTRB(0, screen.setWidth(20), 0, 0),
         ),
         new Container(
             width: screen.setWidth(94),
@@ -70,6 +69,10 @@ class _LoginDetailInputState extends State<LoginDetailInput>
   AnimationController rightController;
 
   FocusNode _focusNode = FocusNode();
+
+  Timer timer;
+
+  bool enabled = true;
 
   @override
   void initState() {
@@ -111,14 +114,43 @@ class _LoginDetailInputState extends State<LoginDetailInput>
       if (_focusNode.hasFocus) {
         grayController.forward();
       } else {
-        if (_getStore().state.login.email != null) {
+        if (ModalRoute.of(context).isCurrent &&
+            _getStore().state.login.email != null) {
+          // 开启等待动画
           blueController.repeat();
+
+          // 设置焦点不可获取
+          setState(() {
+            enabled = false;
+          });
+
+          // 增加计时器, 如果10s内接口没有返回, 那么取消等待动画
+          timer = new Timer(new Duration(seconds: 10), () {
+
+            if (!blueController.isCompleted) {
+              blueController.stop();
+              blueController.reset();
+              // 恢复焦点获取
+              setState(() {
+                enabled = true;
+              });
+            }
+          });
 
           // 判断格式正确性和数据库是否存在邮箱
           LoginActionCreator.checkEmail(_getStore());
         }
       }
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (_getStore().state.login.emailError != null) {
+      _getStore().dispatch(new EmailErrorAction(null));
+    }
   }
 
   Store<AppState> _getStore() {
@@ -131,6 +163,11 @@ class _LoginDetailInputState extends State<LoginDetailInput>
         store.state.login.emailError != null) {
       blueController.stop();
       blueController.reset();
+      // 恢复焦点获取
+      setState(() {
+        enabled = true;
+      });
+      timer.cancel();
 
       if (store.state.login.emailError) {
         if (redController.isCompleted) {
@@ -175,6 +212,7 @@ class _LoginDetailInputState extends State<LoginDetailInput>
                           textAlign: TextAlign.center,
                           keyboardType: TextInputType.emailAddress,
                           keyboardAppearance: Brightness.dark,
+                          enabled: enabled,
                           style: new TextStyle(
                               fontSize: screen.setSp(18),
                               color: Colors.white,
@@ -242,7 +280,7 @@ class _LoginDetailInputState extends State<LoginDetailInput>
                               return new Positioned(
                                 child: new Container(
                                     margin: new EdgeInsets.only(
-                                        top: screen.setWidth(1)),
+                                        top: screen.setWidth(0)),
                                     width: screen.setWidth(40),
                                     height: screen.setWidth(2),
                                     color: Color(0xff50bbd8)),
@@ -275,7 +313,13 @@ class _LoginDetailInputState extends State<LoginDetailInput>
     });
   }
 
-  dispose() {
+  @override
+  void deactivate() {
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
     grayController.dispose();
     blueController.dispose();
     rightController.dispose();
