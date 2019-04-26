@@ -67,7 +67,7 @@ class _RegisterPwdContentState extends State<RegisterPwdContent> with SingleTick
         duration: Duration(milliseconds: 2000), vsync: this);
     animation = new Tween(
       begin: w,
-      end: w-160,
+      end: w-176,
     ).animate(CurvedAnimation(parent: controller, curve: Curves.ease))
       ..addListener(() {
         setState(() {});
@@ -83,7 +83,7 @@ class _RegisterPwdContentState extends State<RegisterPwdContent> with SingleTick
         children: <Widget>[
           new Container(
             margin: new EdgeInsets.fromLTRB(0, screen.setWidth(57), 0, screen.setWidth(15)),
-            child: new Image.asset('images/testlogin.png',),
+            child: new Image.asset('images/sign_in.png',),
           ),
           new Container(
             margin: new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(68)),
@@ -91,6 +91,7 @@ class _RegisterPwdContentState extends State<RegisterPwdContent> with SingleTick
           ),
 
           new Container(
+            //margin: new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(24)),
             child: new TextField(
               controller: _userPwdController,
               keyboardType: TextInputType.numberWithOptions(),
@@ -99,7 +100,7 @@ class _RegisterPwdContentState extends State<RegisterPwdContent> with SingleTick
               obscureText: true,
               style: new TextStyle(color: Colors.white,fontSize: screen.setSp(16)),
               decoration: new InputDecoration(
-                //contentPadding: const EdgeInsets.fromLTRB(0.0,10.0,0.0,10.0),
+                  contentPadding: EdgeInsets.all(0),
                   border: InputBorder.none,
                   hintText: '密码？',
                   hintStyle: new TextStyle(color: const Color(0xFF646464),fontSize: screen.setSp(16))
@@ -134,26 +135,19 @@ class _RegisterPwdContentState extends State<RegisterPwdContent> with SingleTick
                 0, screen.setWidth(139), 0, screen.setWidth(16)),
             child: new FlatButton(
               onPressed: () {
-                print('登录');
+                print('上传注册信息');
                 cheakPwd();
                 Navigator.of(context).pushNamed('/login-input');
               },
-              child: new Text(
-                'DONE!',
-                style: new TextStyle(
-                    fontSize: screen.setSp(16),
-                    color: const Color(0xff141414),
-                    letterSpacing: screen.setWidth(2),
-                    height: 1,
-                    fontWeight: FontWeight.normal),
-              ),
+              child: Image.asset('images/done.png',),
               color: Color(btnColor),
               highlightColor: Colors.transparent,
               splashColor: Colors.transparent,
+
               padding: EdgeInsets.fromLTRB(
-                  screen.setWidth(133),
+                  screen.setWidth(123),
                   screen.setWidth(12),
-                  screen.setWidth(133),
+                  screen.setWidth(123),
                   screen.setWidth(12)),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(
@@ -162,13 +156,16 @@ class _RegisterPwdContentState extends State<RegisterPwdContent> with SingleTick
           ),
 
           new Container(
-            height: screen.setWidth(48),
-            alignment: Alignment.center,
+            height: screen.setWidth(56),
+            alignment: Alignment.topCenter,
             transform: Matrix4.translationValues(0.0, animation.value, 0.0),
             color: const Color(0xffDD412A),
-            child: new Text(
-              '请输入正确的邮箱',
-              style: TextStyle(color:Colors.white, fontSize: screen.setSp(16)),
+            child: new Padding(
+              padding: new EdgeInsets.fromLTRB(0, screen.setWidth(10), 0, 0),
+              child: new Text(
+                '请输入正确的邮箱',
+                style: TextStyle(color:Colors.white, fontSize: screen.setSp(16)),
+              ),
             ),
           ),
 
