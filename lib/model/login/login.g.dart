@@ -7,8 +7,13 @@ part of 'login.dart';
 // **************************************************************************
 
 Login _$LoginFromJson(Map<String, dynamic> json) {
-  return Login(json['email'] as String, json['pw'] as String);
+  return Login(json['email'] as String, json['pw'] as String,
+      json['emailError'] as bool, json['pwError'] as bool);
 }
 
-Map<String, dynamic> _$LoginToJson(Login instance) =>
-    <String, dynamic>{'email': instance.email, 'pw': instance.pw};
+Map<String, dynamic> _$LoginToJson(Login instance) => <String, dynamic>{
+      'email': instance.email,
+      'pw': instance.pw,
+      'emailError': instance.emailError,
+      'pwError': instance.pwError
+    };

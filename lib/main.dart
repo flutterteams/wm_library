@@ -7,8 +7,8 @@ import 'package:wm_library/routers/router.dart';
 
 import 'package:wm_library/views/login_page/login.dart';
 import 'package:wm_library/views/login_page/login_input.dart';
+import 'package:wm_library/views/login_page/login_success.dart';
 import 'package:wm_library/views/register_page/register.dart';
-import 'package:wm_library/canvas.dart';
 
 void main() => runApp(MyApp());
 

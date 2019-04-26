@@ -30,6 +30,7 @@ dependencies:
   json_annotation: ^2.0.0
   shared_preferences: ^0.4.2
   flutter_screenutil: ^0.5.2
+  device_info: ^0.4.0
 
 dev_dependencies:
   flutter_test:
@@ -51,13 +52,21 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/testbg.png
-    - images/testbt.png
-    - images/testlogin.png
+    - images/scroll_bg.png
+    - images/frog_share.png
+    - images/login.png
     - images/back_normal.png
+<<<<<<< HEAD
     - images/done.png
     - images/group.png
     - images/sign_in.png
+=======
+    - images/no_scroll_bg.png
+    - images/scroll_bg1.png
+    - images/scroll_bg2.png
+    - images/scroll_bg3.png
+
+>>>>>>> d77a92fc02dd62deac3fab435629aa45e04ca46c
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

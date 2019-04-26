@@ -37,12 +37,12 @@ class LoginHome extends StatelessWidget {
       children: <Widget>[
         new Container(
           margin: new EdgeInsets.fromLTRB(
-              0, screen.setWidth(253), 0, screen.setWidth(14)),
+              0, screen.setWidth(253), 0, screen.setWidth(24)),
           child: new Image.asset(
-            'images/testbt.png',
+            'images/frog_share.png',
             fit: BoxFit.cover,
-            width: screen.setWidth(238),
-            height: screen.setWidth(36),
+            width: screen.setWidth(232),
+            height: screen.setWidth(26),
           ),
         ),
         new Text(
