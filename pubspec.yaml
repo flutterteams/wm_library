@@ -56,11 +56,17 @@ flutter:
     - images/frog_share.png
     - images/login.png
     - images/back_normal.png
+<<<<<<< HEAD
+    - images/done.png
+    - images/group.png
+    - images/sign_in.png
+=======
     - images/no_scroll_bg.png
     - images/scroll_bg1.png
     - images/scroll_bg2.png
     - images/scroll_bg3.png
 
+>>>>>>> d77a92fc02dd62deac3fab435629aa45e04ca46c
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
