@@ -58,12 +58,7 @@ flutter:
     - images/done.png
     - images/group.png
     - images/sign_in.png
-    - images/2.0x/done.png
-    - images/2.0x/group.png
-    - images/2.0x/sign_in.png
-    - images/3.0x/done.png
-    - images/3.0x/group.png
-    - images/3.0x/sign_in.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
