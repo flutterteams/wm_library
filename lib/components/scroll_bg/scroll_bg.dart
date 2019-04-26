@@ -30,7 +30,7 @@ class _ScrollBgState extends State<ScrollBg>
 
     // 控制动画运动, 平时开发可以注释掉, 防止模拟器压力太大
     if (widget.type == 'gradient') {
-//      controller.repeat();
+      controller.repeat();
     }
   }
 
