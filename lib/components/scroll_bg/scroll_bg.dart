@@ -113,16 +113,30 @@ class BgImage extends StatelessWidget {
 }
 
 
+///// 不需要移动的图片展示部分
+//class BgImageNoScroll extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    return new Image.asset(
+//      'images/no_scroll_bg.png',
+//      width: double.infinity,
+//      height: double.infinity,
+//      fit: BoxFit.none,
+//      repeat: ImageRepeat.repeat,
+//      alignment: Alignment.topLeft,
+//    );
+//  }
+//}
+
 /// 不需要移动的图片展示部分
 class BgImageNoScroll extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Image.asset(
-      'images/no_scroll_bg.png',
-      width: double.infinity,
+    return new Container(
       height: double.infinity,
-      fit: BoxFit.cover,
-      alignment: Alignment.topLeft,
+      decoration: new BoxDecoration(
+        image: new DecorationImage(image: AssetImage('images/no_scroll_bg.png'),alignment: Alignment.topLeft, fit: BoxFit.none, repeat: ImageRepeat.repeat)
+      ),
     );
   }
 }
