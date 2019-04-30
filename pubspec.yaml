@@ -63,6 +63,11 @@ flutter:
     - images/scroll_bg1.png
     - images/scroll_bg2.png
     - images/scroll_bg3.png
+    - images/test_move1.png
+    - images/test_move2.png
+    - images/test_move3.png
+    - images/test_move4.png
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

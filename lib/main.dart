@@ -9,6 +9,7 @@ import 'package:wm_library/views/login_page/login.dart';
 import 'package:wm_library/views/login_page/login_input.dart';
 import 'package:wm_library/views/login_page/login_success.dart';
 import 'package:wm_library/views/register_page/register.dart';
+import 'package:wm_library/views/index_page/index.dart';
 
 void main() => runApp(MyApp());
 
@@ -68,6 +69,6 @@ class _MyHomePageState extends State<MyHomePage> {
 //    print('高度相对于设计稿放大的比例:${ScreenUtil.getInstance().scaleHeight * ScreenUtil.pixelRatio}');
 //    print('系统的字体缩放比例:${ScreenUtil.textScaleFactory}');
 
-    return new Login();
+    return new Index();
   }
 }

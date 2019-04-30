@@ -27,37 +27,37 @@ class LoginActionCreator {
 
     if (_str.length > 16 && _str.endsWith('@frogshealth.com')) {
 
-//      Timer timer2 = new Timer(new Duration(seconds: 2), () {
-//        store.dispatch(new EmailErrorAction(false, ''));
-//      });
-
-      DateTime _now1 = new DateTime.now();
-
-      Dao.noTokenPost('/api/user/emailCheck', {'email': _str}, (data) {
-        DateTime _now2 = new DateTime.now();
-        var _time = _now2.millisecondsSinceEpoch - _now1.millisecondsSinceEpoch;
-
-        // 设置计时器, 如果2s内接口没有返回, 那么等待, 如果接口返回, 那么动画至少执行2s
-        if (_time < 2000) {
-          Timer timer = new Timer(new Duration(milliseconds: 2000 - _time), () {
-            store.dispatch(new EmailErrorAction(false, ''));
-          });
-        } else {
-          store.dispatch(new EmailErrorAction(false, ''));
-        }
-      }, (data) {
-        DateTime _now2 = new DateTime.now();
-        var _time = _now2.millisecondsSinceEpoch - _now1.millisecondsSinceEpoch;
-
-        // 设置计时器, 如果2s内接口没有返回, 那么等待, 如果接口返回, 那么动画至少执行2s
-        if (_time < 2000) {
-          Timer timer = new Timer(new Duration(milliseconds: 2000 - _time), () {
-            store.dispatch(new EmailErrorAction(true, '该邮箱未注册'));
-          });
-        } else {
-          store.dispatch(new EmailErrorAction(true, '该邮箱未注册'));
-        }
+      Timer timer2 = new Timer(new Duration(seconds: 2), () {
+        store.dispatch(new EmailErrorAction(false, ''));
       });
+
+//      DateTime _now1 = new DateTime.now();
+//
+//      Dao.noTokenPost('/api/user/emailCheck', {'email': _str}, (data) {
+//        DateTime _now2 = new DateTime.now();
+//        var _time = _now2.millisecondsSinceEpoch - _now1.millisecondsSinceEpoch;
+//
+//        // 设置计时器, 如果2s内接口没有返回, 那么等待, 如果接口返回, 那么动画至少执行2s
+//        if (_time < 2000) {
+//          Timer timer = new Timer(new Duration(milliseconds: 2000 - _time), () {
+//            store.dispatch(new EmailErrorAction(false, ''));
+//          });
+//        } else {
+//          store.dispatch(new EmailErrorAction(false, ''));
+//        }
+//      }, (data) {
+//        DateTime _now2 = new DateTime.now();
+//        var _time = _now2.millisecondsSinceEpoch - _now1.millisecondsSinceEpoch;
+//
+//        // 设置计时器, 如果2s内接口没有返回, 那么等待, 如果接口返回, 那么动画至少执行2s
+//        if (_time < 2000) {
+//          Timer timer = new Timer(new Duration(milliseconds: 2000 - _time), () {
+//            store.dispatch(new EmailErrorAction(true, '该邮箱未注册'));
+//          });
+//        } else {
+//          store.dispatch(new EmailErrorAction(true, '该邮箱未注册'));
+//        }
+//      });
     } else {
       // 设置计时器, 如果2s内接口没有返回, 那么等待, 如果接口返回, 那么动画至少执行2s
       Timer timer2 = new Timer(new Duration(seconds: 2), () {
@@ -84,45 +84,45 @@ class LoginActionCreator {
 
     if (_str.length > 5) {
 
-//      Timer timer2 = new Timer(new Duration(seconds: 2), () {
-//        store.dispatch(new PwErrorAction(false, ''));
-//      });
-
-
-      DateTime _now1 = new DateTime.now();
-
-      Dao.noTokenPost('/api/user/login', {'email': _email, 'password': _str},
-          (data) async {
-        print(data);
-        DateTime _now2 = new DateTime.now();
-        var _time = _now2.millisecondsSinceEpoch - _now1.millisecondsSinceEpoch;
-
-        //数据保存到本地
-        sharedPreferences = await SharedPreferences.getInstance();
-        sharedPreferences.setString("name", data['data']['name']);
-        sharedPreferences.setString("token", data['data']['token']);
-
-        // 设置计时器, 如果2s内接口没有返回, 那么等待, 如果接口返回, 那么动画至少执行2s
-        if (_time < 2000) {
-          Timer timer = new Timer(new Duration(milliseconds: 2000 - _time), () {
-            store.dispatch(new PwErrorAction(false, ''));
-          });
-        } else {
-          store.dispatch(new PwErrorAction(false, ''));
-        }
-      }, (data) {
-        DateTime _now2 = new DateTime.now();
-        var _time = _now2.millisecondsSinceEpoch - _now1.millisecondsSinceEpoch;
-
-        // 设置计时器, 如果2s内接口没有返回, 那么等待, 如果接口返回, 那么动画至少执行2s
-        if (_time < 2000) {
-          Timer timer = new Timer(new Duration(milliseconds: 2000 - _time), () {
-            store.dispatch(new PwErrorAction(true, '密码输入错误'));
-          });
-        } else {
-          store.dispatch(new PwErrorAction(true, '密码输入错误'));
-        }
+      Timer timer2 = new Timer(new Duration(seconds: 2), () {
+        store.dispatch(new PwErrorAction(false, ''));
       });
+
+
+//      DateTime _now1 = new DateTime.now();
+//
+//      Dao.noTokenPost('/api/user/login', {'email': _email, 'password': _str},
+//          (data) async {
+//        print(data);
+//        DateTime _now2 = new DateTime.now();
+//        var _time = _now2.millisecondsSinceEpoch - _now1.millisecondsSinceEpoch;
+//
+//        //数据保存到本地
+//        sharedPreferences = await SharedPreferences.getInstance();
+//        sharedPreferences.setString("name", data['data']['name']);
+//        sharedPreferences.setString("token", data['data']['token']);
+//
+//        // 设置计时器, 如果2s内接口没有返回, 那么等待, 如果接口返回, 那么动画至少执行2s
+//        if (_time < 2000) {
+//          Timer timer = new Timer(new Duration(milliseconds: 2000 - _time), () {
+//            store.dispatch(new PwErrorAction(false, ''));
+//          });
+//        } else {
+//          store.dispatch(new PwErrorAction(false, ''));
+//        }
+//      }, (data) {
+//        DateTime _now2 = new DateTime.now();
+//        var _time = _now2.millisecondsSinceEpoch - _now1.millisecondsSinceEpoch;
+//
+//        // 设置计时器, 如果2s内接口没有返回, 那么等待, 如果接口返回, 那么动画至少执行2s
+//        if (_time < 2000) {
+//          Timer timer = new Timer(new Duration(milliseconds: 2000 - _time), () {
+//            store.dispatch(new PwErrorAction(true, '密码输入错误'));
+//          });
+//        } else {
+//          store.dispatch(new PwErrorAction(true, '密码输入错误'));
+//        }
+//      });
     } else {
       // 设置计时器, 如果2s内接口没有返回, 那么等待, 如果接口返回, 那么动画至少执行2s
       Timer timer2 = new Timer(new Duration(seconds: 2), () {
