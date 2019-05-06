@@ -32,6 +32,7 @@ class IndexHome extends StatelessWidget {
               new IndexTop(),
               new IndexTitle(),
               new IndexMain(),
+              new BookTitle(),
             ],
           ),
         ),
@@ -154,6 +155,12 @@ class _IndexMainState extends State<IndexMain> with TickerProviderStateMixin {
   double preMove = 0; // 记录上一次移动距离的叠加
 
   double defaultMove = screen.setWidth(243); // 默认图片移动到页面外的移动距离
+  double defaultScaleL = 0.7; // 默认图片移动到页面外缩放的比例
+  double defaultScaleR = 0.8; // 默认首张图片下面的图片的缩放比例
+  double defaultOpacity = 0.4; // 默认透明度
+
+  double defaultWidth = screen.setWidth(270); // 初始化图片宽度
+  double defaultHeight = screen.setWidth(370); // 初始化图片高度
 
   Animation<double> animation;
   AnimationController controller;
@@ -161,8 +168,14 @@ class _IndexMainState extends State<IndexMain> with TickerProviderStateMixin {
   var arr = [
     {
       'imgUrl':
+          'https://img.alicdn.com/imgextra/i1/1917047079/TB1zpA1XxTpK1RjSZFKXXa2wXXa_!!0-item_pic.jpg_430x430q90.jpg',
+      'title': 'CCC',
+      'description': 'cccccc | 1234'
+    },
+    {
+      'imgUrl':
           'https://img.alicdn.com/imgextra/i4/1917047079/TB20BE0XzDpK1RjSZFrXXa78VXa_!!1917047079.jpg_430x430q90.jpg',
-      'title': '代码整洁之道',
+      'title': 'AAA',
       'description': 'aaaaaa | 1234'
     },
     {
@@ -173,57 +186,11 @@ class _IndexMainState extends State<IndexMain> with TickerProviderStateMixin {
     },
     {
       'imgUrl':
-          'https://img.alicdn.com/imgextra/i1/1917047079/TB1zpA1XxTpK1RjSZFKXXa2wXXa_!!0-item_pic.jpg_430x430q90.jpg',
-      'title': 'CCC',
-      'description': 'cccccc | 1234'
-    },
-    {
-      'imgUrl':
-          'https://img.alicdn.com/imgextra/i4/1917047079/TB2xhg2XAPoK1RjSZKbXXX1IXXa_!!1917047079.jpg_430x430q90.jpg',
-      'title': 'DDD',
-      'description': 'dddddd | 1234'
-    },
-    {
-      'imgUrl':
           'https://img.alicdn.com/imgextra/i4/1917047079/TB2xhg2XAPoK1RjSZKbXXX1IXXa_!!1917047079.jpg_430x430q90.jpg',
       'title': 'DDD',
       'description': 'dddddd | 1234'
     }
   ];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    controller = new AnimationController(
-        duration: const Duration(milliseconds: 200), vsync: this);
-    animation = new Tween(begin: 0.0, end: 1.0).animate(controller)
-      ..addStatusListener((status) {
-        // 判断动画完成之后, 应该重置的值
-        if (status == AnimationStatus.completed) {
-          if (moveX - startX < -screen.setWidth(375) / 5 &&
-              index < arr.length - 1) {
-            index = index + 1;
-            setState(() {
-              move = -defaultMove * index;
-            });
-            preMove = -defaultMove * index;
-          } else if (moveX - startX > screen.setWidth(375) / 5 && index > 0) {
-            index = index - 1;
-            setState(() {
-              move = -defaultMove * index;
-            });
-            preMove = -defaultMove * index;
-          } else {
-            setState(() {
-              move = -defaultMove * index;
-            });
-            preMove = -defaultMove * index;
-          }
-          controller.reset();
-        }
-      });
-  }
 
   void moveStart(e) {
     startX = e.globalPosition.dx;
@@ -237,15 +204,15 @@ class _IndexMainState extends State<IndexMain> with TickerProviderStateMixin {
     moveY = e.globalPosition.dy;
 
     if ((moveX - startX).abs() > (moveY - startY).abs()) {
-//      print('水平');
+      print('水平');
       if (moveX - startX > 0) {
-//        print('向右移动');
+        print('向右移动');
         isPrevMove = true;
         if (index == 0) {
           return;
         }
       } else {
-//        print('向左移动');
+        print('向左移动');
         isPrevMove = false;
         if (index == arr.length - 1) {
           return;
@@ -258,81 +225,41 @@ class _IndexMainState extends State<IndexMain> with TickerProviderStateMixin {
         move = _moveT;
       });
     } else {
-//      print('垂直');
+      print('垂直');
     }
   }
 
   void moveEnd(e) {
     // 判断手指离开, 是否移动
 
-    // 动画没有执行完毕, 页面禁止移动
-    if (controller.isAnimating) {
-      return;
-    }
-
-    // 计算应该开始什么动画
-    if (moveX - startX < -screen.setWidth(375) / 5 && index < arr.length - 1) {
-      animation = new Tween(begin: move, end: -defaultMove * (index + 1))
-          .animate(controller);
-    } else if (moveX - startX > screen.setWidth(375) / 5 && index > 0) {
-      animation = new Tween(begin: move, end: -defaultMove * (index - 1))
-          .animate(controller);
-    } else {
-      animation =
-          new Tween(begin: move, end: -defaultMove * index).animate(controller);
-    }
+    controller = new AnimationController(
+        duration: const Duration(milliseconds: 500), vsync: this);
+    animation =
+        new Tween(begin: 0.0, end: 1.0).animate(controller);
 
     controller.forward();
+
+    print(animation);
+
+    if (moveX - startX < -screen.setWidth(375) / 5 && index < arr.length - 1) {
+      index = index + 1;
+      setState(() {
+        move = -defaultMove * index;
+      });
+      preMove = -defaultMove * index;
+    } else if (moveX - startX > screen.setWidth(375) / 5 && index > 0) {
+      index = index - 1;
+      setState(() {
+        move = -defaultMove * index;
+      });
+      preMove = -defaultMove * index;
+    } else {
+      setState(() {
+        move = -defaultMove * index;
+      });
+      preMove = -defaultMove * index;
+    }
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return new AnimatedBuilder(
-        animation: animation,
-        builder: (context, child) {
-          return new Column(
-            children: <Widget>[
-              new GestureDetector(
-                onHorizontalDragStart: moveStart,
-                onHorizontalDragUpdate: moveUpdate,
-                onHorizontalDragEnd: moveEnd,
-                child: new Container(
-                  width: double.infinity,
-                  height: screen.setWidth(370),
-                  child: new MoveCard(
-                      arr,
-                      controller.isAnimating ? animation.value : move,
-                      index,
-                      isPrevMove,
-                      defaultMove),
-                ),
-              ),
-              new BookTitle(
-                  arr,
-                  controller.isAnimating ? animation.value : move,
-                  index,
-                  defaultMove)
-            ],
-          );
-        });
-  }
-}
-
-class MoveCard extends StatelessWidget {
-  var arr;
-  double move; // 每一次的移动距离的叠加
-  double index; // 当前展示的图片序号
-  bool isPrevMove; // 是否是返回前一张
-  double defaultMove; // 默认图片移动到页面外的移动距离
-
-  MoveCard(this.arr, this.move, this.index, this.isPrevMove, this.defaultMove);
-
-  double defaultScaleL = 0.7; // 默认图片移动到页面外缩放的比例
-  double defaultScaleR = 0.8; // 默认首张图片下面的图片的缩放比例
-  double defaultOpacity = 0.4; // 默认透明度
-
-  double defaultWidth = screen.setWidth(270); // 初始化图片宽度
-  double defaultHeight = screen.setWidth(370); // 初始化图片高度
 
   @override
   Widget build(BuildContext context) {
@@ -466,7 +393,7 @@ class MoveCard extends StatelessWidget {
         }
       }
 
-      print('$i => $_move => $_scale => $_opacity');
+//      print('$i => $_move => $_scale => $_opacity');
 
       tiles.add(new Positioned(
           child: new Container(
@@ -475,11 +402,8 @@ class MoveCard extends StatelessWidget {
             child: new Opacity(
               opacity: _opacity,
               child: new Container(
-                  decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.all(Radius.circular(screen.setWidth(12))),
                 color: Colors.white,
-              )),
+              ),
             ),
             transform: Matrix4(
                 _scale,
@@ -505,120 +429,88 @@ class MoveCard extends StatelessWidget {
                   image: AssetImage('images/test_move${i + 1}.png'),
                   fit: BoxFit.fill,
                 ),
-                boxShadow: i < index + 3 ||
-                        (i == index + 3 && move + defaultMove * index < 0)
-                    ? [
-                        BoxShadow(
-                            color: const Color.fromRGBO(0, 0, 0, 0.2),
-                            blurRadius: screen.setWidth(8),
-                            spreadRadius: screen.setWidth(2))
-                      ]
-                    : []),
+                boxShadow: [
+                  BoxShadow(
+                      color: const Color.fromRGBO(0, 0, 0, 0.2),
+                      blurRadius: screen.setWidth(8),
+                      spreadRadius: screen.setWidth(2))
+                ]),
           ),
           top: 0,
           left: screen.setWidth(27)));
     }
-    return new Stack(children: tiles);
+    return new GestureDetector(
+      onHorizontalDragStart: moveStart,
+      onHorizontalDragUpdate: moveUpdate,
+      onHorizontalDragEnd: moveEnd,
+      child: new Container(
+        width: double.infinity,
+        height: screen.setWidth(370),
+        child: new Stack(children: tiles),
+      ),
+    );
   }
 }
 
-class BookTitle extends StatelessWidget {
-  var arr;
-  double index;
-  double move;
-  double defaultMove;
 
-  BookTitle(this.arr, this.move, this.index, this.defaultMove);
 
+class BookTitle extends StatefulWidget {
+  @override
+  _BookTitleState createState() => _BookTitleState();
+}
+
+class _BookTitleState extends State<BookTitle> {
   @override
   Widget build(BuildContext context) {
-    List<Widget> tiles = [];
-    for (int i = arr.length - 1; i >= 0; i--) {
-      tiles.add(new Positioned(
-          child: new Container(
-            child: new Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                new Container(
-                  margin: EdgeInsets.only(bottom: screen.setWidth(10)),
-                  height: screen.setWidth(20),
-                  child: new Text(
-                    arr[i]['title'],
-                    style: new TextStyle(
-                        fontSize: screen.setSp(20),
-                        color: const Color(0xff212121),
-                        height: 1),
-                  ),
-                ),
-                new Container(
-                  height: screen.setWidth(15),
-                  child: new Text(
-                    '[美] Robert Hoekman，Jr.',
-                    style: new TextStyle(
-                        fontSize: screen.setSp(15),
-                        color: const Color(0xff939393),
-                        height: 1),
-                  ),
-                )
-              ],
+    return new Container(
+      alignment: Alignment.topLeft,
+      margin:
+          EdgeInsets.fromLTRB(screen.setWidth(27), screen.setWidth(29), 0, 0),
+      child: new Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          new Container(
+            margin: EdgeInsets.only(bottom: screen.setWidth(10)),
+            height: screen.setWidth(20),
+            child: new Text(
+              '代码整洁之道',
+              style: new TextStyle(
+                  fontSize: screen.setSp(20),
+                  color: const Color(0xff212121),
+                  height: 1),
             ),
           ),
-          top: screen.setWidth(70) * i +
-              move / defaultMove * screen.setWidth(70)));
-    }
-
-    return new Container(
-        height: screen.setWidth(50),
-        alignment: Alignment.topLeft,
-        margin:
-            EdgeInsets.fromLTRB(screen.setWidth(27), screen.setWidth(23), 0, 0),
-        child: new Stack(
-          overflow: Overflow.clip,
-          alignment: Alignment.topLeft,
-          children: tiles,
-        ));
+          new Container(
+            height: screen.setWidth(15),
+            child: new Text(
+              '[美] Robert Hoekman，Jr.',
+              style: new TextStyle(
+                  fontSize: screen.setSp(15),
+                  color: const Color(0xff939393),
+                  height: 1),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }
+
 
 class IndexTo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        new GestureDetector(
-          child: new Container(
-            margin: EdgeInsets.fromLTRB(
-                screen.setWidth(15), 0, 0, screen.setWidth(14)),
-            child: new Text(
-              'IT技术1',
-              style: new TextStyle(
-                  fontSize: screen.setSp(20),
-                  color: const Color(0xff50bbd8),
-                  height: 1),
-            ),
-          ),
-          onTap: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        new GestureDetector(
-          child: new Container(
-            margin: EdgeInsets.fromLTRB(
-                0, 0, screen.setWidth(15), screen.setWidth(14)),
-            child: new Text(
-              'IT技术2',
-              style: new TextStyle(
-                  fontSize: screen.setSp(20),
-                  color: const Color(0xff50bbd8),
-                  height: 1),
-            ),
-          ),
-          onTap: () {
-            Navigator.of(context).pushNamed('/index');
-          },
-        )
-      ],
+    return new Container(
+      alignment: Alignment.topRight,
+      margin:
+          EdgeInsets.fromLTRB(0, 0, screen.setWidth(15), screen.setWidth(14)),
+      child: new Text(
+        'IT技术',
+        style: new TextStyle(
+            fontSize: screen.setSp(20),
+            color: const Color(0xff50bbd8),
+            height: 1),
+      ),
     );
   }
 }
