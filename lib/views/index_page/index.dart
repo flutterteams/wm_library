@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
@@ -20,29 +21,59 @@ class Index extends StatelessWidget {
   }
 }
 
-class IndexHome extends StatelessWidget {
+class IndexHome extends StatefulWidget {
+  @override
+  _IndexHomeState createState() => _IndexHomeState();
+}
+
+class _IndexHomeState extends State<IndexHome> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return new Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return new Stack(
+      alignment: Alignment.topLeft,
       children: <Widget>[
-        new Container(
-          child: new Column(
-            children: <Widget>[
-              new IndexTop(),
-              new IndexTitle(),
-              new IndexMain(),
-            ],
-          ),
+        new Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            new Container(
+              child: new Column(
+                children: <Widget>[
+                  new IndexTop(),
+                  new IndexTitle(),
+                  new IndexMain(),
+                ],
+              ),
+            ),
+            new IndexTo()
+          ],
         ),
-        new IndexTo()
       ],
     );
   }
 }
 
 /// 顶部导航
-class IndexTop extends StatelessWidget {
+class IndexTop extends StatefulWidget {
+  @override
+  _IndexTopState createState() => _IndexTopState();
+}
+
+class _IndexTopState extends State<IndexTop> with TickerProviderStateMixin {
+  Animation<double> animation1;
+  AnimationController controller1;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller1 = new AnimationController(
+        duration: const Duration(milliseconds: 1000), vsync: this);
+    animation1 = new Tween(begin: 0.0, end: 1.0).animate(controller1);
+  }
+
+  static const opacityCurve =
+      const Interval(0.0, 0.75, curve: Curves.fastOutSlowIn);
+
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -51,23 +82,47 @@ class IndexTop extends StatelessWidget {
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          new Container(
-            child: new Column(
-              children: <Widget>[
+          new GestureDetector(
+            child: new Container(
+              color: Colors.transparent,
+              width: screen.setWidth(22),
+              height: screen.setWidth(23),
+              child: new Column(children: <Widget>[
                 new Container(
+                  alignment: Alignment.center,
                   margin: EdgeInsets.fromLTRB(
                       0, screen.setWidth(9), 0, screen.setWidth(10)),
-                  height: screen.setWidth(2),
-                  width: screen.setWidth(22),
-                  color: const Color(0xff424242),
+                  child: new TypeHero(
+                    tag: 'type1',
+                    color: const Color(0xff424242),
+                  ),
                 ),
-                new Container(
-                  height: screen.setWidth(2),
-                  width: screen.setWidth(22),
+                new TypeHero(
+                  tag: 'type2',
                   color: const Color(0xff424242),
                 )
-              ],
+              ]),
             ),
+            onTap: () {
+              Navigator.of(context).push(
+                PageRouteBuilder<void>(
+                    pageBuilder: (BuildContext context,
+                        Animation<double> animation,
+                        Animation<double> secondaryAnimation) {
+                      return new TypePage();
+                    },
+                    transitionsBuilder: (context, Animation<double> animation,
+                        Animation<double> secondaryAnimation, child) {
+                      return new SlideTransition(
+                        position:
+                            new Tween(begin: Offset(0, -1.0), end: Offset(0, 0))
+                                .animate(animation),
+                        child: child,
+                      );
+                    },
+                    transitionDuration: const Duration(milliseconds: 300)),
+              );
+            },
           ),
           new Container(
             width: screen.setWidth(32),
@@ -86,6 +141,175 @@ class IndexTop extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+class TypeHero extends StatelessWidget {
+  const TypeHero({Key key, this.tag, this.onTap, this.color}) : super(key: key);
+
+  final String tag;
+  final VoidCallback onTap;
+  final Color color;
+
+  Widget build(BuildContext context) {
+    return new Hero(
+      tag: tag,
+      child: new Material(
+        color: Colors.transparent,
+        child: new InkWell(
+          onTap: onTap,
+          child: new Container(
+            height: screen.setWidth(2),
+            width: screen.setWidth(22),
+            color: color,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TypePage extends StatefulWidget {
+  @override
+  _TypePageState createState() => _TypePageState();
+}
+
+class _TypePageState extends State<TypePage> with TickerProviderStateMixin {
+  var arr = ['推荐', 'IT技术', '艺术设计', '经济管理', '心里课堂', '人文社科', '营销学'];
+  List<Widget> tiles = [];
+
+  Animation<double> animation1;
+  Animation<double> animation2;
+  AnimationController controller;
+  AnimationController controller1;
+  AnimationController controller2;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller = new AnimationController(
+        duration: const Duration(milliseconds: 600), vsync: this);
+    controller1 = new AnimationController(
+        duration: const Duration(milliseconds: 300), vsync: this);
+    animation1 =
+        new Tween(begin: 0.0, end: math.pi / 4 * 3).animate(controller1);
+    controller2 = new AnimationController(
+        duration: const Duration(milliseconds: 300), vsync: this);
+    animation2 =
+        new Tween(begin: 0.0, end: math.pi / 4 * 5).animate(controller2);
+
+    Timer timer2 = new Timer(Duration(milliseconds: 200), () {
+      controller1.forward();
+      controller2.forward();
+    });
+
+    Timer timer = new Timer(Duration(milliseconds: 300), () {
+      controller.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller1.dispose();
+    controller2.dispose();
+    controller.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    for (int i = 0; i < arr.length; i++) {
+      tiles.add(new FadeTransition(
+        opacity: new Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+            parent: controller,
+            curve: Interval(1.0 / arr.length * i - 0.2 / arr.length * i,
+                1.0 / arr.length * (i + 1)))),
+        child: new Container(
+          margin: EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(32)),
+          child: new Text(
+            arr[i] == 'IT技术' ? 'I T  技术' : arr[i],
+            style: new TextStyle(
+              fontSize: screen.setSp(20),
+              color: Color.fromRGBO(255, 255, 255, 0.8),
+              letterSpacing: arr[i].length == 2
+                  ? screen.setWidth(48)
+                  : arr[i].length == 3
+                      ? screen.setWidth(14)
+                      : arr[i] == 'IT技术'
+                          ? screen.setWidth(1.6)
+                          : screen.setWidth(2),
+            ),
+          ),
+        ),
+      ));
+    }
+
+    return new Scaffold(
+      body: new Container(
+          color: Colors.black,
+          child: new Stack(
+            children: <Widget>[
+              new Container(
+                  padding: EdgeInsets.only(top: screen.setWidth(144)),
+                  child: new Center(
+                    child: new Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: tiles,
+                    ),
+                  )),
+              new Positioned(
+                  top: screen.setWidth(28),
+                  child: new GestureDetector(
+                    onTap: () {
+                      print('123');
+                      controller1.reverse();
+                      controller2.reverse();
+                      Timer timer = new Timer(Duration(milliseconds: 300), () {
+                        Navigator.of(context).pop();
+                      });
+                    },
+                    child: new Container(
+                      padding: EdgeInsets.fromLTRB(
+                          screen.setWidth(13), screen.setWidth(20), 0, 0),
+                      color: Colors.transparent,
+                      height: screen.setWidth(50),
+                      child: new Column(
+                        children: <Widget>[
+                          new AnimatedBuilder(
+                              animation: animation1,
+                              builder: (context, child) {
+                                return new Transform.rotate(
+                                  angle: animation1.value,
+                                  child: new TypeHero(
+                                    tag: 'type1',
+                                    color: Colors.white,
+                                  ),
+                                );
+                              }),
+                          new Container(
+                            transform: Matrix4.translationValues(
+                                0, screen.setWidth(-1), 0),
+                            child: new AnimatedBuilder(
+                                animation: animation2,
+                                builder: (context, child) {
+                                  return new Transform.rotate(
+                                    angle: animation2.value,
+                                    child: new TypeHero(
+                                      tag: 'type2',
+                                      color: Colors.white,
+                                    ),
+                                  );
+                                }),
+                          )
+                        ],
+                      ),
+                    ),
+                  ))
+            ],
+          )),
     );
   }
 }
@@ -286,6 +510,13 @@ class _IndexMainState extends State<IndexMain> with TickerProviderStateMixin {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return new AnimatedBuilder(
         animation: animation,
@@ -466,7 +697,7 @@ class MoveCard extends StatelessWidget {
         }
       }
 
-      print('$i => $_move => $_scale => $_opacity');
+//      print('$i => $_move => $_scale => $_opacity');
 
       tiles.add(new Positioned(
           child: new Container(
