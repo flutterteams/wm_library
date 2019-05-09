@@ -11,7 +11,6 @@ PassWord _$PassWordFromJson(Map<String, dynamic> json) {
       json['pwdError'] as bool, json['confirmPwdError'] as bool);
 }
 
-
 Map<String, dynamic> _$PassWordToJson(PassWord instance) => <String, dynamic>{
       'password': instance.password,
       'confirmPassword': instance.confirmPassword,

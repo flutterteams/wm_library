@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import 'package:wm_library/actions/login.dart';
+import 'package:wm_library/actions/index.dart';
 import 'package:wm_library/common/global_variable.dart';
 import 'package:wm_library/redux/app_reducer.dart';
 
-import 'package:wm_library/components/scroll_bg/scroll_bg.dart';
+import 'package:wm_library/views/index_page/type.dart';
+import 'package:wm_library/views/detail_page/detail.dart';
 
 class Index extends StatelessWidget {
   @override
@@ -26,34 +27,57 @@ class IndexHome extends StatefulWidget {
   _IndexHomeState createState() => _IndexHomeState();
 }
 
-class _IndexHomeState extends State<IndexHome> with TickerProviderStateMixin {
+class _IndexHomeState extends State<IndexHome> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    IndexActionCreator.getTypeList(_getStore());
+    IndexActionCreator.getList(_getStore());
+  }
+
+  Store<AppState> _getStore() {
+    return StoreProvider.of(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new Stack(
-      alignment: Alignment.topLeft,
-      children: <Widget>[
-        new Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            new Container(
-              child: new Column(
-                children: <Widget>[
-                  new IndexTop(),
-                  new IndexTitle(),
-                  new IndexMain(),
-                ],
+    return new StoreBuilder<AppState>(builder: (context, store) {
+      return new Stack(
+        alignment: Alignment.topLeft,
+        children: <Widget>[
+          new Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              new Container(
+                child: new Column(
+                  children: <Widget>[
+                    new IndexTop(store),
+                    new IndexMain(store),
+                  ],
+                ),
               ),
-            ),
-            new IndexTo()
-          ],
-        ),
-      ],
-    );
+              new IndexTo(store)
+            ],
+          ),
+        ],
+      );
+    });
   }
 }
 
 /// 顶部导航
 class IndexTop extends StatefulWidget {
+  Store store;
+
+  IndexTop(this.store);
+
   @override
   _IndexTopState createState() => _IndexTopState();
 }
@@ -109,7 +133,7 @@ class _IndexTopState extends State<IndexTop> with TickerProviderStateMixin {
                     pageBuilder: (BuildContext context,
                         Animation<double> animation,
                         Animation<double> secondaryAnimation) {
-                      return new TypePage();
+                      return new TypePage(widget.store);
                     },
                     transitionsBuilder: (context, Animation<double> animation,
                         Animation<double> secondaryAnimation, child) {
@@ -145,177 +169,13 @@ class _IndexTopState extends State<IndexTop> with TickerProviderStateMixin {
   }
 }
 
-class TypeHero extends StatelessWidget {
-  const TypeHero({Key key, this.tag, this.onTap, this.color}) : super(key: key);
-
-  final String tag;
-  final VoidCallback onTap;
-  final Color color;
-
-  Widget build(BuildContext context) {
-    return new Hero(
-      tag: tag,
-      child: new Material(
-        color: Colors.transparent,
-        child: new InkWell(
-          onTap: onTap,
-          child: new Container(
-            height: screen.setWidth(2),
-            width: screen.setWidth(22),
-            color: color,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class TypePage extends StatefulWidget {
-  @override
-  _TypePageState createState() => _TypePageState();
-}
-
-class _TypePageState extends State<TypePage> with TickerProviderStateMixin {
-  var arr = ['推荐', 'IT技术', '艺术设计', '经济管理', '心里课堂', '人文社科', '营销学'];
-  List<Widget> tiles = [];
-
-  Animation<double> animation1;
-  Animation<double> animation2;
-  AnimationController controller;
-  AnimationController controller1;
-  AnimationController controller2;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    controller = new AnimationController(
-        duration: const Duration(milliseconds: 600), vsync: this);
-    controller1 = new AnimationController(
-        duration: const Duration(milliseconds: 300), vsync: this);
-    animation1 =
-        new Tween(begin: 0.0, end: math.pi / 4 * 3).animate(controller1);
-    controller2 = new AnimationController(
-        duration: const Duration(milliseconds: 300), vsync: this);
-    animation2 =
-        new Tween(begin: 0.0, end: math.pi / 4 * 5).animate(controller2);
-
-    Timer timer2 = new Timer(Duration(milliseconds: 200), () {
-      controller1.forward();
-      controller2.forward();
-    });
-
-    Timer timer = new Timer(Duration(milliseconds: 300), () {
-      controller.forward();
-    });
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    controller1.dispose();
-    controller2.dispose();
-    controller.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    for (int i = 0; i < arr.length; i++) {
-      tiles.add(new FadeTransition(
-        opacity: new Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: controller,
-            curve: Interval(1.0 / arr.length * i - 0.2 / arr.length * i,
-                1.0 / arr.length * (i + 1)))),
-        child: new Container(
-          margin: EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(32)),
-          child: new Text(
-            arr[i] == 'IT技术' ? 'I T  技术' : arr[i],
-            style: new TextStyle(
-              fontSize: screen.setSp(20),
-              color: Color.fromRGBO(255, 255, 255, 0.8),
-              letterSpacing: arr[i].length == 2
-                  ? screen.setWidth(48)
-                  : arr[i].length == 3
-                      ? screen.setWidth(14)
-                      : arr[i] == 'IT技术'
-                          ? screen.setWidth(1.6)
-                          : screen.setWidth(2),
-            ),
-          ),
-        ),
-      ));
-    }
-
-    return new Scaffold(
-      body: new Container(
-          color: Colors.black,
-          child: new Stack(
-            children: <Widget>[
-              new Container(
-                  padding: EdgeInsets.only(top: screen.setWidth(144)),
-                  child: new Center(
-                    child: new Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: tiles,
-                    ),
-                  )),
-              new Positioned(
-                  top: screen.setWidth(28),
-                  child: new GestureDetector(
-                    onTap: () {
-                      print('123');
-                      controller1.reverse();
-                      controller2.reverse();
-                      Timer timer = new Timer(Duration(milliseconds: 300), () {
-                        Navigator.of(context).pop();
-                      });
-                    },
-                    child: new Container(
-                      padding: EdgeInsets.fromLTRB(
-                          screen.setWidth(13), screen.setWidth(20), 0, 0),
-                      color: Colors.transparent,
-                      height: screen.setWidth(50),
-                      child: new Column(
-                        children: <Widget>[
-                          new AnimatedBuilder(
-                              animation: animation1,
-                              builder: (context, child) {
-                                return new Transform.rotate(
-                                  angle: animation1.value,
-                                  child: new TypeHero(
-                                    tag: 'type1',
-                                    color: Colors.white,
-                                  ),
-                                );
-                              }),
-                          new Container(
-                            transform: Matrix4.translationValues(
-                                0, screen.setWidth(-1), 0),
-                            child: new AnimatedBuilder(
-                                animation: animation2,
-                                builder: (context, child) {
-                                  return new Transform.rotate(
-                                    angle: animation2.value,
-                                    child: new TypeHero(
-                                      tag: 'type2',
-                                      color: Colors.white,
-                                    ),
-                                  );
-                                }),
-                          )
-                        ],
-                      ),
-                    ),
-                  ))
-            ],
-          )),
-    );
-  }
-}
-
 /// 书分类标题
 class IndexTitle extends StatefulWidget {
+  Store store;
+  String name;
+
+  IndexTitle(this.store, this.name);
+
   @override
   _IndexTitleState createState() => _IndexTitleState();
 }
@@ -327,38 +187,67 @@ class _IndexTitleState extends State<IndexTitle> {
       alignment: Alignment.topLeft,
       margin: new EdgeInsets.fromLTRB(
           screen.setWidth(27), 0, 0, screen.setWidth(24)),
-      child: new Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          new Container(
-            height: screen.setWidth(30),
-            margin: new EdgeInsets.fromLTRB(
-                0, screen.setWidth(15), 0, screen.setWidth(14)),
-            child: new Text(
-              '推荐',
-              style: new TextStyle(
-                  color: const Color(0xff212121),
-                  fontSize: screen.setSp(30),
-                  height: 1,
-                  fontWeight: FontWeight.w500),
+      child: widget.store.state.index.id == 0
+          ? new Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                new Container(
+                  height: screen.setWidth(30),
+                  margin: new EdgeInsets.fromLTRB(
+                      0, screen.setWidth(15), 0, screen.setWidth(14)),
+                  child: new Text(
+                    widget.store.state.index.typeList.length == 0
+                        ? ''
+                        : widget.store.state.index
+                            .typeList[widget.store.state.index.id]['name'],
+                    style: new TextStyle(
+                        color: const Color(0xff212121),
+                        fontSize: screen.setSp(30),
+                        height: 1,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+                new Container(
+                  height: screen.setWidth(24),
+                  child: new Text(widget.name,
+                      style: new TextStyle(
+                        color: const Color(0xff424242),
+                        fontSize: screen.setSp(24),
+                        height: 1,
+                      )),
+                )
+              ],
+            )
+          : new Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                new Container(
+                  height: screen.setWidth(30),
+                  margin: new EdgeInsets.fromLTRB(
+                      0, screen.setWidth(27), 0, screen.setWidth(12)),
+                  child: new Text(
+                    widget.store.state.index.typeList.length == 0
+                        ? ''
+                        : widget.store.state.index
+                            .typeList[widget.store.state.index.id]['name'],
+                    style: new TextStyle(
+                        color: const Color(0xff212121),
+                        fontSize: screen.setSp(30),
+                        height: 1,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ],
             ),
-          ),
-          new Container(
-            height: screen.setWidth(24),
-            child: new Text('IT技术',
-                style: new TextStyle(
-                  color: const Color(0xff424242),
-                  fontSize: screen.setSp(24),
-                  height: 1,
-                )),
-          )
-        ],
-      ),
     );
   }
 }
 
 class IndexMain extends StatefulWidget {
+  Store store;
+
+  IndexMain(this.store);
+
   @override
   _IndexMainState createState() => _IndexMainState();
 }
@@ -382,38 +271,7 @@ class _IndexMainState extends State<IndexMain> with TickerProviderStateMixin {
   Animation<double> animation;
   AnimationController controller;
 
-  var arr = [
-    {
-      'imgUrl':
-          'https://img.alicdn.com/imgextra/i4/1917047079/TB20BE0XzDpK1RjSZFrXXa78VXa_!!1917047079.jpg_430x430q90.jpg',
-      'title': '代码整洁之道',
-      'description': 'aaaaaa | 1234'
-    },
-    {
-      'imgUrl':
-          'https://img.alicdn.com/imgextra/i3/1917047079/TB2xJ31Xq6qK1RjSZFmXXX0PFXa_!!1917047079.jpg_430x430q90.jpg',
-      'title': 'BBB',
-      'description': 'bbbbbb | 1234'
-    },
-    {
-      'imgUrl':
-          'https://img.alicdn.com/imgextra/i1/1917047079/TB1zpA1XxTpK1RjSZFKXXa2wXXa_!!0-item_pic.jpg_430x430q90.jpg',
-      'title': 'CCC',
-      'description': 'cccccc | 1234'
-    },
-    {
-      'imgUrl':
-          'https://img.alicdn.com/imgextra/i4/1917047079/TB2xhg2XAPoK1RjSZKbXXX1IXXa_!!1917047079.jpg_430x430q90.jpg',
-      'title': 'DDD',
-      'description': 'dddddd | 1234'
-    },
-    {
-      'imgUrl':
-          'https://img.alicdn.com/imgextra/i4/1917047079/TB2xhg2XAPoK1RjSZKbXXX1IXXa_!!1917047079.jpg_430x430q90.jpg',
-      'title': 'DDD',
-      'description': 'dddddd | 1234'
-    }
-  ];
+  List arr = [];
 
   @override
   void initState() {
@@ -518,11 +376,24 @@ class _IndexMainState extends State<IndexMain> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    arr = widget.store.state.index.list;
+    List typeList = widget.store.state.index.typeList;
+    String name = '';
+
+    // 计算上面推荐子标题显示内容
+    for (int i = 0; i < typeList.length; i++) {
+      if (arr.length > 0 &&
+          arr[index.toInt()]['type_id'] == typeList[i]['id']) {
+        name = typeList[i]['name'];
+      }
+    }
+
     return new AnimatedBuilder(
         animation: animation,
         builder: (context, child) {
           return new Column(
             children: <Widget>[
+              new IndexTitle(widget.store, name),
               new GestureDetector(
                 onHorizontalDragStart: moveStart,
                 onHorizontalDragUpdate: moveUpdate,
@@ -550,7 +421,7 @@ class _IndexMainState extends State<IndexMain> with TickerProviderStateMixin {
 }
 
 class MoveCard extends StatelessWidget {
-  var arr;
+  List arr;
   double move; // 每一次的移动距离的叠加
   double index; // 当前展示的图片序号
   bool isPrevMove; // 是否是返回前一张
@@ -700,51 +571,63 @@ class MoveCard extends StatelessWidget {
 //      print('$i => $_move => $_scale => $_opacity');
 
       tiles.add(new Positioned(
-          child: new Container(
-            width: screen.setWidth(270),
-            height: screen.setWidth(370),
-            child: new Opacity(
-              opacity: _opacity,
-              child: new Container(
-                  decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.all(Radius.circular(screen.setWidth(12))),
-                color: Colors.white,
-              )),
-            ),
-            transform: Matrix4(
-                _scale,
-                0,
-                0,
-                0,
-                0,
-                _scale,
-                0,
-                0,
-                0,
-                0,
-                1,
-                0,
-                _move,
-                (screen.setWidth(370) - _scale * screen.setWidth(370)) / 2,
-                0,
-                1),
-            decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.all(Radius.circular(screen.setWidth(12))),
-                image: new DecorationImage(
-                  image: AssetImage('images/test_move${i + 1}.png'),
-                  fit: BoxFit.fill,
+          child: new GestureDetector(
+            onTap: (){
+              Navigator.push(
+                context,
+                new MaterialPageRoute(
+                  builder: (context) => new Detail(arr[i]['id']),
                 ),
-                boxShadow: i < index + 3 ||
-                        (i == index + 3 && move + defaultMove * index < 0)
-                    ? [
-                        BoxShadow(
-                            color: const Color.fromRGBO(0, 0, 0, 0.2),
-                            blurRadius: screen.setWidth(8),
-                            spreadRadius: screen.setWidth(2))
-                      ]
-                    : []),
+              );
+            },
+            child: new Container(
+              width: screen.setWidth(270),
+              height: screen.setWidth(370),
+              child: new Opacity(
+                opacity: _opacity,
+                child: new Container(
+                    decoration: BoxDecoration(
+                      borderRadius:
+                      BorderRadius.all(Radius.circular(screen.setWidth(12))),
+                      color: Colors.white,
+                    )),
+              ),
+              transform: Matrix4(
+                  _scale,
+                  0,
+                  0,
+                  0,
+                  0,
+                  _scale,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  _move,
+                  (screen.setWidth(370) - _scale * screen.setWidth(370)) / 2,
+                  0,
+                  1),
+              decoration: BoxDecoration(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(screen.setWidth(12))),
+                  image: new DecorationImage(
+                    image: NetworkImage(arr[i]['url'] == null
+                        ? 'https://gd1.alicdn.com/imgextra/i1/2418395878/TB2G1jFFHGYBuNjy0FoXXciBFXa_!!2418395878.jpg'
+                        : arr[i]['url']),
+                    fit: BoxFit.fill,
+                  ),
+                  boxShadow: i < index + 3 ||
+                      (i == index + 3 && move + defaultMove * index < 0)
+                      ? [
+                    BoxShadow(
+                        color: const Color.fromRGBO(0, 0, 0, 0.2),
+                        blurRadius: screen.setWidth(8),
+                        spreadRadius: screen.setWidth(2))
+                  ]
+                      : []),
+            ),
           ),
           top: 0,
           left: screen.setWidth(27)));
@@ -754,7 +637,7 @@ class MoveCard extends StatelessWidget {
 }
 
 class BookTitle extends StatelessWidget {
-  var arr;
+  List arr;
   double index;
   double move;
   double defaultMove;
@@ -771,20 +654,24 @@ class BookTitle extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 new Container(
-                  margin: EdgeInsets.only(bottom: screen.setWidth(10)),
-                  height: screen.setWidth(20),
+                  width: screen.setWidth(321),
+                  alignment: Alignment.topLeft,
+                  height: screen.setWidth(24),
+                  margin: EdgeInsets.only(bottom: screen.setWidth(6)),
                   child: new Text(
                     arr[i]['title'],
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                     style: new TextStyle(
-                        fontSize: screen.setSp(20),
-                        color: const Color(0xff212121),
-                        height: 1),
+                      fontSize: screen.setSp(20),
+                      color: const Color(0xff212121),
+                    ),
                   ),
                 ),
                 new Container(
-                  height: screen.setWidth(15),
+                  alignment: Alignment.bottomLeft,
                   child: new Text(
-                    '[美] Robert Hoekman，Jr.',
+                    arr[i]['author'],
                     style: new TextStyle(
                         fontSize: screen.setSp(15),
                         color: const Color(0xff939393),
@@ -812,6 +699,10 @@ class BookTitle extends StatelessWidget {
 }
 
 class IndexTo extends StatelessWidget {
+  Store store;
+
+  IndexTo(this.store);
+
   @override
   Widget build(BuildContext context) {
     return new Row(
@@ -822,7 +713,10 @@ class IndexTo extends StatelessWidget {
             margin: EdgeInsets.fromLTRB(
                 screen.setWidth(15), 0, 0, screen.setWidth(14)),
             child: new Text(
-              'IT技术1',
+              store.state.index.id == 0
+                  ? ''
+                  : store.state.index.typeList[store.state.index.id - 1]
+                      ['name'],
               style: new TextStyle(
                   fontSize: screen.setSp(20),
                   color: const Color(0xff50bbd8),
@@ -830,6 +724,7 @@ class IndexTo extends StatelessWidget {
             ),
           ),
           onTap: () {
+            IndexActionCreator.changeId(store, store.state.index.id - 1);
             Navigator.of(context).pop();
           },
         ),
@@ -838,7 +733,13 @@ class IndexTo extends StatelessWidget {
             margin: EdgeInsets.fromLTRB(
                 0, 0, screen.setWidth(15), screen.setWidth(14)),
             child: new Text(
-              'IT技术2',
+              store.state.index.typeList.length == 0
+                  ? ''
+                  : store.state.index.id ==
+                          store.state.index.typeList.length - 1
+                      ? ''
+                      : store.state.index.typeList[store.state.index.id + 1]
+                          ['name'],
               style: new TextStyle(
                   fontSize: screen.setSp(20),
                   color: const Color(0xff50bbd8),
@@ -846,6 +747,7 @@ class IndexTo extends StatelessWidget {
             ),
           ),
           onTap: () {
+            IndexActionCreator.changeId(store, store.state.index.id + 1);
             Navigator.of(context).pushNamed('/index');
           },
         )
