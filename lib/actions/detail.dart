@@ -27,21 +27,12 @@ class DetailActionCreator {
 
   /// 获取数据
   static getData(store, id) {
-
-      Dao.get('/api/bookDetails', {'bookId' : id.toString()}, (data) {
-        print(data);
-        store.dispatch(new ChangeDataAction(Book.fromJson(data['data'][0])));
-      }, (data) {
-        print(data);
-      });
-
-
+    Dao.get('/api/bookDetails', {'bookId': id.toString()}, (data) {
+      store.dispatch(new ChangeDataAction(Book.fromJson(data['data'][0])));
+    }, (data) {
+      print(data);
+    });
   }
-
-//  /// 切换分类
-//  static changeId(store, id) {
-//    store.dispatch(new ChangeIdAction(id));
-//  }
 }
 
 /// 获取List的action
@@ -57,10 +48,3 @@ class ChangeReviewListAction {
 
   ChangeReviewListAction(this.list);
 }
-//
-///// 切换分类action
-//class ChangeIdAction {
-//  final int id;
-//
-//  ChangeIdAction(this.id);
-//}

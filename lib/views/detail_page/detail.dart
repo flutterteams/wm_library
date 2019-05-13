@@ -4,12 +4,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:intl/intl.dart';
 
 import 'package:wm_library/actions/detail.dart';
 import 'package:wm_library/common/global_variable.dart';
 import 'package:wm_library/redux/app_reducer.dart';
 
-import 'package:wm_library/views/index_page/type.dart';
+import 'package:wm_library/views/comment_page/comment.dart';
+import 'package:wm_library/views/order_page/order.dart';
 
 class Detail extends StatelessWidget {
   int id;
@@ -18,7 +20,6 @@ class Detail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(id);
     return new Scaffold(
       body: new DetailHome(id),
     );
@@ -76,7 +77,7 @@ class _DetailHomeState extends State<DetailHome> {
                     0, screen.setWidth(20), 0, screen.setWidth(16)),
               ),
               store.state.detail['book'] == null
-                  ? Container()
+                  ? new Container()
                   : new DetailMain(isBlack)
             ],
           ),
@@ -191,7 +192,6 @@ class _BookTitleState extends State<BookTitle> {
           name = typeList[i]['name'];
         }
       }
-      print(name);
       return new Column(
         children: <Widget>[
           new Container(
@@ -245,7 +245,12 @@ class _BookTitleState extends State<BookTitle> {
           ),
           new GestureDetector(
             onTap: () {
-              print('我要节约');
+              Navigator.push(
+                context,
+                new MaterialPageRoute(
+                  builder: (context) => new Order(store.state.detail['book'].id),
+                ),
+              );
             },
             child: new Container(
               margin: EdgeInsets.fromLTRB(
@@ -361,119 +366,134 @@ class _ReviewState extends State<Review> {
         for (int i = 0; i < list.length; i++) {
           tiles.add(new GestureDetector(
             onTap: () {
-              print('详情');
+              Navigator.push(
+                context,
+                new MaterialPageRoute(
+                  builder: (context) => new Comment(list[i]),
+                ),
+              );
             },
-            child: new Column(
-              children: <Widget>[
-                new Container(
-                  margin: EdgeInsets.only(top: screen.setWidth(18)),
-                  child: new Column(
-                    children: <Widget>[
-                      new Row(
-                        children: <Widget>[
-                          list[i].url != null && list[i].url != ''
-                              ? new Container(
-                                  margin: EdgeInsets.only(
-                                      right: screen.setWidth(13)),
-                                  width: screen.setWidth(40),
-                                  height: screen.setWidth(40),
-                                  decoration: new BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(screen.setWidth(40))),
-                                    image: new DecorationImage(
-                                      image: NetworkImage(list[i].url),
-                                      fit: BoxFit.fill,
+            child: new Container(
+              color: Colors.transparent,
+              child: new Column(
+                children: <Widget>[
+                  new Container(
+                    margin: EdgeInsets.only(top: screen.setWidth(18)),
+                    child: new Column(
+                      children: <Widget>[
+                        new Row(
+                          children: <Widget>[
+                            list[i].url != null && list[i].url != ''
+                                ? new Container(
+                                    margin: EdgeInsets.only(
+                                        right: screen.setWidth(13)),
+                                    width: screen.setWidth(40),
+                                    height: screen.setWidth(40),
+                                    decoration: new BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(screen.setWidth(40))),
+                                      image: new DecorationImage(
+                                        image: NetworkImage(list[i].url),
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  )
+                                : new Container(
+                                    margin: EdgeInsets.only(
+                                        right: screen.setWidth(13)),
+                                    width: screen.setWidth(40),
+                                    height: screen.setWidth(40),
+                                    decoration: new BoxDecoration(
+                                      color: Color(0xffeeeeee),
+                                      border: Border.all(
+                                          color: Color.fromRGBO(0, 0, 0, 0.07)),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(screen.setWidth(40))),
+                                    ),
+                                    child: new Icon(
+                                      Icons.person,
+                                      size: screen.setWidth(28),
+                                      color: const Color(0xffd2d2d2),
                                     ),
                                   ),
-                                )
-                              : new Container(
-                                  margin: EdgeInsets.only(
-                                      right: screen.setWidth(13)),
-                                  width: screen.setWidth(40),
-                                  height: screen.setWidth(40),
-                                  decoration: new BoxDecoration(
-                                    color: Color(0xffeeeeee),
-                                    border: Border.all(
-                                        color: Color.fromRGBO(0, 0, 0, 0.07)),
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(screen.setWidth(40))),
-                                  ),
-                                  child: new Icon(
-                                    Icons.person,
-                                    size: screen.setWidth(28),
-                                    color: const Color(0xffd2d2d2),
-                                  ),
-                                ),
-                          new Container(
-                            child: new Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                new Container(
-                                  child: new Text(list[i].name,
-                                      style: new TextStyle(
-                                        fontSize: screen.setSp(14),
-                                        color: widget.isBlack
-                                            ? Color(0xff141414)
-                                            : Colors.white,
-                                      )),
-                                ),
-                                new Opacity(
-                                    opacity: 0.6,
-                                    child: new Text(list[i].create_time,
+                            new Container(
+                              child: new Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  new Container(
+                                    margin: EdgeInsets.only(
+                                        bottom: screen.setWidth(3)),
+                                    child: new Text(list[i].name,
                                         style: new TextStyle(
-                                            fontSize: screen.setSp(12),
-                                            color: widget.isBlack
-                                                ? Color(0xff141414)
-                                                : Colors.white))),
-                              ],
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-                new Container(
-                  margin: EdgeInsets.fromLTRB(
-                      0, screen.setWidth(16), 0, screen.setWidth(11)),
-                  child: new Text(
-                    list[i].content,
-                    style: new TextStyle(
-                        fontSize: screen.setSp(14),
-                        letterSpacing: screen.setWidth(0.09),
-                        color:
-                            widget.isBlack ? Color(0xff141414) : Colors.white),
-                  ),
-                ),
-                new Opacity(
-                  opacity: 0.6,
-                  child: new Container(
-                    margin: EdgeInsets.only(bottom: screen.setWidth(17)),
-                    child: new Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        new Container(
-                          margin: EdgeInsets.only(right: screen.setWidth(6)),
-                          child: new Icon(
-                            Icons.sms,
-                            size: screen.setWidth(16),
-                            color: widget.isBlack
-                                ? Color(0xff141414)
-                                : Colors.white,
-                          ),
-                        ),
-                        new Text('10',
-                            style: new TextStyle(
-                                fontSize: screen.setSp(14),
-                                letterSpacing: screen.setWidth(0.09),
-                                color: widget.isBlack
-                                    ? Color(0xff141414)
-                                    : Colors.white))
+                                          fontSize: screen.setSp(14),
+                                          color: widget.isBlack
+                                              ? Color(0xff141414)
+                                              : Colors.white,
+                                        )),
+                                  ),
+                                  new Opacity(
+                                      opacity: 0.6,
+                                      child: new Text(
+                                          new DateFormat('MM月dd日 hh:mm').format(
+                                              DateTime.parse(
+                                                  list[i].create_time)),
+                                          style: new TextStyle(
+                                              fontSize: screen.setSp(12),
+                                              color: widget.isBlack
+                                                  ? Color(0xff141414)
+                                                  : Colors.white))),
+                                ],
+                              ),
+                            )
+                          ],
+                        )
                       ],
                     ),
                   ),
-                )
-              ],
+                  new Container(
+                    alignment: Alignment.topLeft,
+                    margin: EdgeInsets.fromLTRB(
+                        0, screen.setWidth(16), 0, screen.setWidth(11)),
+                    child: new Text(
+                      list[i].content,
+                      style: new TextStyle(
+                          fontSize: screen.setSp(14),
+                          letterSpacing: screen.setWidth(0.09),
+                          color: widget.isBlack
+                              ? Color(0xff141414)
+                              : Colors.white),
+                    ),
+                  ),
+                  new Opacity(
+                    opacity: 0.6,
+                    child: new Container(
+                      margin: EdgeInsets.only(bottom: screen.setWidth(17)),
+                      child: new Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          new Container(
+                            margin: EdgeInsets.only(right: screen.setWidth(6)),
+                            child: new Icon(
+                              Icons.sms,
+                              size: screen.setWidth(16),
+                              color: widget.isBlack
+                                  ? Color(0xff141414)
+                                  : Colors.white,
+                            ),
+                          ),
+                          new Text(list[i].count.toString(),
+                              style: new TextStyle(
+                                  fontSize: screen.setSp(14),
+                                  letterSpacing: screen.setWidth(0.09),
+                                  color: widget.isBlack
+                                      ? Color(0xff141414)
+                                      : Colors.white))
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ));
           if (i < list.length - 1) {
@@ -521,6 +541,8 @@ class _ReviewState extends State<Review> {
                   )
           ],
         );
+      } else {
+        return Container();
       }
     });
   }

@@ -6,7 +6,6 @@ import 'package:wm_library/actions/detail.dart';
 final detailReducer = combineReducers<Map>([
   TypedReducer<Map, ChangeDataAction>(_changeData),
   TypedReducer<Map, ChangeReviewListAction>(_changeReviewList),
-//  TypedReducer<Book, ChangeIdAction>(_changeId),
 ]);
 
 
@@ -31,10 +30,4 @@ Map _changeReviewList(Map map, action) {
     return map;
   }
 }
-//
-//// 切换分类reducer
-//Index _changeId(Index index, action) {
-//  index.id = action.id;
-//  return index;
-//}
 

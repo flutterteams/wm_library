@@ -4,6 +4,7 @@ import 'package:wm_library/model/login/login.dart';
 import 'package:wm_library/model/register/register.dart';
 import 'package:wm_library/model/register/password.dart';
 
+import 'package:wm_library/reducers/comment_reducer.dart';
 import 'package:wm_library/reducers/detail_reducer.dart';
 import 'package:wm_library/reducers/index_reducer.dart';
 import 'package:wm_library/reducers/login_reducer.dart';
@@ -17,6 +18,7 @@ class AppState {
   PassWord setPwd;
   Index index;
   Map detail;
+  List comment;
 
   ///构造方法
   AppState(
@@ -25,7 +27,8 @@ class AppState {
       this.register,
       this.setPwd,
       this.index,
-      this.detail});
+      this.detail,
+      this.comment});
 
   AppState.initState() {
     login = Login.empty();
@@ -34,6 +37,7 @@ class AppState {
     setPwd = PassWord.empty();
     index = new Index(0, [], []);
     detail = new Map();
+    comment = new List();
   }
 }
 
@@ -43,5 +47,6 @@ AppState appReducer(AppState state, action) {
       register: registerReducer(state.register, action),
       setPwd: settingPwdReducer(state.setPwd, action),
       index: indexReducer(state.index, action),
-      detail: detailReducer(state.detail, action));
+      detail: detailReducer(state.detail, action),
+      comment: commentReducer(state.comment, action));
 }
