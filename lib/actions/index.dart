@@ -27,6 +27,12 @@ class IndexActionCreator {
       }, (data) {
         print(data);
       });
+
+      Dao.get('/api/getUserBorrowBooks', {'type': '1'}, (data) {
+        print(data);
+      }, (data) {
+        print(data);
+      });
     } else {
       Dao.get('/api/bookList', {'type_id':store.state.index.id == 0 ? '1' : store.state.index.id.toString(), 'bookStatus': '0'}, (data) {
         store.dispatch(new ChangeListAction(data['data']));

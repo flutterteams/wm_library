@@ -1,8 +1,10 @@
+import 'package:wm_library/model/book/book.dart';
 import 'package:wm_library/model/index/index.dart';
 import 'package:wm_library/model/login/login.dart';
 import 'package:wm_library/model/register/register.dart';
 import 'package:wm_library/model/register/password.dart';
 
+import 'package:wm_library/reducers/detail_reducer.dart';
 import 'package:wm_library/reducers/index_reducer.dart';
 import 'package:wm_library/reducers/login_reducer.dart';
 import 'package:wm_library/reducers/password_reducer.dart';
@@ -14,10 +16,16 @@ class AppState {
   Register register;
   PassWord setPwd;
   Index index;
+  Map detail;
 
   ///构造方法
   AppState(
-      {this.login, this.registerList, this.register, this.setPwd, this.index});
+      {this.login,
+      this.registerList,
+      this.register,
+      this.setPwd,
+      this.index,
+      this.detail});
 
   AppState.initState() {
     login = Login.empty();
@@ -25,14 +33,15 @@ class AppState {
     register = Register.empty();
     setPwd = PassWord.empty();
     index = new Index(0, [], []);
+    detail = new Map();
   }
 }
 
 AppState appReducer(AppState state, action) {
   return AppState(
-    login: loginReducer(state.login, action),
-    register: registerReducer(state.register, action),
-    setPwd: settingPwdReducer(state.setPwd, action),
-    index: indexReducer(state.index, action),
-  );
+      login: loginReducer(state.login, action),
+      register: registerReducer(state.register, action),
+      setPwd: settingPwdReducer(state.setPwd, action),
+      index: indexReducer(state.index, action),
+      detail: detailReducer(state.detail, action));
 }
