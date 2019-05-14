@@ -576,7 +576,7 @@ class MoveCard extends StatelessWidget {
               Navigator.push(
                 context,
                 new MaterialPageRoute(
-                  builder: (context) => new Detail(arr[i]['id']),
+                  builder: (context) => new Detail(arr[i]['bookId']),
                 ),
               );
             },

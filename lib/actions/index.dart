@@ -20,7 +20,6 @@ class IndexActionCreator {
 
   /// 获取list
   static getList(store) {
-    print(store.state.index.id);
     if (store.state.index.id == 0) {
       Dao.get('/api/user/getRecommendList', null, (data) {
         store.dispatch(new ChangeListAction(data['data']));
