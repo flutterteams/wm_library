@@ -24,6 +24,18 @@ class CommentActionCreator {
       print(data);
     });
   }
+
+  /// 保存评论
+  static saveValue(store, id, value, callback) {
+    print(value);
+    Dao.post(
+        '/api/user/addComment', {'reviewId': id.toString(), 'content': value},
+        (data) {
+      callback();
+    }, (data) {
+      print(data);
+    });
+  }
 }
 
 /// 获取书评列表action

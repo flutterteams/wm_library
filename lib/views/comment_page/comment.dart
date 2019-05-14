@@ -12,6 +12,8 @@ import 'package:wm_library/redux/app_reducer.dart';
 
 import 'package:wm_library/model/review/review.dart';
 
+import 'add.dart';
+
 class Comment extends StatelessWidget {
   Review review;
 
@@ -99,7 +101,12 @@ class _CommentHomeState extends State<CommentHome> {
                         color: Color(0xffffffff),
                         iconSize: screen.setWidth(22),
                         onPressed: () {
-                          print('123');
+                          Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                              builder: (context) => new AddComment(widget.review.id),
+                            ),
+                          );
                         }),
                   ))
             ],

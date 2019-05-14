@@ -10,6 +10,7 @@ import 'package:wm_library/reducers/index_reducer.dart';
 import 'package:wm_library/reducers/login_reducer.dart';
 import 'package:wm_library/reducers/password_reducer.dart';
 import 'package:wm_library/reducers/register_reducer.dart';
+import 'package:wm_library/reducers/order_reducer.dart';
 
 class AppState {
   Login login;
@@ -19,6 +20,7 @@ class AppState {
   Index index;
   Map detail;
   List comment;
+  List order;
 
   ///构造方法
   AppState(
@@ -28,7 +30,8 @@ class AppState {
       this.setPwd,
       this.index,
       this.detail,
-      this.comment});
+      this.comment,
+      this.order});
 
   AppState.initState() {
     login = Login.empty();
@@ -38,6 +41,7 @@ class AppState {
     index = new Index(0, [], []);
     detail = new Map();
     comment = new List();
+    order = new List();
   }
 }
 
@@ -48,5 +52,6 @@ AppState appReducer(AppState state, action) {
       setPwd: settingPwdReducer(state.setPwd, action),
       index: indexReducer(state.index, action),
       detail: detailReducer(state.detail, action),
-      comment: commentReducer(state.comment, action));
+      comment: commentReducer(state.comment, action),
+      order: orderReducer(state.order, action));
 }

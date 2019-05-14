@@ -221,6 +221,7 @@ class _LoginDetailInputState extends State<LoginDetailInput>
                                   color: const Color(0xff646464),
                                   height: 1),
                               focusedBorder: InputBorder.none,
+                              counterText: '',
                               enabledBorder: InputBorder.none),
                           focusNode: _focusNode2,
                           onChanged: (str) =>

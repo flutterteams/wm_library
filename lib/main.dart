@@ -10,7 +10,7 @@ import 'package:wm_library/views/login_page/login_input.dart';
 import 'package:wm_library/views/login_page/login_success.dart';
 import 'package:wm_library/views/register_page/register.dart';
 import 'package:wm_library/views/index_page/index.dart';
-import 'package:wm_library/views/detail_page/detail.dart';
+import 'package:wm_library/views/comment_page/add.dart';
 
 void main() => runApp(MyApp());
 
