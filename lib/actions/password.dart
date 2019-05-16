@@ -8,22 +8,26 @@ import 'package:wm_library/redux/app_reducer.dart';
 
 class SetPassWordActionCreator {
   static setPassWord(Store<AppState> store) {
-    print(store.state.setPwd.password);
-//    store.dispatch(new GetPassWordAction(new PassWord(store.state.setPwd.password,
-//        store.state.setPwd.confirmPassword)));
+    //print(store.state.setPwd.password);
 
-    Response response;
-    Dao.noTokenPost('/api/user/reg/setPassword',
-        {"password": store.state.setPwd.password,
-          "confirmPassword": store.state.setPwd.confirmPassword,
-        }, (data) => {
-        print("success"+data),
-        response = data,
-        }, (data) => {
-        print("failure"+data),
-        response = data,
-        });
-    return response;
+    Dao.noTokenPost('/api/user/reg',
+        {
+          "name": store.state.register.name,
+          "phone": store.state.register.phone,
+          "email": store.state.register.email,
+          "position": store.state.register.position,
+          "company_id": store.state.register.company_id,
+          "password": store.state.setPwd.password,
+        },
+            (data) async {
+          print("success"+data.toString());
+          store.dispatch(new IsSuccessAction(false));
+        },
+            (data) async {
+          print("failure"+data.toString());
+          store.dispatch(new IsSuccessAction(true));
+        }
+        );
   }
 
   static changePwd(store, value) {
@@ -97,4 +101,9 @@ class ConfirmPwdErrorAction {
   final bool confirmPwdError;
 
   ConfirmPwdErrorAction(this.confirmPwdError);
+}
+
+class IsSuccessAction {
+  final bool isSuccess;
+  IsSuccessAction(this.isSuccess);
 }

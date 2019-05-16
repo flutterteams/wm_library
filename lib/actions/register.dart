@@ -8,37 +8,30 @@ import 'package:wm_library/redux/app_reducer.dart';
 
 class RegisterActionCreator {
   static register(Store<AppState> store) {
-    print(store.state.register.email);
-//    store.dispatch(new GetRegisterAction(new Register(store.state.register.name,
-//        store.state.register.phone,store.state.register.email,
-//        store.state.register.position,store.state.register.company_id)));
+    print("===email==="+store.state.register.email);
+    Dao.noTokenPost('/api/user/emailCheck', {"email": store.state.register.email.toString(),
+        },
+        (data) async {
+            print("success"+data.toString());
+            store.dispatch(new IsRegisterAction(true));
+        },
+        (data) async {
+            print("failure3"+data.toString());
+            store.dispatch(new IsRegisterAction(false));
+        }
+    );
 
-    Response response;
-    Dao.noTokenPost('/api/user/reg',
-        {"name": store.state.register.name,
-          "phone": store.state.register.phone,
-          "email": "hy@frogshealth.com",
-          "position": store.state.register.position,
-          "company_id": "北分",
-        }, (data) => {
-        print("success"+data),
-        response = data,
-        }, (data) => {
-        print("failure"+data),
-        response = data,
-        });
-    return response;
   }
 
   /// 输入user监听方法
   static changeName(store, value) {
 
     if (store.state.register.name != value) {
-      print('Name监听方法');
+      //print('Name监听方法');
       store.dispatch(new ChangeNameAction(value));
       if (store.state.register.nameError != null &&
           store.state.register.nameError) {
-        print('Name监听方法');
+        //print('Name监听方法');
         store.dispatch(new NameErrorAction(null));
       }
     }
@@ -56,11 +49,9 @@ class RegisterActionCreator {
   /// 输入phone监听方法
   static changePhone(store, value) {
     if (store.state.register.phone != value) {
-      print('phone监听方法');
       store.dispatch(new ChangePhoneAction(value));
       if (store.state.register.phoneError != null &&
           store.state.register.phoneError) {
-        print('phone监听方法222');
         store.dispatch(new PhoneErrorAction(null));
       }
     }
@@ -102,7 +93,7 @@ class RegisterActionCreator {
       store.dispatch(new ChangePositionAction(value));
       if (store.state.register.positionError != null &&
           store.state.register.positionError) {
-        store.dispatch(new EmailErrorAction(null));
+        store.dispatch(new PositionErrorAction(null));
       }
     }
   }
@@ -202,6 +193,11 @@ class CompanyErrorAction {
   final bool companyError;
 
   CompanyErrorAction(this.companyError);
+}
+
+class IsRegisterAction {
+  final bool isRegister;
+  IsRegisterAction(this.isRegister);
 }
 
 

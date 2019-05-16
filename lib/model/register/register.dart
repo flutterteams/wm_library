@@ -17,7 +17,8 @@ class Register {
       this.phoneError,
       this.emailError,
       this.positionError,
-      this.companyError
+      this.companyError,
+      this.isRegister
       );
 
 
@@ -32,11 +33,12 @@ class Register {
   bool emailError;
   bool positionError;
   bool companyError;
+  bool isRegister;
 
 
   @override
   String toString() {
-    return 'Register{name: $name, phone: $phone, email: $email, position: $position, company_id: $company_id, nameError: $nameError, phoneError: $phoneError, emailError: $emailError, positionError: $positionError, companyError: $companyError}';
+    return 'Register{name: $name, phone: $phone, email: $email, position: $position, company_id: $company_id, nameError: $nameError, phoneError: $phoneError, emailError: $emailError, positionError: $positionError, companyError: $companyError, isRegister: $isRegister}';
   }
 
   /// 命名构造函数

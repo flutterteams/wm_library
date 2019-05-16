@@ -9,6 +9,7 @@ final settingPwdReducer = combineReducers<PassWord>([
 
   TypedReducer<PassWord, PwdErrorAction>(_checkPwd),
   TypedReducer<PassWord, ConfirmPwdErrorAction>(_checkConfirmPwd),
+  TypedReducer<PassWord, IsSuccessAction>(_checkIsSuccess),
 
 ]);
 
@@ -37,5 +38,11 @@ PassWord _checkPwd(PassWord passWord, action) {
 
 PassWord _checkConfirmPwd(PassWord passWord, action) {
   passWord.confirmPwdError = action.confirmPwdError;
+  return passWord;
+}
+
+
+PassWord _checkIsSuccess(PassWord passWord, action) {
+  passWord.isSuccess = action.isSuccess;
   return passWord;
 }

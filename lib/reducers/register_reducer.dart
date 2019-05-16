@@ -15,6 +15,7 @@ final registerReducer = combineReducers<Register>([
   TypedReducer<Register, EmailErrorAction>(_checkEmail),
   TypedReducer<Register, PositionErrorAction>(_checkPosition),
   TypedReducer<Register, CompanyErrorAction>(_checkCompany),
+  TypedReducer<Register, IsRegisterAction>(_checkIsRegister),
 ]);
 
 
@@ -77,5 +78,11 @@ Register _checkPosition(Register register, action) {
 // company_id 输入格式错误
 Register _checkCompany(Register register, action) {
   register.companyError = action.companyError;
+  return register;
+}
+
+// company_id 输入格式错误
+Register _checkIsRegister(Register register, action) {
+  register.isRegister = action.isRegister;
   return register;
 }

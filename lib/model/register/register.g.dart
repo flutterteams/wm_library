@@ -17,7 +17,9 @@ Register _$RegisterFromJson(Map<String, dynamic> json) {
       json['phoneError'] as bool,
       json['emailError'] as bool,
       json['positionError'] as bool,
-      json['companyError'] as bool);
+      json['companyError'] as bool,
+      json['isRegister'] as bool);
+
 }
 
 Map<String, dynamic> _$RegisterToJson(Register instance) => <String, dynamic>{
@@ -30,5 +32,6 @@ Map<String, dynamic> _$RegisterToJson(Register instance) => <String, dynamic>{
       'phoneError': instance.phoneError,
       'emailError': instance.emailError,
       'positionError': instance.positionError,
-      'companyError': instance.companyError
+      'companyError': instance.companyError,
+      'isRegister': instance.isRegister
     };
