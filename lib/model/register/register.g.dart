@@ -19,7 +19,6 @@ Register _$RegisterFromJson(Map<String, dynamic> json) {
       json['positionError'] as bool,
       json['companyError'] as bool,
       json['isRegister'] as bool);
-
 }
 
 Map<String, dynamic> _$RegisterToJson(Register instance) => <String, dynamic>{

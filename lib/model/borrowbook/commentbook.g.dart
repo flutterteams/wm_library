@@ -7,9 +7,7 @@ part of 'commentbook.dart';
 // **************************************************************************
 
 CommentBook _$CommentBookFromJson(Map<String, dynamic> json) {
-  return CommentBook(json['content'] as String,
-      json['commentError'] as bool
-  );
+  return CommentBook(json['content'] as String, json['commentError'] as bool);
 }
 
 Map<String, dynamic> _$CommentBookToJson(CommentBook instance) =>

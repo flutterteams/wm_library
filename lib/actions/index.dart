@@ -19,15 +19,15 @@ class IndexActionCreator {
   }
 
   /// 获取list
-  static getList(store) {
-    if (store.state.index.id == 0) {
+  static getList(store, id) {
+    if (id == 0) {
       Dao.get('/api/user/getRecommendList', null, (data) {
         store.dispatch(new ChangeListAction(data['data']));
       }, (data) {
         print(data);
       });
     } else {
-      Dao.get('/api/bookList', {'type_id':store.state.index.id == 0 ? '1' : store.state.index.id.toString(), 'bookStatus': '0'}, (data) {
+      Dao.get('/api/bookList', {'type_id':store.state.index.typeList[id]['id'].toString(), 'bookStatus': '0'}, (data) {
         store.dispatch(new ChangeListAction(data['data']));
       }, (data) {
         print(data);
@@ -38,7 +38,9 @@ class IndexActionCreator {
 
   /// 切换分类
   static changeId(store, id) {
+
     store.dispatch(new ChangeIdAction(id));
+    getList(store, id);
   }
 }
 

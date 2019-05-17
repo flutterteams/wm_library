@@ -420,7 +420,7 @@ class _OrderMainState extends State<OrderMain> {
                                   );
                                 });
                           } else {
-                            print('跳转到我的书籍');
+                            Navigator.of(context).pushNamed('/mybooks');
                           }
                         });
                     Navigator.of(context).pop();

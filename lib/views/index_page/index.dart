@@ -12,6 +12,8 @@ import 'package:wm_library/redux/app_reducer.dart';
 import 'package:wm_library/views/index_page/type.dart';
 import 'package:wm_library/views/detail_page/detail.dart';
 
+bool isChange = false;
+
 class Index extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class _IndexHomeState extends State<IndexHome> {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     IndexActionCreator.getTypeList(_getStore());
-    IndexActionCreator.getList(_getStore());
+    IndexActionCreator.getList(_getStore(), _getStore().state.index.id);
   }
 
   Store<AppState> _getStore() {
@@ -49,6 +51,7 @@ class _IndexHomeState extends State<IndexHome> {
   @override
   Widget build(BuildContext context) {
     return new StoreBuilder<AppState>(builder: (context, store) {
+      isChange = true;
       return new Stack(
         alignment: Alignment.topLeft,
         children: <Widget>[
@@ -257,8 +260,6 @@ class _IndexMainState extends State<IndexMain> with TickerProviderStateMixin {
   double startY = 0;
   double moveX = 0;
   double moveY = 0;
-  double endX = 0;
-  double endY = 0;
 
   double move = 0; // 每一次的移动距离的叠加
   double index = 0; // 当前展示的图片序号
@@ -379,6 +380,16 @@ class _IndexMainState extends State<IndexMain> with TickerProviderStateMixin {
     arr = widget.store.state.index.list;
     List typeList = widget.store.state.index.typeList;
     String name = '';
+
+    if (isChange) {
+      setState(() {
+        move = 0;
+      });
+      index = 0;
+      isPrevMove = false;
+      preMove = 0;
+      isChange = false;
+    }
 
     // 计算上面推荐子标题显示内容
     for (int i = 0; i < typeList.length; i++) {
@@ -572,7 +583,7 @@ class MoveCard extends StatelessWidget {
 
       tiles.add(new Positioned(
           child: new GestureDetector(
-            onTap: (){
+            onTap: () {
               Navigator.push(
                 context,
                 new MaterialPageRoute(
@@ -587,10 +598,10 @@ class MoveCard extends StatelessWidget {
                 opacity: _opacity,
                 child: new Container(
                     decoration: BoxDecoration(
-                      borderRadius:
+                  borderRadius:
                       BorderRadius.all(Radius.circular(screen.setWidth(12))),
-                      color: Colors.white,
-                    )),
+                  color: Colors.white,
+                )),
               ),
               transform: Matrix4(
                   _scale,
@@ -611,7 +622,7 @@ class MoveCard extends StatelessWidget {
                   1),
               decoration: BoxDecoration(
                   borderRadius:
-                  BorderRadius.all(Radius.circular(screen.setWidth(12))),
+                      BorderRadius.all(Radius.circular(screen.setWidth(12))),
                   image: new DecorationImage(
                     image: NetworkImage(arr[i]['url'] == null
                         ? 'https://gd1.alicdn.com/imgextra/i1/2418395878/TB2G1jFFHGYBuNjy0FoXXciBFXa_!!2418395878.jpg'
@@ -619,13 +630,13 @@ class MoveCard extends StatelessWidget {
                     fit: BoxFit.fill,
                   ),
                   boxShadow: i < index + 3 ||
-                      (i == index + 3 && move + defaultMove * index < 0)
+                          (i == index + 3 && move + defaultMove * index < 0)
                       ? [
-                    BoxShadow(
-                        color: const Color.fromRGBO(0, 0, 0, 0.2),
-                        blurRadius: screen.setWidth(8),
-                        spreadRadius: screen.setWidth(2))
-                  ]
+                          BoxShadow(
+                              color: const Color.fromRGBO(0, 0, 0, 0.2),
+                              blurRadius: screen.setWidth(8),
+                              spreadRadius: screen.setWidth(2))
+                        ]
                       : []),
             ),
           ),
@@ -725,7 +736,11 @@ class IndexTo extends StatelessWidget {
           ),
           onTap: () {
             IndexActionCreator.changeId(store, store.state.index.id - 1);
-            Navigator.of(context).pop();
+//            Navigator.of(context).pop();
+//            Navigator.push(
+//                context,
+//                new PageRouteBuilder(
+//                    pageBuilder: (context, _, __) => new Index()));
           },
         ),
         new GestureDetector(
@@ -748,7 +763,11 @@ class IndexTo extends StatelessWidget {
           ),
           onTap: () {
             IndexActionCreator.changeId(store, store.state.index.id + 1);
-            Navigator.of(context).pushNamed('/index');
+//            Navigator.of(context).pushNamed('/index');
+//            Navigator.push(
+//                context,
+//                new PageRouteBuilder(
+//                    pageBuilder: (context, _, __) => new Index()));
           },
         )
       ],
