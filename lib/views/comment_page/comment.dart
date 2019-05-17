@@ -338,7 +338,9 @@ class _CommentDetailState extends State<CommentDetail> {
                   ),
                 ),
                 new Container(
-                  color: Colors.green,
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(117, 188, 255, 0.15)
+                  ),
                   width: screen.setWidth(230),
                   padding: EdgeInsets.fromLTRB(
                       screen.setWidth(30),

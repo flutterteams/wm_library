@@ -151,19 +151,24 @@ class _IndexTopState extends State<IndexTop> with TickerProviderStateMixin {
               );
             },
           ),
-          new Container(
-            width: screen.setWidth(32),
-            height: screen.setWidth(32),
-            alignment: Alignment.center,
-            decoration: new BoxDecoration(
-                color: const Color(0xffeeeeee),
-                border: new Border.all(color: Color.fromRGBO(0, 0, 0, 0.07)),
-                borderRadius:
-                    new BorderRadius.all(Radius.circular(screen.setWidth(32)))),
-            child: new Icon(
-              Icons.person,
-              size: screen.setWidth(22),
-              color: const Color(0xffd2d2d2),
+          new GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed('/personal');
+            },
+            child: new Container(
+              width: screen.setWidth(32),
+              height: screen.setWidth(32),
+              alignment: Alignment.center,
+              decoration: new BoxDecoration(
+                  color: const Color(0xffeeeeee),
+                  border: new Border.all(color: Color.fromRGBO(0, 0, 0, 0.07)),
+                  borderRadius: new BorderRadius.all(
+                      Radius.circular(screen.setWidth(32)))),
+              child: new Icon(
+                Icons.person,
+                size: screen.setWidth(22),
+                color: const Color(0xffd2d2d2),
+              ),
             ),
           )
         ],
@@ -736,11 +741,6 @@ class IndexTo extends StatelessWidget {
           ),
           onTap: () {
             IndexActionCreator.changeId(store, store.state.index.id - 1);
-//            Navigator.of(context).pop();
-//            Navigator.push(
-//                context,
-//                new PageRouteBuilder(
-//                    pageBuilder: (context, _, __) => new Index()));
           },
         ),
         new GestureDetector(
@@ -763,11 +763,6 @@ class IndexTo extends StatelessWidget {
           ),
           onTap: () {
             IndexActionCreator.changeId(store, store.state.index.id + 1);
-//            Navigator.of(context).pushNamed('/index');
-//            Navigator.push(
-//                context,
-//                new PageRouteBuilder(
-//                    pageBuilder: (context, _, __) => new Index()));
           },
         )
       ],

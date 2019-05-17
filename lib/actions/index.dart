@@ -22,6 +22,7 @@ class IndexActionCreator {
   static getList(store, id) {
     if (id == 0) {
       Dao.get('/api/user/getRecommendList', null, (data) {
+        print(data['data']);
         store.dispatch(new ChangeListAction(data['data']));
       }, (data) {
         print(data);

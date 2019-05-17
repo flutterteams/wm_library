@@ -71,7 +71,7 @@ class _LoginDetailSuccessState extends State<LoginDetailSuccess>
           ..addStatusListener((state) {
             if (state == AnimationStatus.completed) {
               Timer _timer = new Timer(new Duration(milliseconds: 500), () {
-                Navigator.of(context).pushReplacementNamed('/index');
+                Navigator.of(context).pushNamedAndRemoveUntil('/index', (route) => route == null);
               });
             }
           });
