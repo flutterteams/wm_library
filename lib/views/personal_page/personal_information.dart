@@ -209,8 +209,8 @@ class _PersonalInformationHomeState extends State<PersonalInformationHome> with 
                               )
                               )
                           )),
-                          keyboardType: TextInputType.emailAddress,
-                          textAlign: TextAlign.start,
+                          keyboardType: TextInputType.text,
+                          //textAlign: TextAlign.start,
                           maxLength: 16,
                           style: new TextStyle(color: Colors.white, fontSize: screen.setSp(16)),
                           focusNode: _focusNode,

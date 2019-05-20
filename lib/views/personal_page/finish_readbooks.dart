@@ -119,8 +119,6 @@ class _FinishReadBooksState extends State<FinishReadBooks>  {
                     _getStore().state.finishBook.data[position].author,
                     style: TextStyle(color: Color(0xFF303030),fontSize: screen.setSp(13)),),
                 ),
-
-
                 new Row(
                   //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -134,11 +132,6 @@ class _FinishReadBooksState extends State<FinishReadBooks>  {
                             .format(_getStore().state.finishBook.data[position].startTime),
                         style: TextStyle(color: Color(0xFFBBBBBB),fontSize: screen.setSp(12)),),
                     ),
-//                    new Container(
-//                      margin: new EdgeInsets.only(left: screen.setWidth(15),top: screen.setWidth(14),bottom: screen.setWidth(17)),
-//                      //alignment: Alignment.topLeft,
-//                      child: new Text('取消预约',style: TextStyle(color: Color(0xFF50BBD8),fontSize: screen.setSp(12),),),
-//                    ),
                   ],
                 ),
               ],

@@ -436,7 +436,6 @@ class _ReadBooksState extends State<ReadBooks> {
             Navigator.pop(context);
             tag = true;
             toCommit(borrowId);
-            //Navigator.pop(con);
           },
         ),
       ],
@@ -462,7 +461,6 @@ class _ReadBooksState extends State<ReadBooks> {
     //日期可通过isAfter或者isBefore判断日期的先后,通过difference()方法比较两个日期之间的差值
     if (now.isBefore(time)) {
       Duration duration = time.difference(now);
-      //print("剩余天数" + duration.inDays.toString());
       days = duration.inDays;
     } else {
       return days = 0;
