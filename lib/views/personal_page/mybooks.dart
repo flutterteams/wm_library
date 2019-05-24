@@ -82,7 +82,7 @@ class MyBooksHome extends StatelessWidget {
   ///顶部返回部分
   _topBackWidget(BuildContext context) {
     return new Container(
-      margin: EdgeInsets.only(top: screen.setWidth(13)),
+      //margin: EdgeInsets.only(top: screen.setWidth(13)),
       padding: new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(7)),
       color: Colors.white,
       child: new Row(

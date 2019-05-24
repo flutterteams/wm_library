@@ -67,126 +67,128 @@ class _PersonalHomeState extends State<PersonalHome>
             ),
             new Container(
               margin: new EdgeInsets.fromLTRB(0, screen.setWidth(108), 0, 0),
-              child: new Column(
-                children: <Widget>[
-                  new Container(
-                    alignment: Alignment.center,
-                    margin:
-                        new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(20)),
-                    child: new GestureDetector(
-                      onTap: () {
-                        print("点击头像");
-                      },
-                      child: new ClipOval(
-                        child: new FadeInImage.assetNetwork(
-                          placeholder: "images/timg.jpg", //预览图
-                          fit: BoxFit.fitWidth,
-                          image:
-                              "https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3463668003,3398677327&fm=58",
-                          width: 80.0,
-                          height: 80.0,
+              child: new SingleChildScrollView(
+                child: new Column(
+                  children: <Widget>[
+                    new Container(
+                      alignment: Alignment.center,
+                      margin:
+                      new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(20)),
+                      child: new GestureDetector(
+                        onTap: () {
+                          print("点击头像");
+                        },
+                        child: new ClipOval(
+                          child: new FadeInImage.assetNetwork(
+                            placeholder: "images/timg.jpg", //预览图
+                            fit: BoxFit.fitWidth,
+                            image:
+                            "https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=3463668003,3398677327&fm=58",
+                            width: 80.0,
+                            height: 80.0,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  new Container(
-                    margin:
-                        new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(15)),
-                    child: new Text(
-                      _getStore().state.userInfo == null
-                          ? "暂无"
-                          : _getStore().state.userInfo.data == null
-                              ? "暂无"
-                              : _getStore().state.userInfo.data.name == null
-                                  ? "暂无"
-                                  : store.state.userInfo.data.name,
-                      style: TextStyle(
-                          color: Colors.white, fontSize: screen.setSp(24)),
-                    ),
-                  ),
-                  new Container(
-                    margin:
-                        new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(47)),
-                    child: new Opacity(
-                      opacity: 0.8,
+                    new Container(
+                      margin:
+                      new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(15)),
                       child: new Text(
                         _getStore().state.userInfo == null
-                            ? "未填写"
+                            ? "暂无"
                             : _getStore().state.userInfo.data == null
-                                ? "未填写"
-                                : _getStore().state.userInfo.data.signature ==
-                                        null
-                                    ? "未填写"
-                                    : store.state.userInfo.data.signature,
+                            ? "暂无"
+                            : _getStore().state.userInfo.data.name == null
+                            ? "暂无"
+                            : store.state.userInfo.data.name,
                         style: TextStyle(
-                            color: Colors.white, fontSize: screen.setSp(14)),
+                            color: Colors.white, fontSize: screen.setSp(24)),
                       ),
                     ),
-                  ),
-                  new Container(
-                    margin:
-                        new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(32)),
-                    child: new GestureDetector(
-                      onTap: () {
-                        print("个人资料");
-                        Navigator.of(context).pushNamed('/PersonalInformation');
-                      },
+                    new Container(
+                      margin:
+                      new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(47)),
                       child: new Opacity(
                         opacity: 0.8,
                         child: new Text(
-                          "个人资料",
+                          _getStore().state.userInfo == null
+                              ? "未填写"
+                              : _getStore().state.userInfo.data == null
+                              ? "未填写"
+                              : _getStore().state.userInfo.data.signature ==
+                              null
+                              ? "未填写"
+                              : store.state.userInfo.data.signature,
                           style: TextStyle(
-                              color: Colors.white, fontSize: screen.setSp(20)),
+                              color: Colors.white, fontSize: screen.setSp(14)),
                         ),
                       ),
                     ),
-                  ),
-                  new Container(
-                    margin:
-                        new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(170)),
-                    child: new GestureDetector(
-                      onTap: () {
-                        print("我的书籍");
-                        Navigator.of(context).pushNamed('/mybooks');
-                      },
-                      child: new Opacity(
-                        opacity: 0.8,
-                        child: new Text(
-                          "我的书籍",
-                          style: TextStyle(
-                              color: Colors.white, fontSize: screen.setSp(20)),
+                    new Container(
+                      margin:
+                      new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(32)),
+                      child: new GestureDetector(
+                        onTap: () {
+                          print("个人资料");
+                          Navigator.of(context).pushNamed('/PersonalInformation');
+                        },
+                        child: new Opacity(
+                          opacity: 0.8,
+                          child: new Text(
+                            "个人资料",
+                            style: TextStyle(
+                                color: Colors.white, fontSize: screen.setSp(20)),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  new Opacity(
-                    opacity: 0.35,
-                    child: new Container(
-                      margin: new EdgeInsets.fromLTRB(screen.setWidth(20), 0,
-                          screen.setWidth(20), screen.setWidth(20)),
-                      height: screen.setWidth(1),
-                      color: Color(0xFFEEEEEE),
-                    ),
-                  ),
-                  new Container(
-                    margin:
-                        new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(170)),
-                    child: new GestureDetector(
-                      onTap: () {
-                        initShowBottowSheet();
-                      },
-                      child: new Opacity(
-                        opacity: 0.8,
-                        child: new Text(
-                          "退出登录",
-                          style: TextStyle(
-                              color: Colors.white, fontSize: screen.setSp(18)),
+                    new Container(
+                      margin:
+                      new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(170)),
+                      child: new GestureDetector(
+                        onTap: () {
+                          print("我的书籍");
+                          Navigator.of(context).pushNamed('/mybooks');
+                        },
+                        child: new Opacity(
+                          opacity: 0.8,
+                          child: new Text(
+                            "我的书籍",
+                            style: TextStyle(
+                                color: Colors.white, fontSize: screen.setSp(20)),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
+                    new Opacity(
+                      opacity: 0.35,
+                      child: new Container(
+                        margin: new EdgeInsets.fromLTRB(screen.setWidth(20), 0,
+                            screen.setWidth(20), screen.setWidth(20)),
+                        height: screen.setWidth(1),
+                        color: Color(0xFFEEEEEE),
+                      ),
+                    ),
+                    new Container(
+                      margin:
+                      new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(170)),
+                      child: new GestureDetector(
+                        onTap: () {
+                          initShowBottowSheet();
+                        },
+                        child: new Opacity(
+                          opacity: 0.8,
+                          child: new Text(
+                            "退出登录",
+                            style: TextStyle(
+                                color: Colors.white, fontSize: screen.setSp(18)),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ),
           ],
         );

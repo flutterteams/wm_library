@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'dart:math' as math;
 import 'dart:async';
 
+import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -30,10 +32,45 @@ class IndexHome extends StatefulWidget {
 }
 
 class _IndexHomeState extends State<IndexHome> {
+  bool ios = false;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    cheakPlatform();
+
+  }
+  void cheakPlatform() async{
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    if(Platform.isIOS){
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+//      print('Running isIOS ${iosInfo.model}');
+//      print('Running isIOS ${iosInfo.name}');
+//      print('Running isIOS ${iosInfo.identifierForVendor}');
+//      print('Running isIOS ${iosInfo.isPhysicalDevice}');
+//      print('Running isIOS ${iosInfo.systemName}');
+//      print('Running isIOS ${iosInfo.utsname}');
+//      print('Running isIOS ${iosInfo.localizedModel}');
+//      print('Running isIOS ${iosInfo.systemVersion}');
+
+      if(iosInfo.name.contains("iPhone Xʀ")){
+        ios = false;
+      }else{
+        ios = false;
+      }
+
+    }else if(Platform.isAndroid){
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+//      print('Running androidInfo ${androidInfo.model}');
+//      print('Running androidInfo ${androidInfo.androidId}');
+//      print('Running androidInfo ${androidInfo.id}');
+//      print('Running androidInfo ${androidInfo.isPhysicalDevice}');
+//      print('Running androidInfo ${androidInfo.brand}');
+//      print('Running androidInfo ${androidInfo.device}');
+//      print('Running androidInfo ${androidInfo.board}');
+//      print('Running androidInfo ${androidInfo.version}');
+    }
   }
 
   @override
@@ -55,20 +92,22 @@ class _IndexHomeState extends State<IndexHome> {
       return new Stack(
         alignment: Alignment.topLeft,
         children: <Widget>[
-          new Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              new Container(
-                child: new Column(
-                  children: <Widget>[
-                    new IndexTop(store),
-                    new IndexMain(store),
-                  ],
+          new SingleChildScrollView(
+            child: new Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                new Container(
+                  child: new Column(
+                    children: <Widget>[
+                      new IndexTop(store),
+                      new IndexMain(store),
+                    ],
+                  ),
                 ),
-              ),
-              new IndexTo(store)
-            ],
-          ),
+                new IndexTo(store,ios)
+              ],
+            ),
+          )
         ],
       );
     });
@@ -105,7 +144,7 @@ class _IndexTopState extends State<IndexTop> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return new Container(
       margin: EdgeInsets.fromLTRB(
-          screen.setWidth(13), screen.setWidth(34), screen.setWidth(13), 0),
+          screen.setWidth(13), screen.setWidth(33), screen.setWidth(13), 0),
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -200,7 +239,7 @@ class _IndexTitleState extends State<IndexTitle> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 new Container(
-                  height: screen.setWidth(30),
+                  //height: screen.setHeight(30),
                   margin: new EdgeInsets.fromLTRB(
                       0, screen.setWidth(15), 0, screen.setWidth(14)),
                   child: new Text(
@@ -216,7 +255,7 @@ class _IndexTitleState extends State<IndexTitle> {
                   ),
                 ),
                 new Container(
-                  height: screen.setWidth(24),
+                  //height: screen.setHeight(24),
                   child: new Text(widget.name,
                       style: new TextStyle(
                         color: const Color(0xff424242),
@@ -230,7 +269,7 @@ class _IndexTitleState extends State<IndexTitle> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 new Container(
-                  height: screen.setWidth(30),
+                  //height: screen.setHeight(30),
                   margin: new EdgeInsets.fromLTRB(
                       0, screen.setWidth(27), 0, screen.setWidth(12)),
                   child: new Text(
@@ -705,7 +744,7 @@ class BookTitle extends StatelessWidget {
         height: screen.setWidth(50),
         alignment: Alignment.topLeft,
         margin:
-            EdgeInsets.fromLTRB(screen.setWidth(27), screen.setWidth(23), 0, 0),
+            EdgeInsets.fromLTRB(screen.setWidth(27), screen.setWidth(23), 0, screen.setWidth(16)),
         child: new Stack(
           overflow: Overflow.clip,
           alignment: Alignment.topLeft,
@@ -716,8 +755,9 @@ class BookTitle extends StatelessWidget {
 
 class IndexTo extends StatelessWidget {
   Store store;
+  bool ios;
 
-  IndexTo(this.store);
+  IndexTo(this.store,this.ios);
 
   @override
   Widget build(BuildContext context) {
@@ -727,7 +767,7 @@ class IndexTo extends StatelessWidget {
         new GestureDetector(
           child: new Container(
             margin: EdgeInsets.fromLTRB(
-                screen.setWidth(15), 0, 0, screen.setWidth(14)),
+                screen.setWidth(15), 0 , 0, screen.setWidth(14)),
             child: new Text(
               store.state.index.id == 0
                   ? ''
@@ -746,15 +786,15 @@ class IndexTo extends StatelessWidget {
         new GestureDetector(
           child: new Container(
             margin: EdgeInsets.fromLTRB(
-                0, 0, screen.setWidth(15), screen.setWidth(14)),
+                0,  0, screen.setWidth(15), screen.setWidth(14)),
             child: new Text(
               store.state.index.typeList.length == 0
                   ? ''
                   : store.state.index.id ==
                           store.state.index.typeList.length - 1
                       ? ''
-                      : store.state.index.typeList[store.state.index.id + 1]
-                          ['name'],
+                      :
+              store.state.index.typeList[store.state.index.id + 1]['name'],
               style: new TextStyle(
                   fontSize: screen.setSp(20),
                   color: const Color(0xff50bbd8),
@@ -768,4 +808,5 @@ class IndexTo extends StatelessWidget {
       ],
     );
   }
+
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:device_info/device_info.dart';
 import 'package:wm_library/redux/store.dart';
 import 'package:wm_library/routers/router.dart';
 
@@ -57,10 +57,8 @@ class _MyHomePageState extends State<MyHomePage> {
 //    print('设备宽度:${ScreenUtil.screenWidth}'); //Device width
 //    print('设备高度:${ScreenUtil.screenHeight}'); //Device height
 //    print('设备的像素密度:${ScreenUtil.pixelRatio}'); //Device pixel density
-//    print(
-//        '底部安全区距离:${ScreenUtil.bottomBarHeight}'); //Bottom safe zone distance，suitable for buttons with full screen
-//    print(
-//        '状态栏高度:${ScreenUtil.statusBarHeight}px'); //Status bar height , Notch will be higher Unit px
+//    print('底部安全区距离:${ScreenUtil.bottomBarHeight}'); //Bottom safe zone distance，suitable for buttons with full screen
+//    print('状态栏高度:${ScreenUtil.statusBarHeight}px'); //Status bar height , Notch will be higher Unit px
 //
 //    print('实际宽度的dp与设计稿px的比例:${ScreenUtil.getInstance().scaleWidth}');
 //    print('实际高度的dp与设计稿px的比例:${ScreenUtil.getInstance().scaleHeight}');

@@ -224,6 +224,7 @@ class _LoginDetailInputState extends State<LoginDetailInput>
                               counterText: '',
                               enabledBorder: InputBorder.none),
                           focusNode: _focusNode2,
+                          textInputAction: TextInputAction.done,
                           onChanged: (str) =>
                               LoginActionCreator.changePw(store, str),
                         ),

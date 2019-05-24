@@ -109,317 +109,327 @@ class _PersonalInformationHomeState extends State<PersonalInformationHome> with 
         children: <Widget>[
           new Container(
             height: screen.setWidth(33),
-            alignment: Alignment.topLeft,
-            margin: new EdgeInsets.fromLTRB(
-                0, screen.setWidth(20), 0, 0),
             child: new IconButton(
                 highlightColor: Colors.transparent,
                 disabledColor: Colors.transparent,
                 padding: new EdgeInsets.all(screen.setWidth(13)),
                 alignment: Alignment.topLeft,
-                icon: new Icon(Icons.arrow_back_ios),
+                icon: new Icon(Icons.close),
                 color: const Color(0xffbbbbbb),
                 iconSize: screen.setWidth(23),
                 onPressed: () {
                   Navigator.pop(context);
                 }),
+            alignment: Alignment.topLeft,
+            margin: new EdgeInsets.fromLTRB(0, screen.setWidth(20), 0, 0),
           ),
 
           new Container(
-            margin: new EdgeInsets.fromLTRB(screen.setWidth(27), screen.setWidth(107), 0, 0),
-            child: new Text(
-              "个人资料",
-              style: TextStyle(color: Colors.white, fontSize: screen.setSp(30)),
-            ),
-          ),
-
-          new Container(
-            margin: new EdgeInsets.fromLTRB(
-                0, screen.setWidth(177), 0, 0),
-            child: new Column(
-              children: <Widget>[
-                new Row(
+            margin: new EdgeInsets.fromLTRB(0, screen.setWidth(107), 0, 0),
+            child: new SingleChildScrollView(
+              child: new Container(
+                margin: new EdgeInsets.fromLTRB(
+                    0, 0, 0, 0),
+                child: new Column(
                   children: <Widget>[
                     new Container(
-                      margin: new EdgeInsets.fromLTRB(screen.setWidth(27), 0, screen.setWidth(89), 0),
-                      child: new Opacity(
-                        opacity: 0.45,
-                        child: new Text(
-                          "姓名",
-                          style: TextStyle(color: Colors.white, fontSize: screen.setSp(16)),
-                        ),
+                      alignment: Alignment.centerLeft,
+                      margin: new EdgeInsets.fromLTRB(screen.setWidth(27), 0, 0, 0),
+                      child: new Text(
+                        "个人资料",
+                        style: TextStyle(color: Colors.white, fontSize: screen.setSp(30)),
                       ),
                     ),
-                    new Expanded(
-                      child: new Opacity(
-                          opacity: 0.6,
-                        child: new TextField(
-                          //controller: _userNameController,
-                          controller: TextEditingController.fromValue(TextEditingValue(
-                              text: _getStore().state.userInfo == null ? "" : _getStore().state.userInfo.data == null ? "" : _getStore().state.userInfo.data.name == null ? "" : _getStore().state.userInfo.data.name,
+
+                    new Container(
+                      margin: new EdgeInsets.fromLTRB(0, screen.setWidth(40), 0, 0),
+                      child:  new Row(
+                        children: <Widget>[
+                          new Container(
+                            margin: new EdgeInsets.fromLTRB(screen.setWidth(27), screen.setWidth(0), screen.setWidth(89), 0),
+                            child: new Opacity(
+                              opacity: 0.45,
+                              child: new Text(
+                                "姓名",
+                                style: TextStyle(color: Colors.white, fontSize: screen.setSp(16)),
+                              ),
+                            ),
+                          ),
+                          new Expanded(
+                            child: new Opacity(
+                              opacity: 0.6,
+                              child: new TextField(
+                                //controller: _userNameController,
+                                controller: TextEditingController.fromValue(TextEditingValue(
+                                  text: _getStore().state.userInfo == null ? "" : _getStore().state.userInfo.data == null ? "" : _getStore().state.userInfo.data.name == null ? "" : _getStore().state.userInfo.data.name,
 //                              selection: TextSelection.fromPosition(TextPosition(
 //                                  affinity: TextAffinity.downstream,
 //                                  offset: companyName.length))
-                          )),
-                          keyboardType: TextInputType.text,
-                          textAlign: TextAlign.start,
-                          enabled: false,
-                          style: new TextStyle(color: Colors.white, fontSize: screen.setSp(16)),
-                          decoration: new InputDecoration(
-                              contentPadding: EdgeInsets.all(0),
-                              border: InputBorder.none,
-                              hintText: '姓名',
-                              hintStyle: new TextStyle(
-                                  color: const Color(0xFFFFFFFF),
-                                  fontSize: screen.setSp(16))),
-                          onChanged: (valueEmail) {
-                            //RegisterActionCreator.changeEmail(store, valueEmail);
-                            //cheakInput();
-                          },
-                        ),
+                                )),
+                                keyboardType: TextInputType.text,
+                                textAlign: TextAlign.start,
+                                enabled: false,
+                                style: new TextStyle(color: Colors.white, fontSize: screen.setSp(16)),
+                                decoration: new InputDecoration(
+                                    contentPadding: EdgeInsets.all(0),
+                                    border: InputBorder.none,
+                                    hintText: '姓名',
+                                    hintStyle: new TextStyle(
+                                        color: const Color(0xFFFFFFFF),
+                                        fontSize: screen.setSp(16))),
+                                onChanged: (valueEmail) {
+                                  //RegisterActionCreator.changeEmail(store, valueEmail);
+                                  //cheakInput();
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    new Container(
+                      margin: new EdgeInsets.fromLTRB(0, screen.setWidth(30), 0, 0),
+                      child: new Row(
+                        children: <Widget>[
+                          new Container(
+                            margin: new EdgeInsets.fromLTRB(screen.setWidth(27), 0, screen.setWidth(89), 0),
+                            child: new Opacity(
+                              opacity: 0.45,
+                              child: new Text(
+                                "签名",
+                                style: TextStyle(color: Colors.white, fontSize: screen.setSp(15)),
+                              ),
+                            ),
+                          ),
+                          new Expanded(
+                            child: new TextField(
+                              //controller: _signController,
+                              controller: TextEditingController.fromValue(TextEditingValue(
+                                  text: _getStore().state.userInfo == null ? "" : _getStore().state.userInfo.data == null ? "" : _getStore().state.userInfo.data.signature == null ? "" : _getStore().state.userInfo.data.signature,
+                                  selection: TextSelection.fromPosition(TextPosition(
+                                      affinity: TextAffinity.downstream,
+                                      offset: _getStore().state.userInfo == null ? 0 :
+                                      _getStore().state.userInfo.data == null ? 0 :
+                                      _getStore().state.userInfo.data.signature == null ? 0 :
+                                      _getStore().state.userInfo.data.signature.length
+                                  )
+                                  )
+                              )),
+                              keyboardType: TextInputType.text,
+                              //textAlign: TextAlign.start,
+                              maxLength: 16,
+                              style: new TextStyle(color: Colors.white, fontSize: screen.setSp(16)),
+                              focusNode: _focusNode,
+                              decoration: new InputDecoration(
+                                  contentPadding: EdgeInsets.all(0),
+                                  border: InputBorder.none,
+                                  counterText: "",
+                                  hintText: '未填写',
+                                  hintStyle: new TextStyle(
+                                      color: const Color(0xFFFFFFFF),
+                                      fontSize: screen.setSp(16))),
+                              onChanged: (valueSign) {
+                                PersonalInfoActionCreator.changeSign(store, valueSign);
+                                cheakInput();
+                              },
+                            ),
+                          ),
+
+                        ],
+                      ),
+                    ),
+
+                    new Container(
+                      margin: new EdgeInsets.fromLTRB(0, screen.setWidth(30), 0, 0),
+                      child: new Row(
+                        children: <Widget>[
+                          new Container(
+                            margin: new EdgeInsets.fromLTRB(screen.setWidth(27), 0, screen.setWidth(73), 0),
+                            child: new Opacity(
+                              opacity: 0.45,
+                              child: new Text(
+                                "手机号",
+                                style: TextStyle(color: Colors.white, fontSize: screen.setSp(15)),
+                              ),
+                            ),
+                          ),
+                          new Expanded(
+                            child: new Opacity(
+                              opacity: 0.6,
+                              child: new TextField(
+                                //controller: _phoneController,
+                                controller: TextEditingController.fromValue(TextEditingValue(
+                                  text: _getStore().state.userInfo == null ? "" : _getStore().state.userInfo.data == null ? "" :_getStore().state.userInfo.data.phone == null ? "" : _getStore().state.userInfo.data.phone,
+//                                selection: TextSelection.fromPosition(TextPosition(
+//                                    affinity: TextAffinity.downstream,
+//                                    offset: _getStore().state.userInfo.data.phone.length))
+                                )),
+                                keyboardType: TextInputType.phone,
+                                textAlign: TextAlign.start,
+                                enabled: false,
+                                style: new TextStyle(color: Colors.white, fontSize: screen.setSp(16)),
+                                decoration: new InputDecoration(
+                                    contentPadding: EdgeInsets.all(0),
+                                    border: InputBorder.none,
+                                    hintText: '手机号',
+                                    hintStyle: new TextStyle(
+                                        color: const Color(0xFFFFFFFF),
+                                        fontSize: screen.setSp(16))),
+                                onChanged: (valueEmail) {
+                                  //RegisterActionCreator.changeEmail(store, valueEmail);
+                                  //cheakInput();
+                                },
+                              ),
+                            ),
+                          ),
+
+                        ],
+                      ),
+                    ),
+
+
+                    new Container(
+                      margin: new EdgeInsets.fromLTRB(0, screen.setWidth(30), 0, 0),
+                      child: new Row(
+                        children: <Widget>[
+                          new Container(
+                            margin: new EdgeInsets.fromLTRB(screen.setWidth(27), 0, screen.setWidth(89), 0),
+                            child: new Opacity(
+                              opacity: 0.45,
+                              child: new Text(
+                                "邮箱",
+                                style: TextStyle(color: Colors.white, fontSize: screen.setSp(15)),
+                              ),
+                            ),
+                          ),
+                          new Expanded(
+                            child: new Opacity(
+                              opacity: 0.6,
+                              child: new TextField(
+                                //controller: _emailController,
+                                controller: TextEditingController.fromValue(TextEditingValue(
+                                  text: _getStore().state.userInfo == null ? "" : _getStore().state.userInfo.data == null ? "" :_getStore().state.userInfo.data.email == null ? "" : _getStore().state.userInfo.data.email,
+//                                selection: TextSelection.fromPosition(TextPosition(
+//                                    affinity: TextAffinity.downstream,
+//                                    offset: _getStore().state.userInfo.data.email.length))
+                                )),
+                                keyboardType: TextInputType.emailAddress,
+                                textAlign: TextAlign.start,
+                                enabled: false,
+                                style: new TextStyle(color: Colors.white, fontSize: screen.setSp(16)),
+                                decoration: new InputDecoration(
+                                    contentPadding: EdgeInsets.all(0),
+                                    border: InputBorder.none,
+                                    enabledBorder: InputBorder.none,
+                                    hintText: '邮箱',
+                                    hintStyle: new TextStyle(
+                                        color: const Color(0xFFFFFFFF),
+                                        fontSize: screen.setSp(16))),
+                                onChanged: (valueEmail) {
+                                  //RegisterActionCreator.changeEmail(store, valueEmail);
+                                  //cheakInput();
+                                },
+                              ),
+                            ),
+                          ),
+
+                        ],
+                      ),
+                    ),
+
+                    new Container(
+                      margin: new EdgeInsets.fromLTRB(0, screen.setWidth(30), 0, 0),
+                      child: new Row(
+                        children: <Widget>[
+                          new Container(
+                            margin: new EdgeInsets.fromLTRB(screen.setWidth(27), 0, screen.setWidth(89), 0),
+                            child: new Opacity(
+                              opacity: 0.45,
+                              child: new Text(
+                                "职务",
+                                style: TextStyle(color: Colors.white, fontSize: screen.setSp(15)),
+                              ),
+                            ),
+                          ),
+                          new Expanded(
+                            child: new TextField(
+                              //controller: _positionController,
+                              controller: TextEditingController.fromValue(TextEditingValue(
+                                  text: _getStore().state.userInfo == null ? "" : _getStore().state.userInfo.data == null ? "" :_getStore().state.userInfo.data.position == null ? "" : _getStore().state.userInfo.data.position,
+                                  selection: TextSelection.fromPosition(TextPosition(
+                                      affinity: TextAffinity.downstream,
+                                      offset: _getStore().state.userInfo == null ? 0 : _getStore().state.userInfo.data == null ? 0 :_getStore().state.userInfo.data.position == null ? 0 :_getStore().state.userInfo.data.position.length))
+                              )),
+                              keyboardType: TextInputType.text,
+                              textAlign: TextAlign.start,
+                              maxLength: 10,
+                              style: new TextStyle(color: Colors.white, fontSize: screen.setSp(16)),
+                              focusNode: _focusNode2,
+                              //autofocus: autofocus,
+                              inputFormatters: [
+                                //WhitelistingTextInputFormatter(RegExp("^[\u4e00-\u9fa5a-zA-Z]+\$")),
+                                WhitelistingTextInputFormatter(RegExp("[\u4e00-\u9fa5a-zA-Z]")),
+                              ],
+                              decoration: new InputDecoration(
+                                  contentPadding: EdgeInsets.all(0),
+                                  border: InputBorder.none,
+                                  counterText: "",
+                                  hintText: '职务',
+                                  hintStyle: new TextStyle(
+                                      color: const Color(0xFFFFFFFF),
+                                      fontSize: screen.setSp(16))),
+                              onChanged: (valueposition) {
+                                position = valueposition;
+                                autofocus = true;
+                                PersonalInfoActionCreator.changePosition(store, valueposition);
+                                cheakInput();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    new Container(
+                      margin: new EdgeInsets.fromLTRB(0, screen.setWidth(30), 0, 0),
+                      child: new Row(
+                        children: <Widget>[
+                          new Container(
+                            margin: new EdgeInsets.fromLTRB(screen.setWidth(27), 0, screen.setWidth(42), 0),
+                            child: new Opacity(
+                              opacity: 0.45,
+                              child: new Text(
+                                "所属分公司",
+                                style: TextStyle(color: Colors.white, fontSize: screen.setSp(15)),
+                              ),
+                            ),
+                          ),
+                          new Expanded(
+                            child: new GestureDetector(
+                              onTap: (){
+                                initShowBottowSheet();
+                              },
+                              child: new Text(
+                                _getStore().state.userInfo == null ? "" :
+                                _getStore().state.userInfo.data == null ? "" :
+                                _getStore().state.userInfo.data.company_id == null ? "" :
+                                _getStore().state.userInfo.data.company_id == 1 ? "广州总部":
+                                _getStore().state.userInfo.data.company_id == 2 ? "北京分公司":
+                                _getStore().state.userInfo.data.company_id == 3 ? "沈阳分公司" : "",
+                                style: new TextStyle(color: Colors.white, fontSize: screen.setSp(16)),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
-                new Container(
-                  margin: new EdgeInsets.fromLTRB(0, screen.setWidth(30), 0, 0),
-                  child: new Row(
-                    children: <Widget>[
-                      new Container(
-                        margin: new EdgeInsets.fromLTRB(screen.setWidth(27), 0, screen.setWidth(89), 0),
-                        child: new Opacity(
-                          opacity: 0.45,
-                          child: new Text(
-                            "签名",
-                            style: TextStyle(color: Colors.white, fontSize: screen.setSp(15)),
-                          ),
-                        ),
-                      ),
-                      new Expanded(
-                        child: new TextField(
-                          //controller: _signController,
-                          controller: TextEditingController.fromValue(TextEditingValue(
-                            text: _getStore().state.userInfo == null ? "" : _getStore().state.userInfo.data == null ? "" : _getStore().state.userInfo.data.signature == null ? "" : _getStore().state.userInfo.data.signature,
-                              selection: TextSelection.fromPosition(TextPosition(
-                                  affinity: TextAffinity.downstream,
-                                  offset: _getStore().state.userInfo == null ? 0 :
-                                  _getStore().state.userInfo.data == null ? 0 :
-                                  _getStore().state.userInfo.data.signature == null ? 0 :
-                                  _getStore().state.userInfo.data.signature.length
-                              )
-                              )
-                          )),
-                          keyboardType: TextInputType.text,
-                          //textAlign: TextAlign.start,
-                          maxLength: 16,
-                          style: new TextStyle(color: Colors.white, fontSize: screen.setSp(16)),
-                          focusNode: _focusNode,
-                          decoration: new InputDecoration(
-                              contentPadding: EdgeInsets.all(0),
-                              border: InputBorder.none,
-                              counterText: "",
-                              hintText: '未填写',
-                              hintStyle: new TextStyle(
-                                  color: const Color(0xFFFFFFFF),
-                                  fontSize: screen.setSp(16))),
-                          onChanged: (valueSign) {
-                            PersonalInfoActionCreator.changeSign(store, valueSign);
-                            cheakInput();
-                          },
-                        ),
-                      ),
-
-                    ],
-                  ),
-                ),
-
-                new Container(
-                  margin: new EdgeInsets.fromLTRB(0, screen.setWidth(30), 0, 0),
-                  child: new Row(
-                    children: <Widget>[
-                      new Container(
-                        margin: new EdgeInsets.fromLTRB(screen.setWidth(27), 0, screen.setWidth(73), 0),
-                        child: new Opacity(
-                          opacity: 0.45,
-                          child: new Text(
-                            "手机号",
-                            style: TextStyle(color: Colors.white, fontSize: screen.setSp(15)),
-                          ),
-                        ),
-                      ),
-                      new Expanded(
-                        child: new Opacity(
-                            opacity: 0.6,
-                          child: new TextField(
-                            //controller: _phoneController,
-                            controller: TextEditingController.fromValue(TextEditingValue(
-                                text: _getStore().state.userInfo == null ? "" : _getStore().state.userInfo.data == null ? "" :_getStore().state.userInfo.data.phone == null ? "" : _getStore().state.userInfo.data.phone,
-//                                selection: TextSelection.fromPosition(TextPosition(
-//                                    affinity: TextAffinity.downstream,
-//                                    offset: _getStore().state.userInfo.data.phone.length))
-                            )),
-                            keyboardType: TextInputType.phone,
-                            textAlign: TextAlign.start,
-                            enabled: false,
-                            style: new TextStyle(color: Colors.white, fontSize: screen.setSp(16)),
-                            decoration: new InputDecoration(
-                                contentPadding: EdgeInsets.all(0),
-                                border: InputBorder.none,
-                                hintText: '手机号',
-                                hintStyle: new TextStyle(
-                                    color: const Color(0xFFFFFFFF),
-                                    fontSize: screen.setSp(16))),
-                            onChanged: (valueEmail) {
-                              //RegisterActionCreator.changeEmail(store, valueEmail);
-                              //cheakInput();
-                            },
-                          ),
-                        ),
-                      ),
-
-                    ],
-                  ),
-                ),
-
-
-                new Container(
-                  margin: new EdgeInsets.fromLTRB(0, screen.setWidth(30), 0, 0),
-                  child: new Row(
-                    children: <Widget>[
-                      new Container(
-                        margin: new EdgeInsets.fromLTRB(screen.setWidth(27), 0, screen.setWidth(89), 0),
-                        child: new Opacity(
-                          opacity: 0.45,
-                          child: new Text(
-                            "邮箱",
-                            style: TextStyle(color: Colors.white, fontSize: screen.setSp(15)),
-                          ),
-                        ),
-                      ),
-                      new Expanded(
-                        child: new Opacity(
-                            opacity: 0.6,
-                          child: new TextField(
-                            //controller: _emailController,
-                            controller: TextEditingController.fromValue(TextEditingValue(
-                                text: _getStore().state.userInfo == null ? "" : _getStore().state.userInfo.data == null ? "" :_getStore().state.userInfo.data.email == null ? "" : _getStore().state.userInfo.data.email,
-//                                selection: TextSelection.fromPosition(TextPosition(
-//                                    affinity: TextAffinity.downstream,
-//                                    offset: _getStore().state.userInfo.data.email.length))
-                            )),
-                            keyboardType: TextInputType.emailAddress,
-                            textAlign: TextAlign.start,
-                            enabled: false,
-                            style: new TextStyle(color: Colors.white, fontSize: screen.setSp(16)),
-                            decoration: new InputDecoration(
-                                contentPadding: EdgeInsets.all(0),
-                                border: InputBorder.none,
-                                enabledBorder: InputBorder.none,
-                                hintText: '邮箱',
-                                hintStyle: new TextStyle(
-                                    color: const Color(0xFFFFFFFF),
-                                    fontSize: screen.setSp(16))),
-                            onChanged: (valueEmail) {
-                              //RegisterActionCreator.changeEmail(store, valueEmail);
-                              //cheakInput();
-                            },
-                          ),
-                        ),
-                      ),
-
-                    ],
-                  ),
-                ),
-
-                new Container(
-                  margin: new EdgeInsets.fromLTRB(0, screen.setWidth(30), 0, 0),
-                  child: new Row(
-                    children: <Widget>[
-                      new Container(
-                        margin: new EdgeInsets.fromLTRB(screen.setWidth(27), 0, screen.setWidth(89), 0),
-                        child: new Opacity(
-                          opacity: 0.45,
-                          child: new Text(
-                            "职务",
-                            style: TextStyle(color: Colors.white, fontSize: screen.setSp(15)),
-                          ),
-                        ),
-                      ),
-                      new Expanded(
-                        child: new TextField(
-                          //controller: _positionController,
-                          controller: TextEditingController.fromValue(TextEditingValue(
-                              text: _getStore().state.userInfo == null ? "" : _getStore().state.userInfo.data == null ? "" :_getStore().state.userInfo.data.position == null ? "" : _getStore().state.userInfo.data.position,
-                              selection: TextSelection.fromPosition(TextPosition(
-                                  affinity: TextAffinity.downstream,
-                                  offset: _getStore().state.userInfo == null ? 0 : _getStore().state.userInfo.data == null ? 0 :_getStore().state.userInfo.data.position == null ? 0 :_getStore().state.userInfo.data.position.length))
-                          )),
-                          keyboardType: TextInputType.text,
-                          textAlign: TextAlign.start,
-                          maxLength: 10,
-                          style: new TextStyle(color: Colors.white, fontSize: screen.setSp(16)),
-                          focusNode: _focusNode2,
-                          //autofocus: autofocus,
-                          inputFormatters: [
-                            //WhitelistingTextInputFormatter(RegExp("^[\u4e00-\u9fa5a-zA-Z]+\$")),
-                            WhitelistingTextInputFormatter(RegExp("[\u4e00-\u9fa5a-zA-Z]")),
-                          ],
-                          decoration: new InputDecoration(
-                              contentPadding: EdgeInsets.all(0),
-                              border: InputBorder.none,
-                              counterText: "",
-                              hintText: '职务',
-                              hintStyle: new TextStyle(
-                                  color: const Color(0xFFFFFFFF),
-                                  fontSize: screen.setSp(16))),
-                          onChanged: (valueposition) {
-                            position = valueposition;
-                            autofocus = true;
-                            PersonalInfoActionCreator.changePosition(store, valueposition);
-                            cheakInput();
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                new Container(
-                  margin: new EdgeInsets.fromLTRB(0, screen.setWidth(30), 0, 0),
-                  child: new Row(
-                    children: <Widget>[
-                      new Container(
-                        margin: new EdgeInsets.fromLTRB(screen.setWidth(27), 0, screen.setWidth(42), 0),
-                        child: new Opacity(
-                          opacity: 0.45,
-                          child: new Text(
-                            "所属分公司",
-                            style: TextStyle(color: Colors.white, fontSize: screen.setSp(15)),
-                          ),
-                        ),
-                      ),
-                      new Expanded(
-                        child: new GestureDetector(
-                          onTap: (){
-                            initShowBottowSheet();
-                          },
-                          child: new Text(
-                              _getStore().state.userInfo == null ? "" :
-                              _getStore().state.userInfo.data == null ? "" :
-                              _getStore().state.userInfo.data.company_id == null ? "" :
-                              _getStore().state.userInfo.data.company_id == 1 ? "广州总部":
-                              _getStore().state.userInfo.data.company_id == 2 ? "北京分公司":
-                              _getStore().state.userInfo.data.company_id == 3 ? "沈阳分公司" : "",
-                            style: new TextStyle(color: Colors.white, fontSize: screen.setSp(16)),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
+
         ],
       );
     },

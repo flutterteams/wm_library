@@ -232,13 +232,17 @@ class _BookTitleState extends State<BookTitle> {
                   height: screen.setWidth(12),
                   color: widget.isBlack ? Color(0xff141414) : Color(0xffd8d8d8),
                 ),
-                new Text(
-                  '分类：$name',
-                  style: new TextStyle(
-                    fontSize: screen.setSp(13),
-                    color: widget.isBlack ? Color(0xff141414) : Colors.white,
-                    letterSpacing: screen.setWidth(0.4),
-                  ),
+                new Expanded(
+                    child: new Text(
+                      '分类：$name',
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: new TextStyle(
+                        fontSize: screen.setSp(13),
+                        color: widget.isBlack ? Color(0xff141414) : Colors.white,
+                        letterSpacing: screen.setWidth(0.4),
+                      ),
+                    ),
                 ),
               ],
             ),
