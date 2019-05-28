@@ -3,6 +3,8 @@ import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
 import 'package:wm_library/actions/login.dart';
+import 'package:wm_library/actions/password.dart';
+import 'package:wm_library/actions/register.dart';
 import 'package:wm_library/common/global_variable.dart';
 import 'package:wm_library/redux/app_reducer.dart';
 
@@ -68,10 +70,10 @@ class LoginHome extends StatelessWidget {
           child: new FlatButton(
             onPressed: () {
               print('登录');
-              _getStore().dispatch(new ChangeEmailAction(''));
-              _getStore().dispatch(new ChangePwAction(''));
-              _getStore().dispatch(new EmailErrorAction(null, ''));
-              _getStore().dispatch(new PwErrorAction(null, ''));
+              _getStore().dispatch(new ChangesEmailAction(''));
+              _getStore().dispatch(new ChangesPwAction(''));
+              _getStore().dispatch(new EmailsErrorAction(null, ''));
+              _getStore().dispatch(new PwsErrorAction(null, ''));
               Navigator.of(context).pushNamed('/login-input');
             },
             child: new Text(
@@ -101,8 +103,27 @@ class LoginHome extends StatelessWidget {
           child: new OutlineButton(
             onPressed: () {
               print('注册');
-              //Navigator.of(context).pushNamed('/register');
-              Navigator.of(context).pushNamed('/personal');
+              _getStore().dispatch(new ChangeNameAction(''));
+              _getStore().dispatch(new ChangePhoneAction(''));
+              _getStore().dispatch(new ChangeEmailAction(''));
+              _getStore().dispatch(new ChangePositionAction(''));
+              _getStore().dispatch(new ChangeCompanyIdAction(''));
+
+              _getStore().dispatch(new NameErrorAction(null));
+              _getStore().dispatch(new PhoneErrorAction(null));
+              _getStore().dispatch(new EmailErrorAction(null));
+              _getStore().dispatch(new PositionErrorAction(null));
+              _getStore().dispatch(new CompanyErrorAction(null));
+              _getStore().dispatch(new IsRegisterAction(null));
+
+              _getStore().dispatch(new ChangePassWordAction(''));
+              _getStore().dispatch(new ChangeConfirmPwdAction(''));
+              _getStore().dispatch(new PwdErrorAction(null));
+              _getStore().dispatch(new ConfirmPwdErrorAction(null));
+              _getStore().dispatch(new IsSuccessAction(null));
+
+              Navigator.of(context).pushNamed('/register');
+              //Navigator.of(context).pushNamed('/personal');
             },
             child: new Text(
               '注册',

@@ -3,10 +3,10 @@ import 'package:wm_library/model/login/login.dart';
 import 'package:wm_library/actions/login.dart';
 
 final loginReducer = combineReducers<Login>([
-  TypedReducer<Login, ChangeEmailAction>(_changeEmail),
-  TypedReducer<Login, EmailErrorAction>(_checkEmail),
-  TypedReducer<Login, ChangePwAction>(_changePw),
-  TypedReducer<Login, PwErrorAction>(_checkPw)
+  TypedReducer<Login, ChangesEmailAction>(_changeEmail),
+  TypedReducer<Login, EmailsErrorAction>(_checkEmail),
+  TypedReducer<Login, ChangesPwAction>(_changePw),
+  TypedReducer<Login, PwsErrorAction>(_checkPw)
 ]);
 
 

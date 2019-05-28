@@ -100,8 +100,8 @@ class _LoginDetailInputState extends State<LoginDetailInput>
           ..addStatusListener((state) {
             if (state == AnimationStatus.completed) {
               Timer _timer = new Timer(new Duration(milliseconds: 500), () {
-                _getStore().dispatch(new ChangePwAction(''));
-                _getStore().dispatch(new PwErrorAction(null, ''));
+                _getStore().dispatch(new ChangesPwAction(''));
+                _getStore().dispatch(new PwsErrorAction(null, ''));
                 Navigator.of(context).pushNamed('/login-input-pw');
                 rightController.reset();
               });

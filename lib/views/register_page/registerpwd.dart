@@ -94,100 +94,104 @@ class _RegisterPwdContentState extends State<RegisterPwdContent>
           ),
           new Container(
             margin: new EdgeInsets.fromLTRB(0, screen.setWidth(109), 0, 0),
-            child: new Column(
-              children: <Widget>[
-                new Container(
-                  margin: new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(15)),
-                  child: new Image.asset(
-                    'images/sign_in.png',
-                  ),
-                ),
-                new Container(
-                  margin: new EdgeInsets.fromLTRB(0, screen.setWidth(15), 0, 0),
-                  height: screen.setWidth(1),
-                  width: screen.setWidth(50),
-                  color: Colors.white,
-                ),
-                new Container(
-                  margin: new EdgeInsets.fromLTRB(0, screen.setWidth(68), 0, 0),
-                  child: new TextField(
-                    controller: _userPwdController,
-                    keyboardType: TextInputType.text,
-                    textAlign: TextAlign.center,
-                    obscureText: true,
-                    style: new TextStyle(
-                        color: Colors.white, fontSize: screen.setSp(18)),
-                    decoration: new InputDecoration(
-                        contentPadding: EdgeInsets.all(0),
-                        border: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        hintText: '密码？',
-                        hintStyle: new TextStyle(
-                            color: const Color(0xFF646464),
-                            fontSize: screen.setSp(18))),
-                    onChanged: (value) {
-                      SetPassWordActionCreator.changePwd(store, value);
-                      cheakInput();
-                    },
-                    inputFormatters: [
-                      WhitelistingTextInputFormatter(RegExp("[A-Za-z0-9]")),
-                    ],
-                  ),
-                ),
-                new Container(
-                  margin: new EdgeInsets.fromLTRB(0, screen.setWidth(44), 0, 0),
-                  child: new TextField(
-                    controller: _userRepeatPwdController,
-                    keyboardType: TextInputType.text,
-                    textAlign: TextAlign.center,
-                    obscureText: true,
-                    style: new TextStyle(
-                        color: Colors.white, fontSize: screen.setSp(18)),
-                    decoration: new InputDecoration(
-                        contentPadding: const EdgeInsets.all(0),
-                        border: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        hintText: '确认密码？',
-                        hintStyle: new TextStyle(
-                            color: const Color(0xFF646464),
-                            fontSize: screen.setSp(18))),
-                    onChanged: (value) {
-                      SetPassWordActionCreator.changeConfirmPwd(store, value);
-                      cheakInput();
-                    },
-                    inputFormatters: [
-                      WhitelistingTextInputFormatter(RegExp("[A-Za-z0-9]")),
-                    ],
-                  ),
-                ),
-                new Container(
-                  margin:
-                      new EdgeInsets.fromLTRB(0, screen.setWidth(162), 0, 0),
-                  child: new FlatButton(
-                    onPressed: () {
-                      print('上传注册信息');
-                      uploadData();
-                    },
-                    child: Image.asset(
-                      'images/done.png',
+            child: new SingleChildScrollView(
+              child: new Column(
+                children: <Widget>[
+                  new Container(
+                    margin: new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(15)),
+                    child: new Image.asset(
+                      'images/sign_in.png',
                     ),
-                    color: colorAnimation.value,
-                    //color:Color(btnColor),
-                    highlightColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-
-                    padding: EdgeInsets.fromLTRB(
-                        screen.setWidth(123),
-                        screen.setWidth(13),
-                        screen.setWidth(123),
-                        screen.setWidth(13)),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(screen.setWidth(22)))),
                   ),
-                ),
-              ],
-            ),
+                  new Container(
+                    margin: new EdgeInsets.fromLTRB(0, screen.setWidth(15), 0, 0),
+                    height: screen.setWidth(1),
+                    width: screen.setWidth(50),
+                    color: Colors.white,
+                  ),
+                  new Container(
+                    margin: new EdgeInsets.fromLTRB(0, screen.setWidth(68), 0, 0),
+                    child: new TextField(
+                      controller: _userPwdController,
+                      keyboardType: TextInputType.text,
+                      textAlign: TextAlign.center,
+                      obscureText: true,
+                      style: new TextStyle(
+                          color: Colors.white, fontSize: screen.setSp(18)),
+                      decoration: new InputDecoration(
+                          contentPadding: EdgeInsets.all(0),
+                          border: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          hintText: '密码？',
+                          hintStyle: new TextStyle(
+                              color: const Color(0xFF646464),
+                              fontSize: screen.setSp(18))),
+                      onChanged: (value) {
+                        SetPassWordActionCreator.changePwd(store, value);
+                        cheakInput();
+                      },
+                      inputFormatters: [
+                        WhitelistingTextInputFormatter(RegExp("[A-Za-z0-9]")),
+                      ],
+                    ),
+                  ),
+                  new Container(
+                    margin: new EdgeInsets.fromLTRB(0, screen.setWidth(44), 0, 0),
+                    child: new TextField(
+                      controller: _userRepeatPwdController,
+                      keyboardType: TextInputType.text,
+                      textAlign: TextAlign.center,
+                      obscureText: true,
+                      style: new TextStyle(
+                          color: Colors.white, fontSize: screen.setSp(18)),
+                      decoration: new InputDecoration(
+                          contentPadding: const EdgeInsets.all(0),
+                          border: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          hintText: '确认密码？',
+                          hintStyle: new TextStyle(
+                              color: const Color(0xFF646464),
+                              fontSize: screen.setSp(18))),
+                      onChanged: (value) {
+                        SetPassWordActionCreator.changeConfirmPwd(store, value);
+                        cheakInput();
+                      },
+                      inputFormatters: [
+                        WhitelistingTextInputFormatter(RegExp("[A-Za-z0-9]")),
+                      ],
+                    ),
+                  ),
+                  new Container(
+                    margin:
+                    new EdgeInsets.fromLTRB(0, screen.setWidth(162), 0, 0),
+                    child: new FlatButton(
+                      onPressed: () {
+                        if(isVisible){
+                          print('上传注册信息');
+                          uploadData();
+                        }
+                      },
+                      child: Image.asset(
+                        'images/done.png',
+                      ),
+                      color: colorAnimation.value,
+                      //color:Color(btnColor),
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+
+                      padding: EdgeInsets.fromLTRB(
+                          screen.setWidth(123),
+                          screen.setWidth(13),
+                          screen.setWidth(123),
+                          screen.setWidth(13)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(screen.setWidth(22)))),
+                    ),
+                  ),
+                ],
+              ),
+            )
           ),
         ],
       );
@@ -201,11 +205,13 @@ class _RegisterPwdContentState extends State<RegisterPwdContent>
         _userRepeatPwdController.text.isNotEmpty) {
       //btnColor = 0xffFFFFFF;
       controllerColor.forward();
+      isVisible = true;
       setState(() {});
       SetPassWordActionCreator.checkPwd(_getStore());
       SetPassWordActionCreator.checkConfirmPwd(_getStore());
     } else {
       //btnColor = 0xff454545;
+      isVisible = false;
       controllerColor.reset();
       setState(() {});
     }
@@ -275,7 +281,10 @@ class _RegisterPwdContentState extends State<RegisterPwdContent>
         initErrorTips();
       } else {
         isVisible = false;
-        Navigator.of(context).pushNamed('/login-input');
+        //Navigator.of(context).pushNamed('/login-input');
+        //清除跳转外的所有路由
+        Navigator.of(context).pushNamedAndRemoveUntil(
+            "/login", ModalRoute.withName("/login-input"));
       }
     }
   }

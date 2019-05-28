@@ -24,15 +24,22 @@ class ReadBooks extends StatefulWidget {
 class _ReadBooksState extends State<ReadBooks> {
   TextEditingController _commentController = new TextEditingController();
   bool tag = false;
+
+  FocusNode _focusNode = FocusNode();
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {
+        //initShowBottowSheet();
+      }
+    });
   }
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     BorrowBookActionCreator.getBorrowBook(_getStore());
   }
@@ -383,7 +390,9 @@ class _ReadBooksState extends State<ReadBooks> {
                       _getStore()
                           .dispatch(new CheakContentAction(valueContent));
                     },
+                    focusNode: _focusNode,
                   ),
+                  //resizeToAvoidBottomPadding: false,
                 ),
               ),
             ),
@@ -428,6 +437,30 @@ class _ReadBooksState extends State<ReadBooks> {
           ],
         );
       },
+    );
+  }
+
+  void initShowBottowSheet() {
+    //_focusNode.unfocus();
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context){
+          return new Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              new FlatButton(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                child: new Text("提交",style: TextStyle(fontSize: screen.setSp(18)),),
+                onPressed: (){
+                  print("click");
+                },
+              ),
+            ],
+          );
+        }
     );
   }
 
