@@ -13,7 +13,15 @@ class RegisterPwd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: new ScrollBg(new RegisterPwdContent(), 'opacity'),
+      body: new GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () {
+          // 触摸收起键盘
+          FocusScope.of(context).requestFocus(FocusNode());
+          //print("触摸收起键盘");
+        },
+        child: new ScrollBg(new RegisterPwdContent(), 'opacity'),
+      )
     );
   }
 }
@@ -283,8 +291,8 @@ class _RegisterPwdContentState extends State<RegisterPwdContent>
         isVisible = false;
         //Navigator.of(context).pushNamed('/login-input');
         //清除跳转外的所有路由
-        Navigator.of(context).pushNamedAndRemoveUntil(
-            "/login", ModalRoute.withName("/login-input"));
+        Navigator.of(context).pushNamedAndRemoveUntil('/login-input',
+                (Route<dynamic> route) => false);
       }
     }
   }

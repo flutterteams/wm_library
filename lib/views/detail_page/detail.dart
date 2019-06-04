@@ -121,7 +121,8 @@ class _DetailMainState extends State<DetailMain> {
                         screen.setWidth(20), screen.setWidth(10)),
                     children: <Widget>[
                       new Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           new BookTitle(widget.isBlack),
                           new Container(
@@ -193,6 +194,7 @@ class _BookTitleState extends State<BookTitle> {
         }
       }
       return new Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           new Container(
             margin: EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(11)),
@@ -213,7 +215,7 @@ class _BookTitleState extends State<BookTitle> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 new Container(
-                  constraints: BoxConstraints(maxWidth: screen.setWidth(170)),
+                  constraints: BoxConstraints(maxWidth: screen.setWidth(165)),
                   child: new Text(
                     store.state.detail['book'].author,
                     overflow: TextOverflow.ellipsis,
@@ -232,17 +234,18 @@ class _BookTitleState extends State<BookTitle> {
                   height: screen.setWidth(12),
                   color: widget.isBlack ? Color(0xff141414) : Color(0xffd8d8d8),
                 ),
-                new Expanded(
-                    child: new Text(
-                      '分类：$name',
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: new TextStyle(
-                        fontSize: screen.setSp(13),
-                        color: widget.isBlack ? Color(0xff141414) : Colors.white,
-                        letterSpacing: screen.setWidth(0.4),
-                      ),
+                new Container(
+                  constraints: BoxConstraints(maxWidth: screen.setWidth(100)),
+                  child: new Text(
+                    '分类：$name',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: new TextStyle(
+                      fontSize: screen.setSp(13),
+                      color: widget.isBlack ? Color(0xff141414) : Colors.white,
+                      letterSpacing: screen.setWidth(0.4),
                     ),
+                  ),
                 ),
               ],
             ),

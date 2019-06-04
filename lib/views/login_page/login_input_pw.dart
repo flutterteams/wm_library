@@ -23,30 +23,38 @@ class LoginInputPw extends StatelessWidget {
 class LoginInputHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Column(
-      children: <Widget>[
-        new Container(
-          height: screen.setWidth(33),
-          child: new IconButton(
-              padding: new EdgeInsets.all(screen.setWidth(13)),
-              alignment: Alignment.topLeft,
-              icon: new Icon(Icons.arrow_back_ios),
-              color: const Color(0xffbbbbbb),
-              iconSize: screen.setWidth(20),
-              onPressed: () {
-                Navigator.pop(context);
-              }),
-          alignment: Alignment.topLeft,
-          margin: new EdgeInsets.fromLTRB(0, screen.setWidth(20), 0, 0),
-        ),
-        new Container(
-            width: screen.setWidth(94),
-            height: screen.setWidth(24),
-            margin: new EdgeInsets.fromLTRB(
-                0, screen.setWidth(138), 0, screen.setWidth(46)),
-            child: new Image.asset('images/login.png', fit: BoxFit.cover)),
-        new LoginDetailInput()
-      ],
+    return new GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () {
+        // 触摸收起键盘
+        FocusScope.of(context).requestFocus(FocusNode());
+        //print("触摸收起键盘");
+      },
+      child: new Column(
+        children: <Widget>[
+          new Container(
+            height: screen.setWidth(33),
+            child: new IconButton(
+                padding: new EdgeInsets.all(screen.setWidth(13)),
+                alignment: Alignment.topLeft,
+                icon: new Icon(Icons.arrow_back_ios),
+                color: const Color(0xffbbbbbb),
+                iconSize: screen.setWidth(20),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+            alignment: Alignment.topLeft,
+            margin: new EdgeInsets.fromLTRB(0, screen.setWidth(20), 0, 0),
+          ),
+          new Container(
+              width: screen.setWidth(94),
+              height: screen.setWidth(24),
+              margin: new EdgeInsets.fromLTRB(
+                  0, screen.setWidth(138), 0, screen.setWidth(46)),
+              child: new Image.asset('images/login.png', fit: BoxFit.cover)),
+          new LoginDetailInput()
+        ],
+      ),
     );
   }
 }

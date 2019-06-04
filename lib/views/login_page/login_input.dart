@@ -23,30 +23,38 @@ class LoginInput extends StatelessWidget {
 class LoginInputHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Column(
-      children: <Widget>[
-        new Container(
-          height: screen.setWidth(33),
-          child: new IconButton(
-              padding: new EdgeInsets.all(screen.setWidth(13)),
-              alignment: Alignment.topLeft,
-              icon: new Icon(Icons.arrow_back_ios),
-              color: const Color(0xffbbbbbb),
-              iconSize: screen.setWidth(20),
-              onPressed: () {
-                Navigator.pop(context);
-              }),
-          alignment: Alignment.topLeft,
-          margin: new EdgeInsets.fromLTRB(0, screen.setWidth(20), 0, 0),
-        ),
-        new Container(
-            width: screen.setWidth(94),
-            height: screen.setWidth(24),
-            margin: new EdgeInsets.fromLTRB(
-                0, screen.setWidth(138), 0, screen.setWidth(46)),
-            child: new Image.asset('images/login.png', fit: BoxFit.cover)),
-        new LoginDetailInput()
-      ],
+    return new GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () {
+        // 触摸收起键盘
+        FocusScope.of(context).requestFocus(FocusNode());
+        //print("触摸收起键盘");
+      },
+      child: new Column(
+        children: <Widget>[
+          new Container(
+            height: screen.setWidth(33),
+            child: new IconButton(
+                padding: new EdgeInsets.all(screen.setWidth(13)),
+                alignment: Alignment.topLeft,
+                icon: new Icon(Icons.arrow_back_ios),
+                color: const Color(0xffbbbbbb),
+                iconSize: screen.setWidth(20),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+            alignment: Alignment.topLeft,
+            margin: new EdgeInsets.fromLTRB(0, screen.setWidth(20), 0, 0),
+          ),
+          new Container(
+              width: screen.setWidth(94),
+              height: screen.setWidth(24),
+              margin: new EdgeInsets.fromLTRB(
+                  0, screen.setWidth(138), 0, screen.setWidth(46)),
+              child: new Image.asset('images/login.png', fit: BoxFit.cover)),
+          new LoginDetailInput()
+        ],
+      ),
     );
   }
 }
@@ -186,10 +194,10 @@ class _LoginDetailInputState extends State<LoginDetailInput>
                   redAnimation.value < 0.25
                       ? redAnimation.value * screen.setWidth(40)
                       : redAnimation.value < 0.5
-                          ? (0.5 - redAnimation.value) * screen.setWidth(40)
-                          : redAnimation.value < 0.75
-                              ? (0.5 - redAnimation.value) * screen.setWidth(40)
-                              : (redAnimation.value - 1) * screen.setWidth(40),
+                      ? (0.5 - redAnimation.value) * screen.setWidth(40)
+                      : redAnimation.value < 0.75
+                      ? (0.5 - redAnimation.value) * screen.setWidth(40)
+                      : (redAnimation.value - 1) * screen.setWidth(40),
                   0,
                   0),
               child: new Stack(
@@ -200,7 +208,7 @@ class _LoginDetailInputState extends State<LoginDetailInput>
                     children: <Widget>[
                       new Container(
                         constraints:
-                            new BoxConstraints(maxWidth: screen.setWidth(270)),
+                        new BoxConstraints(maxWidth: screen.setWidth(270)),
                         child: new TextField(
                           textAlign: TextAlign.center,
                           keyboardType: TextInputType.emailAddress,
@@ -263,9 +271,9 @@ class _LoginDetailInputState extends State<LoginDetailInput>
                                   color: store.state.login.email == null
                                       ? Color(0xff5c5c5c)
                                       : store.state.login.emailError != null &&
-                                              store.state.login.emailError
-                                          ? Color(0xffDD412A)
-                                          : Color(0xffaeaeae),
+                                      store.state.login.emailError
+                                      ? Color(0xffDD412A)
+                                      : Color(0xffaeaeae),
                                 ),
                                 top: 0,
                                 left: 0,
@@ -292,7 +300,7 @@ class _LoginDetailInputState extends State<LoginDetailInput>
                     margin: new EdgeInsets.only(top: screen.setWidth(44)),
                     child: new Text(
                       store.state.login.emailError != null &&
-                              store.state.login.emailError
+                          store.state.login.emailError
                           ? store.state.login.emailErrorStr
                           : '',
                       style: new TextStyle(

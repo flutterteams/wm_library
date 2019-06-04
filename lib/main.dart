@@ -68,6 +68,6 @@ class _MyHomePageState extends State<MyHomePage> {
 //    print('高度相对于设计稿放大的比例:${ScreenUtil.getInstance().scaleHeight * ScreenUtil.pixelRatio}');
 //    print('系统的字体缩放比例:${ScreenUtil.textScaleFactory}');
 
-    return new Login();
+    return new Index();
   }
 }

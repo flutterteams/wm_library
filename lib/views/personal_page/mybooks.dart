@@ -40,7 +40,7 @@ class MyBooksHome extends StatelessWidget {
     Widget tabBarContainer = new TabBar(
       isScrollable: true, //这个属性是导航栏是否支持滚动，false则会挤在一起了
       unselectedLabelColor: Color(0xFFBBBBBB), //未选标签标签的颜色(这里定义为灰色)
-      labelColor: Color(0xFF50BBD8), //选中的颜色（黑色）
+      labelColor: Color(0xFF50BBD8), //选中的颜色
       labelStyle: TextStyle(fontSize: screen.setSp(16)),
       unselectedLabelStyle: TextStyle(fontSize: screen.setSp(15)),
       indicatorColor: Color(0xFF50BBD8), //指示器颜色
@@ -252,7 +252,7 @@ class _FinishReadBookState extends State<FinishReadBook>
       ),
     );
 
-    _startAnimation();
+    //_startAnimation();
   }
 
   Store<AppState> _getStore() {
@@ -272,8 +272,8 @@ class _FinishReadBookState extends State<FinishReadBook>
                   child: new Text('replay staggered'),
                   onPressed: () {
                     //Navigator.of(context).pushNamed('/toptabs');
-                    //_startAnimation();
-                    _controller.reverse();
+                    _startAnimation();
+                    //_controller.reverse();
                   }),
             ),
             new AnimatedBuilder(animation: _controller, builder: _buildAni)
@@ -296,10 +296,11 @@ class _FinishReadBookState extends State<FinishReadBook>
         child: Transform(
           alignment: Alignment.topRight,
           //transform: new Matrix4.skew(rotate2.value,0.0),
-          transform: new Matrix4.skewY(rotate2.value),
+          //transform: new Matrix4.skewY(rotate2.value),
           //transform: Matrix4(math.tan(math.pi / 4), 0, math.tan(math.pi / 4), 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1),
           //transform: Matrix4.rotationZ(rotate.value),
           //transform: Matrix4.identity()..setEntry(2, 3, 0.006)..rotateY(rotate.value),
+          transform: Matrix4.identity()..setEntry(2, 3, 0.006)..rotateY(math.sqrt(3) / 2 * screen.setWidth(375)),
           child: new Container(
             //width: width.value,
             //height: height.value,

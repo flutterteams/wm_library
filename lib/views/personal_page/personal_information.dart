@@ -17,7 +17,17 @@ class PersonalInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       backgroundColor: Colors.black,
-      body: new PersonalInformationHome(),
+      body: new GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () {
+          // 触摸收起键盘
+          FocusScope.of(context).requestFocus(FocusNode());
+          //print("触摸收起键盘");
+        },
+        child: new PersonalInformationHome(),
+      )
+
+
     );
   }
 }
@@ -31,16 +41,8 @@ class PersonalInformationHome extends StatefulWidget {
   }
 }
 
-class _PersonalInformationHomeState extends State<PersonalInformationHome> with TickerProviderStateMixin{
-
-
-  TextEditingController _userNameController = new TextEditingController();
-  TextEditingController _signController = new TextEditingController();
-  TextEditingController _phoneController = new TextEditingController();
-  TextEditingController _emailController = new TextEditingController();
-  TextEditingController _positionController = new TextEditingController();
-  TextEditingController _companyController = new TextEditingController();
-
+class _PersonalInformationHomeState extends State<PersonalInformationHome> with
+    TickerProviderStateMixin{
 
   FocusNode _focusNode = FocusNode();
   FocusNode _focusNode2 = FocusNode();

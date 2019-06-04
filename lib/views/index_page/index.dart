@@ -6,6 +6,8 @@ import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
+import 'package:redux/redux.dart';
 
 import 'package:wm_library/actions/index.dart';
 import 'package:wm_library/common/global_variable.dart';
@@ -300,6 +302,7 @@ class IndexMain extends StatefulWidget {
 }
 
 class _IndexMainState extends State<IndexMain> with TickerProviderStateMixin {
+
   double startX = 0;
   double startY = 0;
   double moveX = 0;
@@ -628,6 +631,7 @@ class MoveCard extends StatelessWidget {
       tiles.add(new Positioned(
           child: new GestureDetector(
             onTap: () {
+              print("book======="+i.toString());
               Navigator.push(
                 context,
                 new MaterialPageRoute(

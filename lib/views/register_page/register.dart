@@ -15,7 +15,15 @@ class Register extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: new ScrollBg(new RegisterContent(), 'opacity'),
+      body: new GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: () {
+          // 触摸收起键盘
+          FocusScope.of(context).requestFocus(FocusNode());
+          //print("触摸收起键盘");
+        },
+        child: new ScrollBg(new RegisterContent(), 'opacity'),
+      )
     );
   }
 }

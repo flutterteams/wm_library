@@ -207,7 +207,7 @@ class _PersonalHomeState extends State<PersonalHome>
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 new Container(
-                  height: screen.setWidth(120),
+                  //height: screen.setWidth(120),
                   margin: EdgeInsets.only(
                       left: screen.setWidth(10), right: screen.setWidth(10)),
                   decoration: new BoxDecoration(
@@ -243,7 +243,11 @@ class _PersonalHomeState extends State<PersonalHome>
                         onTap: () {
                           print('点击退出当前账号');
                           Navigator.pop(context);
-                          Navigator.of(context).pushNamed('/login');
+                          //Navigator.of(context).pushNamed('/login');
+                          print('==3333==');
+                          //清除跳转外的所有路由
+                          Navigator.of(context).pushNamedAndRemoveUntil('/login',
+                                  (Route<dynamic> route) => false);
                         },
                         child: new Padding(
                           padding: EdgeInsets.only(
