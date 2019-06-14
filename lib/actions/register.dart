@@ -8,7 +8,7 @@ import 'package:wm_library/redux/app_reducer.dart';
 
 class RegisterActionCreator {
   static register(Store<AppState> store) {
-    print("===email==="+store.state.register.email);
+    //print("===email==="+store.state.register.email);
     Dao.noTokenPost('/api/user/emailCheck', {"email": store.state.register.email.toString(),
         },
         (data) async {

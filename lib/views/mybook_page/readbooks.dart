@@ -25,17 +25,9 @@ class _ReadBooksState extends State<ReadBooks> {
   TextEditingController _commentController = new TextEditingController();
   bool tag = false;
 
-  FocusNode _focusNode = FocusNode();
-
   @override
   void initState() {
     super.initState();
-
-    _focusNode.addListener(() {
-      if (_focusNode.hasFocus) {
-        //initShowBottowSheet();
-      }
-    });
   }
 
   @override
@@ -152,7 +144,7 @@ class _ReadBooksState extends State<ReadBooks> {
                         child: new GestureDetector(
                           onTap: () {
                             print('点击还书' + position.toString());
-                            //getBackBook();
+                            //BookReview(context);
                             _openAddEntryDialog(
                               _getStore().state.borrowBook.data[position].id,
                             );
@@ -376,6 +368,7 @@ class _ReadBooksState extends State<ReadBooks> {
                     textAlign: TextAlign.start,
                     maxLines: 20,
                     maxLength: 150,
+                    cursorColor: Colors.white,
                     style: new TextStyle(
                         color: Color(0xFF141414), fontSize: screen.setSp(15)),
                     decoration: new InputDecoration(
@@ -390,7 +383,6 @@ class _ReadBooksState extends State<ReadBooks> {
                       _getStore()
                           .dispatch(new CheakContentAction(valueContent));
                     },
-                    focusNode: _focusNode,
                   ),
                   //resizeToAvoidBottomPadding: false,
                 ),
@@ -441,7 +433,6 @@ class _ReadBooksState extends State<ReadBooks> {
   }
 
   void initShowBottowSheet() {
-    //_focusNode.unfocus();
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context){
@@ -574,5 +565,162 @@ class _ReadBooksState extends State<ReadBooks> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  OverlayEntry overlayEntry;
+  OverlayEntry overlayEntry2;
+  OverlayState overlayState;
+  Future BookReview(BuildContext context) async {
+     overlayState = Overlay.of(context);
+     overlayEntry = OverlayEntry(builder: (context) {
+      return new Opacity(
+          opacity: 0.4,
+        child: new Container(
+          color: Colors.black,
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+        ),
+      );
+    });
+
+     overlayEntry2 = OverlayEntry(
+         //opaque: true,
+         //maintainState: true,
+         builder: (context) {
+      return new Stack(
+        children: <Widget>[
+          new Positioned(
+            top:5,
+            child: new Container(
+              width: 33,
+              height: screen.setWidth(33),
+              alignment: Alignment.topLeft,
+              margin: new EdgeInsets.fromLTRB(
+                  screen.setWidth(4), screen.setWidth(20), 0, 0),
+              child: new Scaffold(
+                backgroundColor: Colors.transparent,
+                body: new IconButton(
+                    highlightColor: Colors.transparent,
+                    disabledColor: Colors.transparent,
+                    //padding: new EdgeInsets.all(screen.setWidth(13)),
+                    alignment: Alignment.topLeft,
+                    icon: new Icon(Icons.arrow_back_ios),
+                    color: const Color(0xFFFFFFFF),
+                    iconSize: screen.setWidth(23),
+                    onPressed: () {
+                      print("移除");
+                      removeOverlay();
+                      //Navigator.pop(context);
+                    }),
+              ),
+            ),
+          ),
+
+
+          new Container(
+            margin: new EdgeInsets.fromLTRB(
+              screen.setWidth(30),
+              screen.setWidth(70),
+              screen.setWidth(30),
+              screen.setWidth(85),
+            ),
+            decoration: new BoxDecoration(
+              color: Color(0xFFFDFCF1),
+              border: new Border.all(
+                color: Color(0xFFFDFCF1),
+                width: 1.0,
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+            ),
+            child: new Padding(
+              padding: new EdgeInsets.fromLTRB(
+                  screen.setWidth(20),
+                  screen.setWidth(23),
+                  screen.setWidth(20),
+                  screen.setWidth(23)),
+              child: new Scaffold(
+                backgroundColor: Color(0xFFFDFCF1),
+                body: new TextField(
+                  controller: _commentController,
+                  keyboardType: TextInputType.text,
+                  textAlign: TextAlign.start,
+                  maxLines: 20,
+                  maxLength: 150,
+                  style: new TextStyle(
+                      color: Color(0xFF141414), fontSize: screen.setSp(15)),
+                  decoration: new InputDecoration(
+                      contentPadding: EdgeInsets.all(0),
+                      border: InputBorder.none,
+                      counterText: "",
+                      hintText: '请输入书评。。。',
+                      hintStyle: new TextStyle(
+                          color: const Color(0xFF646464),
+                          fontSize: screen.setSp(15))),
+                  onChanged: (valueContent) {
+                    _getStore()
+                        .dispatch(new CheakContentAction(valueContent));
+                  },
+                  autofocus: true,
+                ),
+                //resizeToAvoidBottomPadding: false,
+              ),
+            ),
+          ),
+          new Positioned(
+              bottom: 20,
+              child: new SingleChildScrollView(
+                child: new Container(
+                  height: 60,
+                  margin: new EdgeInsets.fromLTRB(
+                      screen.setWidth(30), 0, screen.setWidth(30), 0),
+                  alignment: Alignment.bottomCenter,
+                  child: new GestureDetector(
+                      onTap: () {
+                        print('书评');
+                        removeOverlay();
+                        //showCptDialog(borrowId);
+                      },
+                      child: new Container(
+                        //color: Colors.white,
+                        padding: new EdgeInsets.fromLTRB(
+                            screen.setWidth(140),
+                            screen.setWidth(10),
+                            screen.setWidth(140),
+                            screen.setWidth(10)),
+                        decoration: new BoxDecoration(
+                          color: Colors.white,
+                          border: new Border.all(
+                            color: Colors.white,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                        ),
+                        child: new Text('还书',
+                            style: TextStyle(
+                                color: Colors.black54,
+                                fontSize: screen.setWidth(15),
+                                decoration: TextDecoration.none)),
+                      )),
+                ),
+              )
+          ),
+
+        ],
+      );
+    });
+
+
+
+    overlayState.insert(overlayEntry);
+    overlayState.insert(overlayEntry2);
+
+//    await Future.delayed(Duration(seconds: 2));
+//    overlayEntry.remove();
+//    overlayEntry2.remove();
+
+  }
+  void removeOverlay() {
+    overlayEntry.remove();
+    overlayEntry2.remove();
   }
 }

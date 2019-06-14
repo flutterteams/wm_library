@@ -48,12 +48,12 @@ class LoginHome extends StatelessWidget {
       children: <Widget>[
         new Container(
           margin: new EdgeInsets.fromLTRB(
-              0, screen.setWidth(253), 0, screen.setWidth(24)),
+              0, screen.setHeight(253), 0, screen.setHeight(14)),
           child: new Image.asset(
             'images/frog_share.png',
             fit: BoxFit.cover,
-            width: screen.setWidth(232),
-            height: screen.setWidth(26),
+//            width: screen.setWidth(232),
+//            height: screen.setWidth(26),
           ),
         ),
         new Text(
@@ -66,7 +66,7 @@ class LoginHome extends StatelessWidget {
         ),
         new Container(
           margin: new EdgeInsets.fromLTRB(
-              0, screen.setWidth(139), 0, screen.setWidth(16)),
+              0, screen.setHeight(139), 0, screen.setHeight(16)),
           child: new FlatButton(
             onPressed: () {
               print('登录');

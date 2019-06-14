@@ -96,7 +96,7 @@ class _IndexHomeState extends State<IndexHome> {
         children: <Widget>[
           new SingleChildScrollView(
             child: new Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 new Container(
                   child: new Column(
@@ -146,7 +146,7 @@ class _IndexTopState extends State<IndexTop> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return new Container(
       margin: EdgeInsets.fromLTRB(
-          screen.setWidth(13), screen.setWidth(33), screen.setWidth(13), 0),
+          screen.setWidth(13), screen.setHeight(33), screen.setWidth(13), 0),
       child: new Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -235,15 +235,13 @@ class _IndexTitleState extends State<IndexTitle> {
     return new Container(
       alignment: Alignment.topLeft,
       margin: new EdgeInsets.fromLTRB(
-          screen.setWidth(27), 0, 0, screen.setWidth(24)),
+          screen.setWidth(27), 0, 0, 0),
       child: widget.store.state.index.id == 0
           ? new Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 new Container(
-                  //height: screen.setHeight(30),
-                  margin: new EdgeInsets.fromLTRB(
-                      0, screen.setWidth(15), 0, screen.setWidth(14)),
+                  margin: new EdgeInsets.fromLTRB(0, screen.setHeight(16), 0, screen.setHeight(10)),
                   child: new Text(
                     widget.store.state.index.typeList.length == 0
                         ? ''
@@ -258,6 +256,7 @@ class _IndexTitleState extends State<IndexTitle> {
                 ),
                 new Container(
                   //height: screen.setHeight(24),
+                  margin: new EdgeInsets.fromLTRB(0, 0, 0, screen.setHeight(10)),
                   child: new Text(widget.name,
                       style: new TextStyle(
                         color: const Color(0xff424242),
@@ -273,7 +272,7 @@ class _IndexTitleState extends State<IndexTitle> {
                 new Container(
                   //height: screen.setHeight(30),
                   margin: new EdgeInsets.fromLTRB(
-                      0, screen.setWidth(27), 0, screen.setWidth(12)),
+                      0, screen.setHeight(32), 0, screen.setHeight(32)),
                   child: new Text(
                     widget.store.state.index.typeList.length == 0
                         ? ''
@@ -458,7 +457,7 @@ class _IndexMainState extends State<IndexMain> with TickerProviderStateMixin {
                 onHorizontalDragEnd: moveEnd,
                 child: new Container(
                   width: double.infinity,
-                  height: screen.setWidth(370),
+                  height: screen.setHeight(370),
                   child: new MoveCard(
                       arr,
                       controller.isAnimating ? animation.value : move,
@@ -641,7 +640,7 @@ class MoveCard extends StatelessWidget {
             },
             child: new Container(
               width: screen.setWidth(270),
-              height: screen.setWidth(370),
+              height: screen.setHeight(370),
               child: new Opacity(
                 opacity: _opacity,
                 child: new Container(
@@ -716,7 +715,7 @@ class BookTitle extends StatelessWidget {
                   width: screen.setWidth(321),
                   alignment: Alignment.topLeft,
                   height: screen.setWidth(24),
-                  margin: EdgeInsets.only(bottom: screen.setWidth(6)),
+                  margin: EdgeInsets.only(bottom: screen.setHeight(6)),
                   child: new Text(
                     arr[i]['title'],
                     overflow: TextOverflow.ellipsis,
@@ -740,15 +739,15 @@ class BookTitle extends StatelessWidget {
               ],
             ),
           ),
-          top: screen.setWidth(70) * i +
-              move / defaultMove * screen.setWidth(70)));
+          top: screen.setHeight(70) * i +
+              move / defaultMove * screen.setHeight(70)));
     }
 
     return new Container(
-        height: screen.setWidth(50),
+        height: screen.setHeight(50),
         alignment: Alignment.topLeft,
         margin:
-            EdgeInsets.fromLTRB(screen.setWidth(27), screen.setWidth(23), 0, screen.setWidth(16)),
+            EdgeInsets.fromLTRB(screen.setWidth(27), screen.setHeight(23), 0, screen.setHeight(16)),
         child: new Stack(
           overflow: Overflow.clip,
           alignment: Alignment.topLeft,
@@ -771,7 +770,7 @@ class IndexTo extends StatelessWidget {
         new GestureDetector(
           child: new Container(
             margin: EdgeInsets.fromLTRB(
-                screen.setWidth(15), 0 , 0, screen.setWidth(14)),
+                screen.setWidth(15), 0 , 0, screen.setHeight(14)),
             child: new Text(
               store.state.index.id == 0
                   ? ''
@@ -790,7 +789,7 @@ class IndexTo extends StatelessWidget {
         new GestureDetector(
           child: new Container(
             margin: EdgeInsets.fromLTRB(
-                0,  0, screen.setWidth(15), screen.setWidth(14)),
+                0,  0, screen.setWidth(15), screen.setHeight(14)),
             child: new Text(
               store.state.index.typeList.length == 0
                   ? ''

@@ -109,25 +109,25 @@ class _PersonalInformationHomeState extends State<PersonalInformationHome> with
     return new StoreBuilder<AppState>(builder: (context, store) {
       return new Stack(
         children: <Widget>[
-          new Container(
-            height: screen.setWidth(33),
-            child: new IconButton(
-                highlightColor: Colors.transparent,
-                disabledColor: Colors.transparent,
-                padding: new EdgeInsets.all(screen.setWidth(13)),
-                alignment: Alignment.topLeft,
-                icon: new Icon(Icons.close),
-                color: const Color(0xffbbbbbb),
-                iconSize: screen.setWidth(23),
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
-            alignment: Alignment.topLeft,
-            margin: new EdgeInsets.fromLTRB(0, screen.setWidth(20), 0, 0),
+          new IconButton(
+            //padding: new EdgeInsets.only(left: 13 * unit2 ,top: 33 * unit2),
+              padding: new EdgeInsets.only(
+                  left: screen.setWidth(13),
+                  top: screen.setHeight(33),
+                  right: screen.setWidth(13),
+                  bottom: screen.setWidth(13),
+              ),
+              alignment: Alignment.centerLeft,
+              icon: new Icon(Icons.arrow_back_ios),
+              color: const Color(0xffbbbbbb),
+              iconSize: screen.setWidth(20),
+              onPressed: () {
+                Navigator.pop(context);
+              }
           ),
 
           new Container(
-            margin: new EdgeInsets.fromLTRB(0, screen.setWidth(107), 0, 0),
+            margin: new EdgeInsets.fromLTRB(0, screen.setHeight(107), 0, 0),
             child: new SingleChildScrollView(
               child: new Container(
                 margin: new EdgeInsets.fromLTRB(
@@ -142,9 +142,8 @@ class _PersonalInformationHomeState extends State<PersonalInformationHome> with
                         style: TextStyle(color: Colors.white, fontSize: screen.setSp(30)),
                       ),
                     ),
-
                     new Container(
-                      margin: new EdgeInsets.fromLTRB(0, screen.setWidth(40), 0, 0),
+                      margin: new EdgeInsets.fromLTRB(0, screen.setHeight(40), 0, 0),
                       child:  new Row(
                         children: <Widget>[
                           new Container(
@@ -164,9 +163,7 @@ class _PersonalInformationHomeState extends State<PersonalInformationHome> with
                                 //controller: _userNameController,
                                 controller: TextEditingController.fromValue(TextEditingValue(
                                   text: _getStore().state.userInfo == null ? "" : _getStore().state.userInfo.data == null ? "" : _getStore().state.userInfo.data.name == null ? "" : _getStore().state.userInfo.data.name,
-//                              selection: TextSelection.fromPosition(TextPosition(
-//                                  affinity: TextAffinity.downstream,
-//                                  offset: companyName.length))
+
                                 )),
                                 keyboardType: TextInputType.text,
                                 textAlign: TextAlign.start,
@@ -191,7 +188,7 @@ class _PersonalInformationHomeState extends State<PersonalInformationHome> with
                     ),
 
                     new Container(
-                      margin: new EdgeInsets.fromLTRB(0, screen.setWidth(30), 0, 0),
+                      margin: new EdgeInsets.fromLTRB(0, screen.setHeight(30), 0, 0),
                       child: new Row(
                         children: <Widget>[
                           new Container(
@@ -205,7 +202,9 @@ class _PersonalInformationHomeState extends State<PersonalInformationHome> with
                             ),
                           ),
                           new Expanded(
-                            child: new TextField(
+                            child: new Theme(
+                                data: new ThemeData(splashColor:Colors.transparent,hintColor: Colors.transparent ),
+                                child: new TextField(
                               //controller: _signController,
                               controller: TextEditingController.fromValue(TextEditingValue(
                                   text: _getStore().state.userInfo == null ? "" : _getStore().state.userInfo.data == null ? "" : _getStore().state.userInfo.data.signature == null ? "" : _getStore().state.userInfo.data.signature,
@@ -221,6 +220,8 @@ class _PersonalInformationHomeState extends State<PersonalInformationHome> with
                               keyboardType: TextInputType.text,
                               //textAlign: TextAlign.start,
                               maxLength: 16,
+                              maxLines: 1,
+                              cursorColor: Colors.white,
                               style: new TextStyle(color: Colors.white, fontSize: screen.setSp(16)),
                               focusNode: _focusNode,
                               decoration: new InputDecoration(
@@ -230,12 +231,16 @@ class _PersonalInformationHomeState extends State<PersonalInformationHome> with
                                   hintText: '未填写',
                                   hintStyle: new TextStyle(
                                       color: const Color(0xFFFFFFFF),
-                                      fontSize: screen.setSp(16))),
+                                      fontSize: screen.setSp(16),
+                                      )
+                              ),
                               onChanged: (valueSign) {
                                 PersonalInfoActionCreator.changeSign(store, valueSign);
                                 cheakInput();
                               },
                             ),
+                            ),
+
                           ),
 
                         ],
@@ -243,7 +248,7 @@ class _PersonalInformationHomeState extends State<PersonalInformationHome> with
                     ),
 
                     new Container(
-                      margin: new EdgeInsets.fromLTRB(0, screen.setWidth(30), 0, 0),
+                      margin: new EdgeInsets.fromLTRB(0, screen.setHeight(30), 0, 0),
                       child: new Row(
                         children: <Widget>[
                           new Container(
@@ -263,9 +268,6 @@ class _PersonalInformationHomeState extends State<PersonalInformationHome> with
                                 //controller: _phoneController,
                                 controller: TextEditingController.fromValue(TextEditingValue(
                                   text: _getStore().state.userInfo == null ? "" : _getStore().state.userInfo.data == null ? "" :_getStore().state.userInfo.data.phone == null ? "" : _getStore().state.userInfo.data.phone,
-//                                selection: TextSelection.fromPosition(TextPosition(
-//                                    affinity: TextAffinity.downstream,
-//                                    offset: _getStore().state.userInfo.data.phone.length))
                                 )),
                                 keyboardType: TextInputType.phone,
                                 textAlign: TextAlign.start,
@@ -292,7 +294,7 @@ class _PersonalInformationHomeState extends State<PersonalInformationHome> with
 
 
                     new Container(
-                      margin: new EdgeInsets.fromLTRB(0, screen.setWidth(30), 0, 0),
+                      margin: new EdgeInsets.fromLTRB(0, screen.setHeight(30), 0, 0),
                       child: new Row(
                         children: <Widget>[
                           new Container(
@@ -312,9 +314,6 @@ class _PersonalInformationHomeState extends State<PersonalInformationHome> with
                                 //controller: _emailController,
                                 controller: TextEditingController.fromValue(TextEditingValue(
                                   text: _getStore().state.userInfo == null ? "" : _getStore().state.userInfo.data == null ? "" :_getStore().state.userInfo.data.email == null ? "" : _getStore().state.userInfo.data.email,
-//                                selection: TextSelection.fromPosition(TextPosition(
-//                                    affinity: TextAffinity.downstream,
-//                                    offset: _getStore().state.userInfo.data.email.length))
                                 )),
                                 keyboardType: TextInputType.emailAddress,
                                 textAlign: TextAlign.start,
@@ -341,7 +340,7 @@ class _PersonalInformationHomeState extends State<PersonalInformationHome> with
                     ),
 
                     new Container(
-                      margin: new EdgeInsets.fromLTRB(0, screen.setWidth(30), 0, 0),
+                      margin: new EdgeInsets.fromLTRB(0, screen.setHeight(30), 0, 0),
                       child: new Row(
                         children: <Widget>[
                           new Container(
@@ -355,46 +354,56 @@ class _PersonalInformationHomeState extends State<PersonalInformationHome> with
                             ),
                           ),
                           new Expanded(
-                            child: new TextField(
-                              //controller: _positionController,
-                              controller: TextEditingController.fromValue(TextEditingValue(
-                                  text: _getStore().state.userInfo == null ? "" : _getStore().state.userInfo.data == null ? "" :_getStore().state.userInfo.data.position == null ? "" : _getStore().state.userInfo.data.position,
-                                  selection: TextSelection.fromPosition(TextPosition(
-                                      affinity: TextAffinity.downstream,
-                                      offset: _getStore().state.userInfo == null ? 0 : _getStore().state.userInfo.data == null ? 0 :_getStore().state.userInfo.data.position == null ? 0 :_getStore().state.userInfo.data.position.length))
-                              )),
-                              keyboardType: TextInputType.text,
-                              textAlign: TextAlign.start,
-                              maxLength: 10,
-                              style: new TextStyle(color: Colors.white, fontSize: screen.setSp(16)),
-                              focusNode: _focusNode2,
-                              //autofocus: autofocus,
-                              inputFormatters: [
-                                //WhitelistingTextInputFormatter(RegExp("^[\u4e00-\u9fa5a-zA-Z]+\$")),
-                                WhitelistingTextInputFormatter(RegExp("[\u4e00-\u9fa5a-zA-Z]")),
-                              ],
-                              decoration: new InputDecoration(
-                                  contentPadding: EdgeInsets.all(0),
-                                  border: InputBorder.none,
-                                  counterText: "",
-                                  hintText: '职务',
-                                  hintStyle: new TextStyle(
-                                      color: const Color(0xFFFFFFFF),
-                                      fontSize: screen.setSp(16))),
-                              onChanged: (valueposition) {
-                                position = valueposition;
-                                autofocus = true;
-                                PersonalInfoActionCreator.changePosition(store, valueposition);
-                                cheakInput();
-                              },
-                            ),
+                            child: new Theme(
+                                data: new ThemeData(splashColor:Colors.transparent,hintColor: Colors.transparent ),
+                                child: new TextField(
+                                  //controller: _positionController,
+                                  controller: TextEditingController.fromValue(TextEditingValue(
+                                      text: _getStore().state.userInfo == null ? "" :
+                                      _getStore().state.userInfo.data == null ? "" :
+                                      _getStore().state.userInfo.data.position == null ? "" :
+                                      _getStore().state.userInfo.data.position,
+                                      selection: TextSelection.fromPosition(TextPosition(
+                                          affinity: TextAffinity.downstream,
+                                          offset: _getStore().state.userInfo == null ? 0 :
+                                          _getStore().state.userInfo.data == null ? 0 :
+                                          _getStore().state.userInfo.data.position == null ? 0 :
+                                          _getStore().state.userInfo.data.position.length)
+                                      )
+                                  )),
+                                  keyboardType: TextInputType.text,
+                                  textAlign: TextAlign.start,
+                                  maxLength: 10,
+                                  style: new TextStyle(color: Colors.white, fontSize: screen.setSp(16)),
+                                  focusNode: _focusNode2,
+                                  //autofocus: autofocus,
+                                  cursorColor: Colors.white,
+                                  inputFormatters: [
+                                    WhitelistingTextInputFormatter(RegExp("[\u4e00-\u9fa5a-zA-Z]")),
+                                  ],
+                                  decoration: new InputDecoration(
+                                      contentPadding: EdgeInsets.all(0),
+                                      border: InputBorder.none,
+                                      counterText: "",
+                                      hintText: '职务',
+                                      hintStyle: new TextStyle(
+                                          color: const Color(0xFFFFFFFF),
+                                          fontSize: screen.setSp(16))),
+                                  onChanged: (valueposition) {
+                                    position = valueposition;
+                                    autofocus = true;
+                                    PersonalInfoActionCreator.changePosition(store, valueposition);
+                                    cheakInput();
+                                  },
+                                ),
+                            )
                           ),
                         ],
                       ),
                     ),
 
                     new Container(
-                      margin: new EdgeInsets.fromLTRB(0, screen.setWidth(30), 0, 0),
+                      margin: new EdgeInsets.fromLTRB(0, screen.setHeight(30), 0, 0),
                       child: new Row(
                         children: <Widget>[
                           new Container(
@@ -440,13 +449,9 @@ class _PersonalInformationHomeState extends State<PersonalInformationHome> with
 
 
   void cheakInput() {
-
     PersonalInfoActionCreator.checkSign(_getStore());
     PersonalInfoActionCreator.checkPosition(_getStore());
     PersonalInfoActionCreator.checkCompanyId(_getStore());
-//    setState(() {
-//
-//    });
   }
 
   void initShowBottowSheet() {
@@ -478,7 +483,7 @@ class _PersonalInformationHomeState extends State<PersonalInformationHome> with
                 },
               ),
               new Padding(
-                padding: new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(15)),
+                padding: new EdgeInsets.fromLTRB(0, 0, 0, screen.setHeight(15)),
                 child: new FlatButton(
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
@@ -505,7 +510,6 @@ class _PersonalInformationHomeState extends State<PersonalInformationHome> with
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 }

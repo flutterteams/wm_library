@@ -95,25 +95,29 @@ class _RegisterContentState extends State<RegisterContent>
 
   @override
   Widget build(BuildContext context) {
+
+    double height =  MediaQuery.of(context).size.height; //高度
+
+    double unit2 = height/ 667.0;
+
+
     return new StoreBuilder<AppState>(builder: (context, store) {
       return new Stack(
         children: <Widget>[
-          new Container(
-            height: screen.setWidth(33),
-            alignment: Alignment.topLeft,
-            margin: new EdgeInsets.fromLTRB(0, screen.setWidth(20), 0, 0),
-            child: new IconButton(
-                padding: new EdgeInsets.all(screen.setWidth(13)),
-                alignment: Alignment.topLeft,
-                icon: new Icon(Icons.arrow_back_ios),
-                color: const Color(0xffbbbbbb),
-                iconSize: screen.setWidth(20),
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
+          new IconButton(
+              //padding: new EdgeInsets.only(left: 13 * unit2 ,top: 33 * unit2),
+              padding: new EdgeInsets.only(left: screen.setWidth(13),top: screen.setHeight(33)),
+              alignment: Alignment.centerLeft,
+              icon: new Icon(Icons.arrow_back_ios),
+              color: const Color(0xffbbbbbb),
+              iconSize: screen.setWidth(20),
+              onPressed: () {
+                Navigator.pop(context);
+              }
           ),
+
           new Container(
-            margin: new EdgeInsets.fromLTRB(0, screen.setWidth(109), 0, 0),
+            margin: new EdgeInsets.fromLTRB(0, screen.setHeight(109), 0, 0),
             child: new SingleChildScrollView(
               child: new Column(
                 children: <Widget>[
@@ -125,19 +129,20 @@ class _RegisterContentState extends State<RegisterContent>
                   ),
                   new Container(
                     margin:
-                        new EdgeInsets.fromLTRB(0, screen.setWidth(15), 0, 0),
+                        new EdgeInsets.fromLTRB(0, screen.setHeight(15), 0, 0),
                     height: screen.setWidth(1),
                     width: screen.setWidth(50),
                     color: Colors.white,
                   ),
                   new Padding(
                     padding: new EdgeInsets.fromLTRB(
-                        0, screen.setWidth(38), 0, screen.setWidth(34)),
+                        0, screen.setHeight(38), 0, screen.setHeight(34)),
                     child: new TextField(
                       controller: _userNameController,
                       keyboardType: TextInputType.text,
                       textAlign: TextAlign.center,
                       maxLength: 10,
+                      cursorColor: Colors.white,
                       style: new TextStyle(
                           color: Colors.white, fontSize: screen.setSp(18)),
                       decoration: new InputDecoration(
@@ -160,12 +165,13 @@ class _RegisterContentState extends State<RegisterContent>
                   ),
                   new Padding(
                     padding:
-                        new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(34)),
+                        new EdgeInsets.fromLTRB(0, 0, 0, screen.setHeight(34)),
                     child: new TextField(
                       controller: _phonenumberController,
                       keyboardType: TextInputType.phone,
                       textAlign: TextAlign.center,
                       maxLength: 11,
+                      cursorColor: Colors.white,
                       style: new TextStyle(
                           color: Colors.white, fontSize: screen.setSp(18)),
                       decoration: new InputDecoration(
@@ -187,11 +193,12 @@ class _RegisterContentState extends State<RegisterContent>
                   ),
                   new Padding(
                     padding:
-                        new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(34)),
+                        new EdgeInsets.fromLTRB(0, 0, 0, screen.setHeight(34)),
                     child: new TextField(
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       textAlign: TextAlign.center,
+                      cursorColor: Colors.white,
                       style: new TextStyle(
                           color: Colors.white, fontSize: screen.setSp(18)),
                       decoration: new InputDecoration(
@@ -209,12 +216,13 @@ class _RegisterContentState extends State<RegisterContent>
                   ),
                   new Padding(
                     padding:
-                        new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(34)),
+                        new EdgeInsets.fromLTRB(0, 0, 0, screen.setHeight(34)),
                     child: new TextField(
                       controller: _postController,
                       keyboardType: TextInputType.text,
                       textAlign: TextAlign.center,
                       maxLength: 10,
+                      cursorColor: Colors.white,
                       style: new TextStyle(
                           color: Colors.white, fontSize: screen.setSp(18)),
                       decoration: new InputDecoration(
@@ -238,7 +246,7 @@ class _RegisterContentState extends State<RegisterContent>
                   ),
                   new Padding(
                     padding:
-                        new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(67)),
+                        new EdgeInsets.fromLTRB(0, 0, 0, screen.setHeight(67)),
                     child: new TextField(
                       //controller: _companyController,
                       controller: TextEditingController.fromValue(
@@ -271,7 +279,7 @@ class _RegisterContentState extends State<RegisterContent>
                   ),
                   new Container(
                     margin: new EdgeInsets.fromLTRB(screen.setWidth(157), 0,
-                        screen.setWidth(157), screen.setWidth(8)),
+                        screen.setWidth(157), screen.setHeight(8)),
                     child: new Opacity(
                       opacity: visible ? 1.0 : 0.6,
                       //opacity: colorAnimation.value,
@@ -462,7 +470,7 @@ class _RegisterContentState extends State<RegisterContent>
                 },
               ),
               new Padding(
-                padding: new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(15)),
+                padding: new EdgeInsets.fromLTRB(0, 0, 0, screen.setHeight(15)),
                 child: new FlatButton(
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,

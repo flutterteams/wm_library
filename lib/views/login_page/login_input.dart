@@ -33,10 +33,9 @@ class LoginInputHome extends StatelessWidget {
       child: new Column(
         children: <Widget>[
           new Container(
-            height: screen.setWidth(33),
             child: new IconButton(
-                padding: new EdgeInsets.all(screen.setWidth(13)),
-                alignment: Alignment.topLeft,
+                padding: new EdgeInsets.only(left: screen.setWidth(13),top: screen.setHeight(33)),
+                alignment: Alignment.centerLeft,
                 icon: new Icon(Icons.arrow_back_ios),
                 color: const Color(0xffbbbbbb),
                 iconSize: screen.setWidth(20),
@@ -44,13 +43,12 @@ class LoginInputHome extends StatelessWidget {
                   Navigator.pop(context);
                 }),
             alignment: Alignment.topLeft,
-            margin: new EdgeInsets.fromLTRB(0, screen.setWidth(20), 0, 0),
           ),
           new Container(
               width: screen.setWidth(94),
               height: screen.setWidth(24),
               margin: new EdgeInsets.fromLTRB(
-                  0, screen.setWidth(138), 0, screen.setWidth(46)),
+                  0, screen.setHeight(138), 0, screen.setHeight(46)),
               child: new Image.asset('images/login.png', fit: BoxFit.cover)),
           new LoginDetailInput()
         ],
@@ -248,14 +246,14 @@ class _LoginDetailInputState extends State<LoginDetailInput>
                                       _sizeTween.evaluate(rightAnimation)),
                                 ),
                               ),
-                              top: screen.setWidth(14),
+                              top: screen.setHeight(14),
                               right: screen.setWidth(-25),
                             );
                           })
                     ],
                   ),
                   new Container(
-                    margin: new EdgeInsets.only(top: screen.setWidth(33)),
+                    margin: new EdgeInsets.only(top: screen.setHeight(33)),
                     alignment: Alignment.topLeft,
                     width: screen.setWidth(329),
                     height: screen.setWidth(2),
@@ -285,7 +283,7 @@ class _LoginDetailInputState extends State<LoginDetailInput>
                               return new Positioned(
                                 child: new Container(
                                     margin: new EdgeInsets.only(
-                                        top: screen.setWidth(0)),
+                                        top: screen.setHeight(0)),
                                     width: screen.setWidth(40),
                                     height: screen.setWidth(2),
                                     color: Color(0xff50bbd8)),
@@ -297,7 +295,7 @@ class _LoginDetailInputState extends State<LoginDetailInput>
                     ),
                   ),
                   new Container(
-                    margin: new EdgeInsets.only(top: screen.setWidth(44)),
+                    margin: new EdgeInsets.only(top: screen.setHeight(44)),
                     child: new Text(
                       store.state.login.emailError != null &&
                           store.state.login.emailError

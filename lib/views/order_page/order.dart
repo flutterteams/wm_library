@@ -9,8 +9,10 @@ import 'package:intl/intl.dart';
 
 import 'package:wm_library/actions/order.dart';
 import 'package:wm_library/common/global_variable.dart';
+import 'package:wm_library/common/myglobals.dart';
 import 'package:wm_library/components/comment/tips_dialog.dart';
 import 'package:wm_library/redux/app_reducer.dart';
+import 'package:wm_library/views/mybook_page/mybooks.dart';
 
 class Order extends StatelessWidget {
   int id;
@@ -58,7 +60,8 @@ class _OrderHomeState extends State<OrderHome> {
               new Container(
                 height: screen.setWidth(33),
                 child: new IconButton(
-                    padding: new EdgeInsets.all(screen.setWidth(13)),
+                    padding: new EdgeInsets.only(
+                        left: screen.setWidth(13), top: screen.setHeight(13)),
                     alignment: Alignment.topLeft,
                     icon: new Icon(Icons.arrow_back_ios),
                     color: Color(0xff424242),
@@ -68,7 +71,7 @@ class _OrderHomeState extends State<OrderHome> {
                     }),
                 alignment: Alignment.topLeft,
                 margin: new EdgeInsets.fromLTRB(
-                    0, screen.setWidth(20), 0, screen.setWidth(27)),
+                    0, screen.setHeight(20), 0, screen.setHeight(27)),
               ),
               store.state.order == null
                   ? new Container()
@@ -143,161 +146,167 @@ class _OrderMainState extends State<OrderMain> {
           top = null;
         }
 
-
         tiles.add(
-            new GestureDetector(
-              onTap: () {
-                if (!isNight) {
-                  show(store, list[i]);
-                  print('点击预约');
-                }
-              },
-              child: new Container(
-                width: screen.setWidth(160),
-                height: screen.setWidth(130),
-                padding: EdgeInsets.fromLTRB(screen.setWidth(12), screen.setWidth(10),
-                    screen.setWidth(9), screen.setWidth(8)),
-                decoration: BoxDecoration(
-                    color: isNight ? Color(0xfffafafa) : Colors.white,
-                    border: Border(
-                      top: top == null ? BorderSide.none : BorderSide(color: top),
-                      left: left == null ? BorderSide.none : BorderSide(color: left),
-                      right:
-                      right == null ? BorderSide.none : BorderSide(color: right),
-                      bottom: bottom == null
-                          ? BorderSide.none
-                          : BorderSide(color: bottom),
-                    )),
-                child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    new Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        new Container(
-                          child: new Column(
-                            children: <Widget>[
-                              new Container(
-                                child: new Opacity(
-                                  opacity: isNight ? 0.3 : 1,
-                                  child: new Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      new Text(
-                                        list[i].borrow_month.toString(),
+          new GestureDetector(
+            onTap: () {
+              if (!isNight) {
+                print('点击预约');
+                show(store, list[i]);
+              }
+            },
+            child: new Container(
+              width: screen.setWidth(160),
+              height: screen.setWidth(130),
+              padding: EdgeInsets.fromLTRB(screen.setWidth(12),
+                  screen.setWidth(10), screen.setWidth(9), screen.setWidth(8)),
+              decoration: BoxDecoration(
+                  color: isNight ? Color(0xfffafafa) : Colors.white,
+                  border: Border(
+                    top: top == null ? BorderSide.none : BorderSide(color: top),
+                    left: left == null
+                        ? BorderSide.none
+                        : BorderSide(color: left),
+                    right: right == null
+                        ? BorderSide.none
+                        : BorderSide(color: right),
+                    bottom: bottom == null
+                        ? BorderSide.none
+                        : BorderSide(color: bottom),
+                  )),
+              child: new Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  new Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      new Container(
+                        child: new Column(
+                          children: <Widget>[
+                            new Container(
+                              child: new Opacity(
+                                opacity: isNight ? 0.3 : 1,
+                                child: new Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    new Text(
+                                      list[i].borrow_month.toString(),
+                                      style: new TextStyle(
+                                          fontSize: screen.setSp(32),
+                                          letterSpacing: screen.setWidth(0.21),
+                                          color: Color(0xff141414),
+                                          height: 1),
+                                    ),
+                                    new Container(
+                                      transform: Matrix4.translationValues(
+                                          0, screen.setWidth(4), 0),
+                                      margin: EdgeInsets.only(
+                                          right: screen.setWidth(4)),
+                                      child: new Text(
+                                        '月',
                                         style: new TextStyle(
-                                            fontSize: screen.setSp(32),
-                                            letterSpacing: screen.setWidth(0.21),
+                                            fontSize: screen.setSp(16),
+                                            letterSpacing:
+                                                screen.setWidth(0.11),
                                             color: Color(0xff141414),
                                             height: 1),
                                       ),
-                                      new Container(
-                                        transform: Matrix4.translationValues(
-                                            0, screen.setWidth(4), 0),
-                                        margin: EdgeInsets.only(
-                                            right: screen.setWidth(4)),
-                                        child: new Text(
-                                          '月',
-                                          style: new TextStyle(
-                                              fontSize: screen.setSp(16),
-                                              letterSpacing: screen.setWidth(0.11),
-                                              color: Color(0xff141414),
-                                              height: 1),
-                                        ),
+                                    ),
+                                    new Container(
+                                      transform: Matrix4.translationValues(
+                                          0, screen.setWidth(5), 0),
+                                      child: new Text(
+                                        '${list[i].borrow_year.toString()}年',
+                                        style: new TextStyle(
+                                            fontSize: screen.setSp(10),
+                                            letterSpacing:
+                                                screen.setWidth(0.07),
+                                            color: Color(0xff141414),
+                                            height: 1),
                                       ),
-                                      new Container(
-                                        transform: Matrix4.translationValues(
-                                            0, screen.setWidth(5), 0),
-                                        child: new Text(
-                                          '${list[i].borrow_year.toString()}年',
-                                          style: new TextStyle(
-                                              fontSize: screen.setSp(10),
-                                              letterSpacing: screen.setWidth(0.07),
-                                              color: Color(0xff141414),
-                                              height: 1),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    new Column(
-                      children: <Widget>[
-                        new Container(
-                          margin: EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(4)),
-                          child: new Row(
-                            children: <Widget>[
-                              new Opacity(
-                                opacity: isNight ? 0.4 : 1,
-                                child: new Container(
-                                  margin: EdgeInsets.only(right: screen.setWidth(12)),
-                                  child: new Text(
-                                    '借阅状态：',
-                                    style: new TextStyle(
-                                        fontSize: screen.setSp(12),
-                                        letterSpacing: screen.setWidth(0.08),
-                                        color: Color(0xff424242),
-                                        height: 1),
-                                  ),
+                                    )
+                                  ],
                                 ),
                               ),
-                              new Text(
-                                isNight
-                                    ? i == 0
-                                    ? list[i].status == 0 ? '已借出' : '不可预约'
-                                    : '已预约'
-                                    : list[i].status == -1 ? '借书' : '预约',
-                                style: new TextStyle(
-                                    fontSize: screen.setSp(14),
-                                    color: isNight
-                                        ? Color(0xffbbbbbb)
-                                        : Color(0xff50bbd8),
-                                    height: 1),
-                              ),
-                            ],
-                          ),
+                            )
+                          ],
                         ),
-                        new Opacity(
-                          opacity: isNight ? 0.4 : 1,
-                          child: new Container(
-                            child: new Row(
-                              children: <Widget>[
-                                new Container(
-                                  child: new Text(
-                                    '借阅人：',
-                                    style: new TextStyle(
-                                        fontSize: screen.setSp(12),
-                                        letterSpacing: screen.setWidth(6),
-                                        color: Color(0xff424242),
-                                        height: 1),
-                                  ),
-                                ),
-                                new Text(
-                                  list[i].name == '' || list[i].name == null
-                                      ? '无'
-                                      : list[i].name,
+                      )
+                    ],
+                  ),
+                  new Column(
+                    children: <Widget>[
+                      new Container(
+                        margin:
+                            EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(4)),
+                        child: new Row(
+                          children: <Widget>[
+                            new Opacity(
+                              opacity: isNight ? 0.4 : 1,
+                              child: new Container(
+                                margin:
+                                    EdgeInsets.only(right: screen.setWidth(12)),
+                                child: new Text(
+                                  '借阅状态：',
                                   style: new TextStyle(
                                       fontSize: screen.setSp(12),
                                       letterSpacing: screen.setWidth(0.08),
                                       color: Color(0xff424242),
                                       height: 1),
-                                )
-                              ],
+                                ),
+                              ),
                             ),
+                            new Text(
+                              isNight
+                                  ? i == 0
+                                      ? list[i].status == 0 ? '已借出' : '不可预约'
+                                      : '已预约'
+                                  : list[i].status == -1 ? '借书' : '预约',
+                              style: new TextStyle(
+                                  fontSize: screen.setSp(14),
+                                  color: isNight
+                                      ? Color(0xffbbbbbb)
+                                      : Color(0xff50bbd8),
+                                  height: 1),
+                            ),
+                          ],
+                        ),
+                      ),
+                      new Opacity(
+                        opacity: isNight ? 0.4 : 1,
+                        child: new Container(
+                          child: new Row(
+                            children: <Widget>[
+                              new Container(
+                                child: new Text(
+                                  '借阅人：',
+                                  style: new TextStyle(
+                                      fontSize: screen.setSp(12),
+                                      letterSpacing: screen.setWidth(6),
+                                      color: Color(0xff424242),
+                                      height: 1),
+                                ),
+                              ),
+                              new Text(
+                                list[i].name == '' || list[i].name == null
+                                    ? '无'
+                                    : list[i].name,
+                                style: new TextStyle(
+                                    fontSize: screen.setSp(12),
+                                    letterSpacing: screen.setWidth(0.08),
+                                    color: Color(0xff424242),
+                                    height: 1),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
+                        ),
+                      )
+                    ],
+                  )
+                ],
               ),
             ),
-            );
+          ),
+        );
       }
 
       return new Container(
@@ -378,64 +387,67 @@ class _OrderMainState extends State<OrderMain> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
+          return showAlertDlg(store, obj);
+        });
+  }
+
+  Widget showAlertDlg(store, obj) {
+    return CupertinoAlertDialog(
+      title: Text('确定预约吗？'),
+      actions: <Widget>[
+        new CupertinoButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              '取消',
+              style: new TextStyle(
+                  fontSize: screen.setSp(17), color: Color(0xff999999)),
+            )),
+        new CupertinoButton(
+            onPressed: () {
+              OrderActionCreator.postOrder(
+                  store, widget.id, '${obj.borrow_year}-${obj.borrow_month}',
+                  (data) {
+                if (data['id'] == '10001') {
+                  showTips(data);
+                } else {
+                  //Navigator.of(context).pushNamed('/mybooks');
+                  Navigator.push(
+                    context,
+                    new MaterialPageRoute(
+                      builder: (context) => new MyBooks(true),
+                    ),
+                  );
+                  toShowDialog();
+                }
+              });
+              Navigator.of(context).pop();
+            },
+            child: Text(
+              '确定',
+              style: new TextStyle(
+                  fontSize: screen.setSp(17), color: Color(0xff4990e2)),
+            )),
+      ],
+    );
+  }
+
+  void showTips(data) {
+    showDialog(
+        context: context,
+        builder: (BuildContextcontext) {
           return CupertinoAlertDialog(
-            title: Text('确定预约吗？'),
+            title: Text(data['text']),
             actions: <Widget>[
               new CupertinoButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                   child: Text(
-                    '取消',
-                    style: new TextStyle(
-                        fontSize: screen.setSp(17),
-                        color: Color(0xff999999)),
-                  )),
-              new CupertinoButton(
-                  onPressed: () {
-                    OrderActionCreator.postOrder(
-                        store,
-                        widget.id,
-                        '${obj.borrow_year}-${obj.borrow_month}',
-                            (data) {
-                          if (data['id'] == '10001') {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext
-                                context) {
-                                  return CupertinoAlertDialog(
-                                    title: Text(data['text']),
-                                    actions: <Widget>[
-                                      new CupertinoButton(
-                                          onPressed: () {
-                                            Navigator.of(
-                                                context)
-                                                .pop();
-                                          },
-                                          child: Text(
-                                            '确定',
-                                            style: new TextStyle(
-                                                fontSize:
-                                                screen.setSp(
-                                                    17),
-                                                color: Color(
-                                                    0xff4990e2)),
-                                          )),
-                                    ],
-                                  );
-                                });
-                          } else {
-                            Navigator.of(context).pushNamed('/mybooks');
-                            toShowDialog();
-                          }
-                        });
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
                     '确定',
                     style: new TextStyle(
-                        fontSize: screen.setSp(17),
-                        color: Color(0xff4990e2)),
+                        fontSize: screen.setSp(17), color: Color(0xff4990e2)),
                   )),
             ],
           );
@@ -448,11 +460,12 @@ class _OrderMainState extends State<OrderMain> {
         barrierDismissible: true,
         builder: (ctx) {
           return new TipsDialog(
-            icon: new Icon(Icons.check_circle_outline,
+            icon: new Icon(
+              Icons.check_circle_outline,
               size: 35,
               color: Colors.white,
             ),
-            text:  "预约书籍成功",
+            text: "预约书籍成功",
           );
         });
     new Timer(new Duration(seconds: 2), () {

@@ -58,16 +58,6 @@ class _RegisterPwdContentState extends State<RegisterPwdContent>
   void initState() {
     // TODO: implement initState
     super.initState();
-//    double w = screen.setWidth(329.0);
-//    controller = AnimationController(
-//        duration: Duration(milliseconds: 800), vsync: this);
-//    animation = new Tween(
-//      begin: w,
-//      end: -3.0,
-//    ).animate(CurvedAnimation(parent: controller, curve: Curves.ease))
-//      ..addListener(() {
-//        setState(() {});
-//      });
 
     controllerColor =
         AnimationController(duration: Duration(milliseconds: 5), vsync: this);
@@ -86,44 +76,42 @@ class _RegisterPwdContentState extends State<RegisterPwdContent>
     return new StoreBuilder<AppState>(builder: (context, store) {
       return new Stack(
         children: <Widget>[
-          new Container(
-            height: screen.setWidth(33),
-            alignment: Alignment.topLeft,
-            margin: new EdgeInsets.fromLTRB(0, screen.setWidth(20), 0, 0),
-            child: new IconButton(
-                padding: new EdgeInsets.all(screen.setWidth(13)),
-                alignment: Alignment.topLeft,
-                icon: new Icon(Icons.arrow_back_ios),
-                color: const Color(0xffbbbbbb),
-                iconSize: screen.setWidth(20),
-                onPressed: () {
-                  Navigator.pop(context);
-                }),
+          new IconButton(
+            //padding: new EdgeInsets.only(left: 13 * unit2 ,top: 33 * unit2),
+              padding: new EdgeInsets.only(left: screen.setWidth(13),top: screen.setHeight(33)),
+              alignment: Alignment.centerLeft,
+              icon: new Icon(Icons.arrow_back_ios),
+              color: const Color(0xffbbbbbb),
+              iconSize: screen.setWidth(20),
+              onPressed: () {
+                Navigator.pop(context);
+              }
           ),
           new Container(
-            margin: new EdgeInsets.fromLTRB(0, screen.setWidth(109), 0, 0),
+            margin: new EdgeInsets.fromLTRB(0, screen.setHeight(109), 0, 0),
             child: new SingleChildScrollView(
               child: new Column(
                 children: <Widget>[
                   new Container(
-                    margin: new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(15)),
+                    margin: new EdgeInsets.fromLTRB(0, 0, 0, screen.setHeight(15)),
                     child: new Image.asset(
                       'images/sign_in.png',
                     ),
                   ),
                   new Container(
-                    margin: new EdgeInsets.fromLTRB(0, screen.setWidth(15), 0, 0),
+                    margin: new EdgeInsets.fromLTRB(0, screen.setHeight(15), 0, 0),
                     height: screen.setWidth(1),
                     width: screen.setWidth(50),
                     color: Colors.white,
                   ),
                   new Container(
-                    margin: new EdgeInsets.fromLTRB(0, screen.setWidth(68), 0, 0),
+                    margin: new EdgeInsets.fromLTRB(0, screen.setHeight(68), 0, 0),
                     child: new TextField(
                       controller: _userPwdController,
                       keyboardType: TextInputType.text,
                       textAlign: TextAlign.center,
                       obscureText: true,
+                      cursorColor: Colors.white,
                       style: new TextStyle(
                           color: Colors.white, fontSize: screen.setSp(18)),
                       decoration: new InputDecoration(
@@ -150,6 +138,7 @@ class _RegisterPwdContentState extends State<RegisterPwdContent>
                       keyboardType: TextInputType.text,
                       textAlign: TextAlign.center,
                       obscureText: true,
+                      cursorColor: Colors.white,
                       style: new TextStyle(
                           color: Colors.white, fontSize: screen.setSp(18)),
                       decoration: new InputDecoration(
@@ -171,7 +160,7 @@ class _RegisterPwdContentState extends State<RegisterPwdContent>
                   ),
                   new Container(
                     margin:
-                    new EdgeInsets.fromLTRB(0, screen.setWidth(162), 0, 0),
+                    new EdgeInsets.fromLTRB(0, screen.setHeight(162), 0, 0),
                     child: new FlatButton(
                       onPressed: () {
                         if(isVisible){

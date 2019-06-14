@@ -4,23 +4,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:redux/redux.dart';
+import 'package:wm_library/common/global_variable.dart';
 import 'package:wm_library/redux/app_reducer.dart';
-import 'package:wm_library/views/personal_page/bookappointment.dart';
-import 'package:wm_library/views/personal_page/finish_readbooks.dart';
-import 'package:wm_library/views/personal_page/readBooks.dart';
+import 'package:wm_library/views/mybook_page/bookappointment.dart';
+import 'package:wm_library/views/mybook_page/finish_readbooks.dart';
+import 'package:wm_library/views/mybook_page/readbooks.dart';
 
-final screen = ScreenUtil.getInstance();
+
 
 class MyBooks extends StatelessWidget {
+
+  bool isOrder;
+  MyBooks(this.isOrder);
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: new MyBooksHome(),
+      body: new MyBooksHome(isOrder),
     );
   }
 }
 
 class MyBooksHome extends StatelessWidget {
+
+  bool isOrder;
+  MyBooksHome(this.isOrder);
+
   int isChoose = 0;
 
   @override
@@ -53,7 +62,7 @@ class MyBooksHome extends StatelessWidget {
 
     Widget tabContainer = new DefaultTabController(
       length: myTabs.length,
-      initialIndex: isChoose, //初始索引
+      initialIndex: isOrder ? isChoose=1 : isChoose, //初始索引
       child: new Column(
         children: <Widget>[
           _topBackWidget(context),
@@ -83,27 +92,26 @@ class MyBooksHome extends StatelessWidget {
   _topBackWidget(BuildContext context) {
     return new Container(
       //margin: EdgeInsets.only(top: screen.setWidth(13)),
-      padding: new EdgeInsets.fromLTRB(0, 0, 0, screen.setWidth(7)),
+      padding: new EdgeInsets.fromLTRB(0, 0, 0, screen.setHeight(7)),
       color: Colors.white,
       child: new Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           new IconButton(
-              highlightColor: Colors.transparent,
-              disabledColor: Colors.transparent,
-              padding: new EdgeInsets.fromLTRB(screen.setWidth(13),
-                  screen.setWidth(33), screen.setWidth(10), 0),
-              alignment: Alignment.topLeft,
+            //padding: new EdgeInsets.only(left: 13 * unit2 ,top: 33 * unit2),
+              padding: new EdgeInsets.only(left: screen.setWidth(13),top: screen.setHeight(37)),
+              alignment: Alignment.centerLeft,
               icon: new Icon(Icons.arrow_back_ios),
               color: const Color(0xFF424242),
               iconSize: screen.setWidth(20),
               onPressed: () {
                 Navigator.pop(context);
-              }),
+              }
+          ),
           new Container(
             //height: screen.setWidth(33),
             alignment: Alignment.topLeft,
-            padding: new EdgeInsets.fromLTRB(0, screen.setWidth(33), 0, 0),
+            padding: new EdgeInsets.fromLTRB(0, screen.setHeight(37), 0, 0),
             child: new Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -113,7 +121,6 @@ class MyBooksHome extends StatelessWidget {
                     print("点击返回我的书籍");
                   },
                   child: new Container(
-                    margin: new EdgeInsets.fromLTRB(0, 0, 0, 0),
                     child: new Text(
                       "我的书籍",
                       style: TextStyle(

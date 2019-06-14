@@ -91,6 +91,7 @@ class _AddCommentHomeState extends State<AddCommentHome> {
                       maxLines: 2,
                       maxLength: 30,
                       enabled: true,
+                      autofocus: true,
                       keyboardAppearance: Brightness.light,
                       cursorColor: Color(0xff426bf2),
                       decoration: new InputDecoration(

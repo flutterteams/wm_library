@@ -64,7 +64,7 @@ class _DetailHomeState extends State<DetailHome> {
               new Container(
                 height: screen.setWidth(33),
                 child: new IconButton(
-                    padding: new EdgeInsets.all(screen.setWidth(13)),
+                    padding: new EdgeInsets.only(left:screen.setWidth(13),top:screen.setHeight(13)),
                     alignment: Alignment.topLeft,
                     icon: new Icon(Icons.arrow_back_ios),
                     color: Color(isBlack ? 0xff5E4B00 : 0xffffffff),
@@ -74,7 +74,7 @@ class _DetailHomeState extends State<DetailHome> {
                     }),
                 alignment: Alignment.topLeft,
                 margin: new EdgeInsets.fromLTRB(
-                    0, screen.setWidth(20), 0, screen.setWidth(16)),
+                    0, screen.setHeight(20), 0, screen.setHeight(16)),
               ),
               store.state.detail['book'] == null
                   ? new Container()
@@ -106,7 +106,7 @@ class _DetailMainState extends State<DetailMain> {
           children: <Widget>[
             new Container(
                 margin: EdgeInsets.fromLTRB(
-                    0, screen.setWidth(85), 0, screen.setWidth(14)),
+                    0, screen.setHeight(85), 0, screen.setHeight(14)),
                 width: screen.setWidth(325),
                 decoration: new BoxDecoration(
                     color: widget.isBlack
